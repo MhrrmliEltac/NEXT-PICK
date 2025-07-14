@@ -1,6 +1,6 @@
 const SearchInput = () => {
   return (
-    <div className="w-[40%] ">
+    <div className="w-[40%]">
       <input
         id="search"
         type="text"

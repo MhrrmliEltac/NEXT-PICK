@@ -1,10 +1,11 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const useFetch = (
+export const useFetch = <T>(
   endpoint: string
-): { data: any; loading: boolean; error: unknown } => {
-  const [data, setData] = useState();
+): { data: T | null; loading: boolean; error: unknown } => {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState<Error | AxiosError>();
 
@@ -19,9 +20,7 @@ export const useFetch = (
         setData(response.data);
       }
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error);
-      } else if (error instanceof AxiosError) {
+      if (error instanceof Error || error instanceof AxiosError) {
         setError(error);
         console.error(error);
       }

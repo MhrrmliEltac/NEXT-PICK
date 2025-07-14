@@ -1,9 +1,21 @@
+import { useFetch } from "../api/useFetch";
+import Category from "../components/home/Category";
 import Hero from "../components/home/Hero";
+import Offer from "../components/home/Offer";
+import type { CategoryType } from "../types/types";
 
 const Home = () => {
+  const { data: CATEGORY_DATA } = useFetch<CategoryType[] | null>(
+    "/category/list"
+  );
+
   return (
-    <section className="relative">
-      <Hero />
+    <section>
+      <div className="relative min-h-[800px]">
+        <Hero CATEGORY_DATA={CATEGORY_DATA} />
+      </div>
+      <Offer />
+      <Category CATEGORY_DATA={CATEGORY_DATA} />
     </section>
   );
 };
