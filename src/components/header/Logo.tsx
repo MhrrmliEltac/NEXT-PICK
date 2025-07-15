@@ -1,10 +1,10 @@
-// import Logo from "";
+import { Link } from "react-router-dom";
 
 const Logo = () => {
   return (
-    <section className="pl-5">
-      <img src="/logo.svg" alt="" />
-    </section>
+    <Link to="/" className="pl-5">
+      <img src="/logo.svg" alt="logo" />
+    </Link>
   );
 };
 

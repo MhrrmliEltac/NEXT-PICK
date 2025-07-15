@@ -92,14 +92,14 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
         <div className="header px-[32px] w-full rounded-[8px] mb-[32px] custom-shadow custom-blur py-[22px] flex justify-between items-center z-10 absolute bottom-0 max-lg:hidden">
           {CATEGORY_DATA &&
             CATEGORY_DATA.length > 0 &&
-            CATEGORY_DATA.map((item: any) => (
+            CATEGORY_DATA.map((item: CategoryType, index: number) => (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 1 + item.id * 0.05 }}
+                transition={{ duration: 0.4, delay: 1 + index * 0.05 }}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.95 }}
-                key={item.id}
+                key={index}
               >
                 <IconButton
                   className="flex flex-col cursor-pointer gap-2"

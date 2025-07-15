@@ -1,6 +1,6 @@
-import { Button, Card, CardContent, Divider, Grid } from "@mui/material";
-import { TfiArrowCircleRight } from "react-icons/tfi";
+import { Card, CardContent, Divider, Grid } from "@mui/material";
 import type { CategoryType } from "../../types/types";
+import Heading from "../general/Heading";
 
 const Category = ({
   CATEGORY_DATA,
@@ -73,21 +73,7 @@ const Category = ({
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[40px]">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h4 className="text-[24px] font-roboto font-medium">
-          Shop by category
-        </h4>
-        <Button
-          variant="text"
-          endIcon={<TfiArrowCircleRight />}
-          sx={{ textTransform: "none" }}
-          disableFocusRipple
-          disableRipple
-          disableTouchRipple
-        >
-          View all
-        </Button>
-      </div>
+      <Heading title="Shop by category" />
 
       {/* Divider */}
       <Divider
@@ -102,8 +88,8 @@ const Category = ({
       {/* Grid */}
       <Grid container spacing={3} sx={{ mt: "32px" }}>
         {categorySlice &&
-          categorySlice.map((category: CategoryType) => (
-            <Grid key={category.id} size={{ xs: 12, sm: 4, md: 2 }}>
+          categorySlice.map((category: CategoryType, index: number) => (
+            <Grid key={index} size={{ xs: 12, sm: 4, md: 2 }}>
               <Card className="shadow-none hover:shadow-md transition-all duration-300 cursor-pointer">
                 <CardContent className="flex items-center justify-center w-full">
                   {getCategoryImage(category.title)}

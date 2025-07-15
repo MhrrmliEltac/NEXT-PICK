@@ -4,8 +4,10 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuUserRound } from "react-icons/lu";
 import { SlBasket } from "react-icons/sl";
+import { Badge } from "../ui/badge";
 
 const Buttons = () => {
+  const [count, setCount] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [language, setLanguage] = useState<string>("AZ");
 
@@ -65,7 +67,13 @@ const Buttons = () => {
         </div>
         <div className="flex items-center gap-1">
           <Tooltip title="Favori" sx={{ color: "black" }}>
-            <IconButton disableTouchRipple>
+            <IconButton disableTouchRipple sx={{ position: "relative" }}>
+              <Badge
+                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center"
+                variant="destructive"
+              >
+                {count}
+              </Badge>
               <AiOutlineHeart />
             </IconButton>
           </Tooltip>
@@ -75,7 +83,13 @@ const Buttons = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Basket" sx={{ color: "black" }}>
-            <IconButton disableTouchRipple>
+            <IconButton disableTouchRipple sx={{ position: "relative" }}>
+              <Badge
+                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center"
+                variant="destructive"
+              >
+                {count}
+              </Badge>
               <SlBasket />
             </IconButton>
           </Tooltip>

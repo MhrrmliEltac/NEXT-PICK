@@ -1,0 +1,15 @@
+export const NEUTRAL_COLOR = {
+  neutral800: "#272727",
+  neutral700: "#2B2B2B",
+  neutral650: "#424242",
+  neutral600: "#4B4B4B",
+  neutral500: "#757575",
+  neutral400: "#939393",
+  neutral300: "#AEAEAE",
+  neutral250: "#CBCBCB",
+  neutral200: "#CBCBCB",
+  neutral180: "#E5E5E5",
+  neutral150: "#F3F3F3",
+  neutral130: "#F9F9F9",
+  neutral100: "#FDFDFD",
+};
