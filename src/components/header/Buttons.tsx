@@ -7,7 +7,7 @@ import { SlBasket } from "react-icons/sl";
 import { Badge } from "../ui/badge";
 
 const Buttons = () => {
-  const [count, setCount] = useState(0);
+  const [count, _] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [language, setLanguage] = useState<string>("AZ");
 
@@ -39,7 +39,7 @@ const Buttons = () => {
   return (
     <section className="pr-5">
       <div className="flex items-center">
-        <div>
+        <div className="max-md:hidden">
           <button onClick={handleClick} className="flex items-center gap-2">
             {language}
             <IoIosArrowDown size={20} />

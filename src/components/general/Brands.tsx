@@ -10,7 +10,7 @@ import "swiper/css/autoplay";
 import Loader from "../loader/Loader";
 import type { BrandsType } from "../../types/types";
 
-const Brands = () => {
+const Brands = ({ title }: { title: string }) => {
   const { data: BRANDS_DATA, loading } = useFetch<BrandsType[]>("/brands/list");
 
   if (loading) {
@@ -20,7 +20,7 @@ const Brands = () => {
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[40px] mt-[40px]">
       {/* Header */}
-      <Heading title="Top brands" />
+      <Heading title={title} />
 
       {/* Divider */}
       <Divider

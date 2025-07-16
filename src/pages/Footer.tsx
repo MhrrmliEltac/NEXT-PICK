@@ -8,8 +8,6 @@ import WebFooter from "../components/footer/WebFooter";
 const Footer = () => {
   const { data: INFO_DATA } = useFetch<any>("/info/list");
 
-  console.log(INFO_DATA);
-
   return (
     <footer style={{ background: NEUTRAL_COLOR.neutral130 }} className={``}>
       <WebFooter INFO_DATA={INFO_DATA} />
@@ -25,7 +23,7 @@ const Footer = () => {
         }}
       />
 
-      <section className="md:px-[109px] px-5 py-[22px] flex justify-between items-center flex-wrap mx-auto transition-all duration-300 gap-5">
+      <section className="md:px-[109px] px-5 py-[22px] flex justify-between items-center flex-wrap mx-auto transition-all duration-300 gap-5 max-w-[1830px]">
         <Typography
           variant="body2"
           color={NEUTRAL_COLOR.neutral400}

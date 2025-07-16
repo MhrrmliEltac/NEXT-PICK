@@ -21,8 +21,8 @@ const WebFooter = ({ INFO_DATA }: { INFO_DATA: any }) => {
 
         {INFO_DATA &&
           INFO_DATA.length > 0 &&
-          INFO_DATA.map((info: any) => (
-            <ul>
+          INFO_DATA.map((info: any, index: number) => (
+            <ul key={index}>
               <li>
                 <Typography
                   variant="body2"

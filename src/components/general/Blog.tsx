@@ -1,5 +1,5 @@
 import { Divider, Typography } from "@mui/material";
-import Heading from "../general/Heading";
+import Heading from "./Heading";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 

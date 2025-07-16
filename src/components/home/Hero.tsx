@@ -1,55 +1,17 @@
 import { Button, IconButton } from "@mui/material";
-import { FaBox, FaCamera, FaComputer, FaHeadphones } from "react-icons/fa6";
-import { FaTabletAlt } from "react-icons/fa";
-import { FiSmartphone } from "react-icons/fi";
-import { LuHouse, LuMouse, LuTvMinimal } from "react-icons/lu";
-import { MdOutlineKitchen } from "react-icons/md";
-import { GrGamepad } from "react-icons/gr";
-import { BsSmartwatch } from "react-icons/bs";
+
 import type { CategoryType } from "../../types/types";
 import { motion } from "framer-motion";
+import { getCategoryIcon } from "@/helpers/getCategoryIcon";
 
 const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
-  const getCategoryIcon = (title: string) => {
-    switch (title.toLowerCase()) {
-      case "computer":
-      case "laptop":
-      case "pc":
-        return <FaComputer />;
-      case "smart phone":
-        return <FiSmartphone />;
-      case "headphones":
-      case "audio":
-        return <FaHeadphones />;
-      case "tablet":
-        return <FaTabletAlt />;
-      case "tv":
-      case "television":
-        return <LuTvMinimal />;
-      case "camera":
-        return <FaCamera />;
-      case "kitchen":
-        return <MdOutlineKitchen />;
-      case "gaming":
-        return <GrGamepad />;
-      case "smart watch":
-        return <BsSmartwatch />;
-      case "household":
-        return <LuHouse />;
-      case "accessories":
-        return <LuMouse />;
-      default:
-        return <FaBox />;
-    }
-  };
-
   return (
     <section className="z-0 absolute -top-24 aspect-square w-full h-[800px] overflow-hidden rounded-b-[12px]">
       <motion.img
         initial={{ opacity: 0, scale: 1.1, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1 }}
-        src="/1615486-beautiful-middle-aged-woman-list.webp"
+        src="https://english.cdn.zeenews.com/sites/default/files/2025/01/10/1630763-untitled-design-16.png"
         alt="bg-image"
         className="w-full h-full object-cover"
       />
