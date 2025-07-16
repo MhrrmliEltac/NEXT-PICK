@@ -2,19 +2,24 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
 import Categories from "@/pages/Categories";
+import CategoryProducts from "@/pages/CategoryProducts";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: App,
+    element: <App />,
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home />,
       },
       {
-        path: "categories",
-        Component: Categories,
+        path: "/categories",
+        element: <Categories />,
+      },
+      {
+        path: "/categories/:slug",
+        element: <CategoryProducts />,
       },
     ],
   },

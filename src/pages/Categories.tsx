@@ -1,15 +1,12 @@
 import Hero from "@/components/categories/Hero";
-import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
-import { Card, CardContent, Typography } from "@mui/material";
-import { NEUTRAL_COLOR } from "@/constant/colors";
 import SubCategorySlider from "@/components/categories/SubCategorySlider";
 import Brands from "@/components/general/Brands";
 import Offer from "@/components/general/Offer";
 import QuestionAnswer from "@/components/categories/QuestionAnswer";
 import Blog from "@/components/general/Blog";
+import Slider from "@/components/general/Slider";
 
 const SUB_CATEGORY_DATA = [
   {
@@ -78,11 +75,20 @@ const Categories = () => {
   return (
     <section>
       <div className="relative min-h-[220px]">
-        <Hero />
+        <Hero
+          title="Find Your Laptop"
+          subtitle="Find the perfect laptop for work, play and everything in between."
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Laptops", href: "/categories" },
+          ]}
+        />
       </div>
       <SubCategorySlider SUB_CATEGORY_DATA={SUB_CATEGORY_DATA} />
       <Brands title="Laptop brands" />
       <Offer />
+      <Slider title="Our best laptop deals" discount />
+      <Slider title="Trending Now" />
       <QuestionAnswer />
       <Blog />
     </section>

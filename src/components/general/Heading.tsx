@@ -14,6 +14,8 @@ const Heading = ({ title }: { title: string }) => {
           textTransform: "none",
           fontSize: {
             xs: "12px",
+            md: "14px",
+            lg: "16px",
           },
           transition: "all 0.3s",
         }}

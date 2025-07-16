@@ -37,7 +37,7 @@ const OFFER_DATA: OfferType[] = [
 
 const Offer = () => {
   return (
-    <Card className="max-w-[1524px] w-[90%] max-lg:hidden mx-auto flex justify-between items-center mb-[40px]">
+    <Card className="max-w-[1524px] w-[90%] max-lg:hidden mx-auto flex justify-between items-center mt-[80px] mb-[80px] transition-all duration-300">
       {OFFER_DATA.map((offer, index) => (
         <motion.div
           key={offer.id}

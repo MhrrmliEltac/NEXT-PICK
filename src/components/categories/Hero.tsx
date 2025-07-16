@@ -8,8 +8,22 @@ import {
 } from "@/components/ui/breadcrumb";
 import { NEUTRAL_COLOR } from "@/constant/colors";
 import { Typography } from "@mui/material";
+import React from "react";
 
-const Hero = () => {
+type BreadcrumbItemType = {
+  label?: string;
+  href?: string;
+};
+
+const Hero = ({
+  title,
+  subtitle,
+  breadcrumbs,
+}: {
+  title: string;
+  subtitle: string;
+  breadcrumbs: BreadcrumbItemType[];
+}) => {
   return (
     <section
       className="z-0 absolute -top-24 w-full h-[302px] overflow-hidden"
@@ -22,26 +36,35 @@ const Hero = () => {
         {/* Breadcrumb */}
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-[#1A4DE1]">
-                Laptops
-              </BreadcrumbPage>
-            </BreadcrumbItem>
+            {breadcrumbs &&
+              breadcrumbs.map((item, index) => (
+                <React.Fragment key={index}>
+                  <BreadcrumbItem>
+                    {item.href ? (
+                      <BreadcrumbLink href={item.href}>
+                        {item.label}
+                      </BreadcrumbLink>
+                    ) : (
+                      <BreadcrumbPage className="text-[#1A4DE1]">
+                        {item.label}
+                      </BreadcrumbPage>
+                    )}
+                  </BreadcrumbItem>
+                  {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+                </React.Fragment>
+              ))}
           </BreadcrumbList>
         </Breadcrumb>
+
         <Typography variant="h3" color={NEUTRAL_COLOR.neutral800} fontSize={32}>
-          Find Your Laptop
+          {title}
         </Typography>
         <Typography
           variant="body2"
           color={NEUTRAL_COLOR.neutral600}
           fontSize={16}
         >
-          Find the perfect laptop for work, play and everything in between.{" "}
+          {subtitle}
         </Typography>
       </div>
     </section>

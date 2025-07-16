@@ -19,7 +19,7 @@ const Blog = () => {
   }
 
   return (
-    <section className="max-w-[1524px] w-[90%] mx-auto mb-[40px] mt-[40px]">
+    <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px]">
       {/* Header */}
       <Heading title="Tech tips and guides blog" />
 

@@ -2,13 +2,13 @@ import { Divider } from "@mui/material";
 import Heading from "../general/Heading";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import Loader from "../loader/Loader";
+import type { BrandsType } from "../../types/types";
 
 import { useFetch } from "../../api/useFetch";
 
 import "swiper/css";
 import "swiper/css/autoplay";
-import Loader from "../loader/Loader";
-import type { BrandsType } from "../../types/types";
 
 const Brands = ({ title }: { title: string }) => {
   const { data: BRANDS_DATA, loading } = useFetch<BrandsType[]>("/brands/list");
@@ -18,7 +18,7 @@ const Brands = ({ title }: { title: string }) => {
   }
 
   return (
-    <section className="max-w-[1524px] w-[90%] mx-auto mb-[40px] mt-[40px]">
+    <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px] transition-all duration-300">
       {/* Header */}
       <Heading title={title} />
 
