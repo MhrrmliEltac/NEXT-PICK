@@ -1,3 +1,3 @@
 declare interface String {
-  toCustom(): string;
+  toCapitalize(): string;
 }

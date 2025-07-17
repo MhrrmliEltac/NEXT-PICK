@@ -1,4 +1,5 @@
-import Hero from "@/components/categories/Hero";
+import FilterSide from "@/components/categories/FilterSide";
+import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
 import { useParams } from "react-router-dom";
 
 const CategoryProducts = () => {
@@ -7,15 +8,17 @@ const CategoryProducts = () => {
   return (
     <section>
       <div className="relative min-h-[220px]">
-        <Hero
-          title="Find Your Laptop"
-          subtitle="Find the perfect laptop for work, play and everything in between."
+        <CustomBreadcrumb
+          title="Explore All Windows laptops"
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Laptops", href: "/categories" },
-            { label: params.slug?.toCustom() },
+            { label: params.slug?.toCapitalize() },
           ]}
         />
+      </div>{" "}
+      <div className="max-w-[1524px] w-[90%] mx-auto mt-[80px] mb-[80px]">
+        <FilterSide />
       </div>
     </section>
   );

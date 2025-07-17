@@ -15,13 +15,13 @@ type BreadcrumbItemType = {
   href?: string;
 };
 
-const Hero = ({
+const CustomBreadcrumb = ({
   title,
   subtitle,
   breadcrumbs,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   breadcrumbs: BreadcrumbItemType[];
 }) => {
   return (
@@ -71,4 +71,4 @@ const Hero = ({
   );
 };
 
-export default Hero;
+export default CustomBreadcrumb;

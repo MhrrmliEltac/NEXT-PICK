@@ -1,6 +1,3 @@
-String.prototype.toCustom = function (): string {
-  const word = this.toString();
-  if (!word) return word;
-
-  return word[0].toLocaleUpperCase() + word.slice(1);
+String.prototype.toCapitalize = function (): string {
+  return this.charAt(0).toUpperCase() + this.slice(1);
 };

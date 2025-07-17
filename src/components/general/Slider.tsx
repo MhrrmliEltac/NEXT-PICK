@@ -1,12 +1,10 @@
 import Heading from "./Heading";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Card, CardContent, Divider, Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 import { Autoplay } from "swiper/modules";
+import ProductCard from "./ProductCard";
 import "swiper/css";
 import "swiper/css/autoplay";
-import { NEUTRAL_COLOR } from "@/constant/colors";
-import { Badge } from "../ui/badge";
-import ProductCard from "./ProductCard";
 
 const MOCK_DATA = [
   {
@@ -78,7 +76,7 @@ const Slider = ({ title, discount }: { title: string; discount?: boolean }) => {
         autoplay={{
           delay: 2000,
           disableOnInteraction: false,
-          pauseOnMouseEnter: true, 
+          pauseOnMouseEnter: true,
         }}
         breakpoints={{
           0: { slidesPerView: 1 },

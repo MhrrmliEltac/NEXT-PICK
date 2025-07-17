@@ -1,4 +1,4 @@
-import Hero from "@/components/categories/Hero";
+import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
 import "swiper/css";
 import "swiper/css/autoplay";
 import SubCategorySlider from "@/components/categories/SubCategorySlider";
@@ -75,7 +75,7 @@ const Categories = () => {
   return (
     <section>
       <div className="relative min-h-[220px]">
-        <Hero
+        <CustomBreadcrumb
           title="Find Your Laptop"
           subtitle="Find the perfect laptop for work, play and everything in between."
           breadcrumbs={[
