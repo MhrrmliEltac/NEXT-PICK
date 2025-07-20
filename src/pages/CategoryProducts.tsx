@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { BsFilterLeft } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFetchStore } from "@/store/useFetcher";
 
