@@ -7,7 +7,7 @@ import { NEUTRAL_COLOR } from "../../constant/colors";
 
 const WebFooter = ({ INFO_DATA }: { INFO_DATA: any }) => {
   return (
-    <section className="flex justify-between max-md:hidden items-center flex-wrap max-w-[1680px] md:px-[61px] px-5 py-[55px] mx-auto transition-all duration-300">
+    <section className="flex justify-between max-md:hidden items-start flex-wrap max-w-[1680px] md:px-[61px] px-5 py-[55px] mx-auto transition-all duration-300">
       {/* E-commerce support */}
       <div className="flex flex-col gap-2">
         <Typography

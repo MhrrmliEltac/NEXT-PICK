@@ -11,7 +11,7 @@ import { Typography } from "@mui/material";
 import React from "react";
 
 type BreadcrumbItemType = {
-  label?: string;
+  label?: string | null;
   href?: string;
 };
 

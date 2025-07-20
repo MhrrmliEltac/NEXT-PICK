@@ -6,6 +6,21 @@
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.03) !important;
 }
 
+.checkbox {
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.checkbox:hover {
+  cursor: pointer;
+  box-shadow: inset 0px 0px 8px 0px rgba(74, 115, 234, 0.6);
+  transition: all 0.2s ease;
+}
+
+.checkbox:checked {
+  accent-color: #1a4de1;
+}
+
 .custom-blur {
   backdrop-filter: blur(20px) !important;
 }
@@ -17,6 +32,10 @@
 ::-webkit-scrollbar {
   width: 0;
   background-color: transparent;
+}
+
+::-webkit-inner-spin-button {
+  display: none;
 }
 
 @layer base {

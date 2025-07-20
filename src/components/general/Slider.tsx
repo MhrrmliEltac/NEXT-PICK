@@ -5,55 +5,11 @@ import { Autoplay } from "swiper/modules";
 import ProductCard from "./ProductCard";
 import "swiper/css";
 import "swiper/css/autoplay";
+import { useFetchStore } from "@/store/useFetcher";
 
-const MOCK_DATA = [
-  {
-    id: 123,
-    productName: "Asus Chromebook CM 1402 Flip",
-    discountPercent: 10,
-    price: 599,
-    discountPrice: 539,
-    rating: 4.23,
-    commentCount: 473,
-    productImage:
-      "https://5.imimg.com/data5/SELLER/Default/2023/3/ZM/DP/DK/181126883/apple-macbook-pro-16-inch-500x500.jpg",
-  },
-  {
-    id: 123,
-    productName: "Asus Chromebook CM 1402 Flip",
-    discountPercent: 10,
-    price: 599,
-    discountPrice: 539,
-    rating: 4.23,
-    commentCount: 473,
-    productImage:
-      "https://5.imimg.com/data5/SELLER/Default/2023/3/ZM/DP/DK/181126883/apple-macbook-pro-16-inch-500x500.jpg",
-  },
-  {
-    id: 123,
-    productName: "Asus Chromebook CM 1402 Flip",
-    discountPercent: 10,
-    price: 599,
-    discountPrice: 539,
-    rating: 4.23,
-    commentCount: 473,
-    productImage:
-      "https://5.imimg.com/data5/SELLER/Default/2023/3/ZM/DP/DK/181126883/apple-macbook-pro-16-inch-500x500.jpg",
-  },
-  {
-    id: 123,
-    productName: "Asus Chromebook CM 1402 Flip",
-    discountPercent: 10,
-    price: 599,
-    discountPrice: 539,
-    rating: 4.23,
-    commentCount: 473,
-    productImage:
-      "https://5.imimg.com/data5/SELLER/Default/2023/3/ZM/DP/DK/181126883/apple-macbook-pro-16-inch-500x500.jpg",
-  },
-];
+const Slider = ({ title }: { title: string; discount?: boolean }) => {
+  const data = useFetchStore((state) => state.data.products);
 
-const Slider = ({ title, discount }: { title: string; discount?: boolean }) => {
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px]">
       <Heading title={title} />
@@ -85,11 +41,11 @@ const Slider = ({ title, discount }: { title: string; discount?: boolean }) => {
         }}
         style={{ width: "100%" }}
       >
-        {MOCK_DATA &&
-          MOCK_DATA.length > 0 &&
-          MOCK_DATA.map((mock) => (
+        {data &&
+          data.length > 0 &&
+          data.map((product: any) => (
             <SwiperSlide>
-              <ProductCard mock={mock} discount={discount} />
+              <ProductCard data={product} />
             </SwiperSlide>
           ))}
       </Swiper>

@@ -1,13 +1,24 @@
 import { NEUTRAL_COLOR } from "@/constant/colors";
-import { Card, CardContent, Typography } from "@mui/material";
+import { SubCategoryDataType } from "@/types/types";
+import { Card, CardContent, Typography, Skeleton } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const SubCategorySlider = ({
   SUB_CATEGORY_DATA,
+  loading,
 }: {
-  SUB_CATEGORY_DATA: any;
+  SUB_CATEGORY_DATA: SubCategoryDataType[] | null;
+  loading?: boolean;
 }) => {
+  const skeletonArray = Array.from({ length: 6 });
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const categoryName = queryParams.get("category");
+
   return (
     <div style={{ background: NEUTRAL_COLOR.neutral180 }} className="py-[27px]">
       <Swiper
@@ -26,28 +37,49 @@ const SubCategorySlider = ({
         }}
         className="max-w-[1540px] w-[90%] mx-auto"
       >
-        {SUB_CATEGORY_DATA &&
-          SUB_CATEGORY_DATA.length > 0 &&
-          SUB_CATEGORY_DATA.map((item: any) => (
-            <SwiperSlide key={item.id}>
-              <Card className="rounded-[8px]">
-                <CardContent className="flex flex-col items-center gap-5">
-                  <img
-                    src={item.imgSrc}
-                    alt=""
-                    className="w-[184px] h-[122px]"
-                  />
-                  <Typography
-                    variant="caption"
-                    color={NEUTRAL_COLOR.neutral600}
-                    fontSize={14}
-                  >
-                    {item.title}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </SwiperSlide>
-          ))}
+        {loading
+          ? skeletonArray.map((_, index) => (
+              <SwiperSlide key={index}>
+                <Card className="rounded-[8px]">
+                  <CardContent className="flex flex-col items-center gap-5">
+                    <Skeleton
+                      variant="rectangular"
+                      width={184}
+                      height={122}
+                      animation="wave"
+                      sx={{ borderRadius: "4px" }}
+                    />
+                    <Skeleton width={80} height={20} />
+                  </CardContent>
+                </Card>
+              </SwiperSlide>
+            ))
+          : SUB_CATEGORY_DATA &&
+            SUB_CATEGORY_DATA.length > 0 &&
+            SUB_CATEGORY_DATA.map((item: any) => (
+              <SwiperSlide key={item.id}>
+                <Link
+                  to={`/subcategories?categoryName=${categoryName}&subCategory=${item.subcategoryName}`}
+                >
+                  <Card className="rounded-[8px]">
+                    <CardContent className="flex flex-col items-center gap-5">
+                      <img
+                        src={item.subCategoryImage}
+                        alt=""
+                        className="w-[184px] h-[122px]"
+                      />
+                      <Typography
+                        variant="caption"
+                        color={NEUTRAL_COLOR.neutral600}
+                        fontSize={14}
+                      >
+                        {item.subcategoryName}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );

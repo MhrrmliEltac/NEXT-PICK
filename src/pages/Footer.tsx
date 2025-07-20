@@ -4,6 +4,7 @@ import { NEUTRAL_COLOR } from "../constant/colors";
 
 import MobileFooter from "../components/footer/MobileFooter";
 import WebFooter from "../components/footer/WebFooter";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { data: INFO_DATA } = useFetch<any>("/info/list");
@@ -35,44 +36,52 @@ const Footer = () => {
 
         <ul className="flex justify-between items-center gap-5 flex-wrap">
           <li>
-            <Typography
-              variant="body2"
-              color={NEUTRAL_COLOR.neutral400}
-              fontSize={12}
-              fontWeight="400"
-            >
-              Privacy policy
-            </Typography>
+            <Link to="/">
+              <Typography
+                variant="body2"
+                color={NEUTRAL_COLOR.neutral400}
+                fontSize={12}
+                fontWeight="400"
+              >
+                Privacy policy
+              </Typography>
+            </Link>
           </li>
           <li>
-            <Typography
-              variant="body2"
-              color={NEUTRAL_COLOR.neutral400}
-              fontSize={12}
-              fontWeight="400"
-            >
-              Cookie settings
-            </Typography>
+            <Link to="/">
+              <Typography
+                variant="body2"
+                color={NEUTRAL_COLOR.neutral400}
+                fontSize={12}
+                fontWeight="400"
+              >
+                Cookie settings
+              </Typography>
+            </Link>
           </li>
           <li>
-            <Typography
-              variant="body2"
-              color={NEUTRAL_COLOR.neutral400}
-              fontSize={12}
-              fontWeight="400"
-            >
-              Terms and conditions
-            </Typography>
+            <Link to="/">
+              <Typography
+                variant="body2"
+                color={NEUTRAL_COLOR.neutral400}
+                fontSize={12}
+                fontWeight="400"
+              >
+                Terms and conditions
+              </Typography>
+            </Link>
           </li>
           <li>
-            <Typography
-              variant="body2"
-              color={NEUTRAL_COLOR.neutral400}
-              fontSize={12}
-              fontWeight="400"
-            >
-              Imprint
-            </Typography>
+            <Link to="/">
+              <Typography
+                variant="body2"
+                color={NEUTRAL_COLOR.neutral400}
+                fontSize={12}
+                fontWeight="400"
+              >
+                Imprint
+              </Typography>
+            </Link>
           </li>
         </ul>
       </section>

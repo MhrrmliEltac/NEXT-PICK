@@ -21,3 +21,15 @@ export interface OfferType {
   subtitle: string;
   icon: string;
 }
+
+export interface SubCategoryDataType {
+  subcategoryName: string;
+  subCategoryImage: string;
+  categoryId: {
+    _id: string;
+  };
+}
+
+export type ProductDataType = {
+  
+}

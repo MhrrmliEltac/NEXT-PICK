@@ -1,8 +1,8 @@
-import { Button, IconButton } from "@mui/material";
-
 import type { CategoryType } from "../../types/types";
+import { Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { getCategoryIcon } from "@/helpers/getCategoryIcon";
+import { Link } from "react-router-dom";
 
 const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
   return (
@@ -17,12 +17,12 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
       />
 
       {/* hero description */}
-      <motion.div className="absolute top-1/2 md:left-0 z-10 translate-x-3/4 -translate-y-1/2 max-md:translate-x-0 max-md:right-0 text-white text-left">
+      <motion.div className="absolute top-1/2 md:left-0 z-10 2xl:translate-x-3/4  translate-x-1/4 -translate-y-1/2 max-md:translate-x-0 max-md:right-0 text-white text-left">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-          className="font-bold duration-300 transition-all md:text-[#424242] text-[44px] max-md:text-[14px] mb-4 text-[#CBCBCB]"
+          className="font-bold w-max duration-300 transition-all md:text-[#424242] text-[44px] max-md:text-[24px] mb-4 text-[#CBCBCB]"
         >
           Introducing the <br /> Next Generation of <br /> Sound
         </motion.h1>
@@ -30,7 +30,7 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-          className="md:text-[20px] md:text-[#424242] transition-all duration-300 text-[12px] leading-[18px] mb-10 text-[#AEAEAE] text-wrap w-[70%]"
+          className="md:text-[20px] md:text-[#424242] transition-all duration-300 text-[18px] leading-[18px] mb-10 text-[#AEAEAE] text-wrap w-[70%]"
         >
           Experience pure, immersive sound like never before
         </motion.p>
@@ -63,17 +63,15 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
                 whileTap={{ scale: 0.95 }}
                 key={index}
               >
-                <IconButton
-                  className="flex flex-col cursor-pointer gap-2"
-                  disableFocusRipple
-                  disableRipple
-                  disableTouchRipple
+                <Link
+                  to={`/categories?category=${item.title}`}
+                  className="flex flex-col items-center cursor-pointer gap-2"
                 >
-                  {getCategoryIcon(item.title)}
+                  {getCategoryIcon(item.title, 25)}
                   <p className="text-[12px] font-medium text-[#4B4B4B] font-roboto">
                     {item.title}
                   </p>
-                </IconButton>
+                </Link>
               </motion.div>
             ))}
         </div>
