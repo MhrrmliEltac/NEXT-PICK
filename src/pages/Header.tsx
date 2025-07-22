@@ -8,6 +8,7 @@ import { Drawer } from "@mui/material";
 import DrawerList from "@/components/header/DrawerList";
 import { useFetch } from "@/api/useFetch";
 import type { CategoryType } from "@/types/types";
+import { path } from "@/utils/paths";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,7 @@ const Header = () => {
   };
 
   const { data: CATEGORY_DATA } = useFetch<CategoryType[] | null>(
-    "/category/list"
+    path.endpoints.categories.list
   );
 
   useEffect(() => {

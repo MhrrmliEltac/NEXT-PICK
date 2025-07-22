@@ -5,10 +5,39 @@ import { Autoplay } from "swiper/modules";
 import ProductCard from "./ProductCard";
 import "swiper/css";
 import "swiper/css/autoplay";
+import { ProductDataType } from "@/types/types";
 import { useFetchStore } from "@/store/useFetcher";
+import { useEffect } from "react";
+import { path } from "@/utils/paths";
+import { Skeleton } from "../ui/skeleton";
 
-const Slider = ({ title }: { title: string; discount?: boolean }) => {
-  const data = useFetchStore((state) => state.data.products);
+const Slider = ({
+  title,
+  categoryName,
+}: {
+  title: string;
+  categoryName: string;
+}) => {
+  const skeletonArray = Array.from({ length: 12 });
+
+  const {
+    data: PRODUCT_DATA,
+    loading: PRODUCT_LOADING,
+    fetchData,
+  } = useFetchStore();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      fetchData(
+        "products",
+        path.endpoints.products.categoryProducts(categoryName || "")
+      );
+    };
+
+    if (categoryName) {
+      fetchProducts();
+    }
+  }, []);
 
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px]">
@@ -41,13 +70,29 @@ const Slider = ({ title }: { title: string; discount?: boolean }) => {
         }}
         style={{ width: "100%" }}
       >
-        {data &&
-          data.length > 0 &&
-          data.map((product: any) => (
-            <SwiperSlide>
-              <ProductCard data={product} />
-            </SwiperSlide>
-          ))}
+        {PRODUCT_LOADING
+          ? skeletonArray.map((_, index) => (
+              <SwiperSlide key={index}>
+                <div className="w-full h-full max-sm:w-[30%] mx-auto flex justify-center items-center">
+                  <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-300 object-contain" />
+                </div>
+                <div className="w-full max-sm:w-[80%] flex flex-col">
+                  <Skeleton className="w-full h-[20px] mt-4" />
+                  <Skeleton className="w-full h-[16px] mt-4" />
+                  <div className="flex justify-between items-center w-full mt-4">
+                    <Skeleton className="w-[80px] h-[20px]" />
+                    <Skeleton className="w-[50px] h-[20px]" />
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))
+          : PRODUCT_DATA.products.products &&
+            PRODUCT_DATA.products.products &&
+            PRODUCT_DATA.products.products.map((product: ProductDataType) => (
+              <SwiperSlide key={product.id}>
+                <ProductCard data={product} />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </section>
   );

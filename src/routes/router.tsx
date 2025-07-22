@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
-import CategoryProducts from "@/pages/CategoryProducts";
 import NotFound from "@/pages/NotFound";
-import Categories from "@/pages/Categories";
+import Categories from "@/pages/CategoriesPage";
+import SubCategoryProducts from "@/pages/SubCategoryProducts";
 
 const router = createBrowserRouter([
   {
@@ -20,17 +20,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/subcategories",
-        element: <CategoryProducts />,
+        element: <SubCategoryProducts />,
+      },
+      {
+        path: "/not-found",
+        element: <NotFound />,
+      },
+      {
+        path: "/*",
+        element: <NotFound />,
       },
     ],
-  },
-  {
-    path: "/not-found",
-    element: <NotFound />,
-  },
-  {
-    path: "/*",
-    element: <NotFound />,
   },
 ]);
 

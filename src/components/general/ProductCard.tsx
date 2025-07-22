@@ -2,8 +2,10 @@ import { NEUTRAL_COLOR } from "@/constant/colors";
 import { Card, CardContent, Tooltip, Typography } from "@mui/material";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
+import { ProductDataType } from "@/types/types";
+import { FaStar } from "react-icons/fa6";
 
-const ProductCard = ({ data }: { data: any }) => {
+const ProductCard = ({ data }: { data: ProductDataType }) => {
   return (
     <Card
       sx={{
@@ -85,34 +87,45 @@ const ProductCard = ({ data }: { data: any }) => {
                 component="span"
                 variant="caption"
                 fontSize={14}
-                color={NEUTRAL_COLOR.neutral400}
-                sx={{ textDecoration: "line-through" }}
+                fontWeight={600}
+                color={
+                  data.discount
+                    ? NEUTRAL_COLOR.neutral400
+                    : NEUTRAL_COLOR.neutral650
+                }
+                sx={{ textDecoration: data.discount ? "line-through" : "none" }}
               >
                 €{data.price}
               </Typography>
-              <Typography
-                component="span"
-                variant="caption"
-                fontSize={14}
-                color="#C33104"
-              >
-                €{data.discountPrice}
-              </Typography>
+              {data.discount && (
+                <Typography
+                  component="span"
+                  variant="caption"
+                  fontSize={14}
+                  color="#C33104"
+                  fontWeight={600}
+                >
+                  €{data.discountPrice}
+                </Typography>
+              )}
             </div>
-            <div>
+            <div className="flex items-center gap-1">
+              <FaStar size={12} />
               <Typography
-                component="span"
                 variant="body2"
                 color={NEUTRAL_COLOR.neutral800}
                 fontSize={12}
+                lineHeight={0}
+                sx={{ m: 0, p: 0 }}
               >
                 {data.rating}
               </Typography>
               <Typography
-                component="span"
                 variant="body2"
                 color={NEUTRAL_COLOR.neutral800}
                 fontSize={12}
+                lineHeight={0}
+                sx={{ m: 0, p: 0 }}
               >
                 ({data.comment && data.comment.length})
               </Typography>

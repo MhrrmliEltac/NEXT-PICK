@@ -1,6 +1,8 @@
 import { Card, CardContent, Divider, Grid } from "@mui/material";
 import type { CategoryType } from "../../types/types";
 import Heading from "../general/Heading";
+import { Link } from "react-router-dom";
+import { path } from "@/utils/paths";
 
 const Category = ({
   CATEGORY_DATA,
@@ -90,11 +92,19 @@ const Category = ({
         {categorySlice &&
           categorySlice.map((category: CategoryType, index: number) => (
             <Grid key={index} size={{ xs: 12, sm: 4, md: 2 }}>
-              <Card className="shadow-none hover:shadow-md transition-all duration-300 cursor-pointer">
-                <CardContent className="flex items-center justify-center w-full">
-                  {getCategoryImage(category.title)}
-                </CardContent>
-              </Card>
+              <Link
+                to={
+                  typeof path.urlPaths.category.list === "function"
+                    ? path.urlPaths.category.list(category.title)
+                    : path.urlPaths.category.list
+                }
+              >
+                <Card className="shadow-none hover:shadow-md transition-all duration-300 cursor-pointer hover:bg-[#F3F3F3]">
+                  <CardContent className="flex items-center justify-center w-full">
+                    {getCategoryImage(category.title)}
+                  </CardContent>
+                </Card>
+              </Link>
             </Grid>
           ))}
       </Grid>

@@ -11,8 +11,9 @@ import { MdOutlineExpandMore } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaGithubSquare, FaInstagramSquare, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
+import { InfoDataType } from "@/types/types";
 
-const MobileFooter = ({ INFO_DATA }: { INFO_DATA: any }) => {
+const MobileFooter = ({ INFO_DATA }: { INFO_DATA: InfoDataType[] }) => {
   return (
     <section className="flex flex-col justify-between md:hidden items-center flex-wrap gap-4 max-w-[1680px] md:px-[61px] px-5 py-[55px] mx-auto transition-all duration-300">
       {/* E-commerce support */}
@@ -64,7 +65,7 @@ const MobileFooter = ({ INFO_DATA }: { INFO_DATA: any }) => {
         >
           {INFO_DATA &&
             INFO_DATA.length > 0 &&
-            INFO_DATA.map((info: any, index: number) => (
+            INFO_DATA.map((info: InfoDataType, index: number) => (
               <ul key={index}>
                 <li>
                   <Typography

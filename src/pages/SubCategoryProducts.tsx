@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import FilterSide from "@/components/categories/FilterSide";
 import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
 import ProductCard from "@/components/general/ProductCard";
@@ -19,6 +19,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFetchStore } from "@/store/useFetcher";
+import { ProductDataType } from "@/types/types";
+import Drawer from "@/components/categories/Drawer";
+import { Skeleton } from "@/components/ui/skeleton";
+import { path } from "@/utils/paths";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,13 +39,37 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-const CategoryProducts = () => {
+const sortValuesArray = [
+  "Ən yeni",
+  "Ən baha",
+  "Ən ucuz",
+  "A-dan Z-yə",
+  "Z-dan A-yə",
+];
+
+const SubCategoryProducts = () => {
+  //? Drawer state
+  const [open, setOpen] = useState(false);
+
+  //? Pagination states
+  const [page, setPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  //? Sort state
+  const [sortValue, setSortValue] = useState<{ key: string; value: string }>({
+    key: "newest",
+    value: "Ən yeni",
+  });
+
+  //? Fetching subcategory name from URL
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const subCategoryName = queryParams.get("subCategory");
   const categoryName = queryParams.get("categoryName");
 
-  const { data: data, fetchData } = useFetchStore();
+  const skeletonArray = Array.from({ length: 12 });
+
+  const { data: data, fetchData, loading } = useFetchStore();
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -49,34 +77,51 @@ const CategoryProducts = () => {
 
       fetchData(
         "products",
-        `/products/productBySubCategory?subCategoryName=${subCategoryName}`
+        path.endpoints.products.subcategoryProducts(
+          subCategoryName,
+          currentPage,
+          12,
+          sortValue.key.toLowerCase()
+        )
       );
     };
 
     fetchAll();
-  }, [subCategoryName]);
-
-  const [sortValue, setSortValue] = useState<string>("Relevance");
+  }, [subCategoryName, currentPage, fetchData, sortValue.key]);
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     const { value } = e.target;
-    setSortValue(value);
-  };
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [lastPage, setLastPage] = useState(12);
+    console.log("Selected sort value:", value);
+
+    switch (value) {
+      case "Ən yeni":
+        setSortValue({ key: "newest", value });
+        break;
+      case "Ən baha":
+        setSortValue({ key: "desc", value });
+        break;
+      case "Ən ucuz":
+        setSortValue({ key: "asc", value });
+        break;
+      case "A-dan Z-yə":
+        setSortValue({ key: "a-z", value });
+        break;
+      case "Z-dan A-yə":
+        setSortValue({ key: "z-a", value });
+        break;
+      default:
+        setSortValue({ key: "", value: "" });
+    }
+  };
 
   const handlePageChange = (_: any, value: number) => {
-    const newCurrent = (value - 1) * 12;
-    setCurrentPage(newCurrent);
-    setLastPage(newCurrent + 12);
+    setCurrentPage(value);
   };
 
-  const slicesMockData = data.products.slice(currentPage, lastPage);
-
-  let page = useMemo(() => {
-    Math.ceil(data.products.length / slicesMockData.length);
-  }, [data]);
+  useEffect(() => {
+    setPage(data.products.totalPages);
+  }, [data.products.products]);
 
   return (
     <section>
@@ -88,14 +133,17 @@ const CategoryProducts = () => {
             { label: "Home", href: "/" },
             {
               label: categoryName,
-              href: `/categories?category=${categoryName}`,
+              href:
+                typeof path.urlPaths.category.list === "function"
+                  ? path.urlPaths.category.list(categoryName || "")
+                  : path.urlPaths.category.list,
             },
             { label: subCategoryName?.toCapitalize() },
           ]}
         />
       </div>
       <div className="max-w-[1524px] w-[90%] mx-auto mb-[80px] flex gap-[24px] justify-between">
-        <FilterSide />
+        <FilterSide show={false} />
         <div className="w-[100%]">
           {/* Right Side header */}
           <motion.div
@@ -134,7 +182,7 @@ const CategoryProducts = () => {
                 Sort by:
               </Typography>
               <Select
-                value={sortValue}
+                value={sortValue.value}
                 IconComponent={IoIosArrowDown}
                 onChange={(e: SelectChangeEvent<string>) => handleSortChange(e)}
                 sx={{
@@ -162,9 +210,30 @@ const CategoryProducts = () => {
                   },
                 }}
               >
-                <MenuItem value="Relevance">Relevance</MenuItem>
-                <MenuItem value="History">History</MenuItem>
-                <MenuItem value="Popular">Popular</MenuItem>
+                {sortValuesArray.map((value) => (
+                  <MenuItem
+                    sx={{
+                      mt: "10px",
+                      color: NEUTRAL_COLOR.neutral600,
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                      "&.Mui-selected": {
+                        backgroundColor: "#E6EEFF",
+                        color: "#1A4DE1",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#D0E2FF",
+                      },
+                      "&.MuiMenuItem-root:hover": {
+                        backgroundColor: NEUTRAL_COLOR.neutral150,
+                      },
+                    }}
+                    value={value}
+                    key={value}
+                  >
+                    {value}
+                  </MenuItem>
+                ))}
               </Select>
             </div>
           </motion.div>
@@ -185,6 +254,7 @@ const CategoryProducts = () => {
                   color: NEUTRAL_COLOR.neutral650,
                 }}
                 startIcon={<BsFilterLeft />}
+                onClick={() => setOpen(true)}
               >
                 Filter
               </Button>
@@ -236,6 +306,7 @@ const CategoryProducts = () => {
           </motion.div>
 
           {/* Right side body */}
+
           <Grid
             container
             spacing={3}
@@ -245,25 +316,50 @@ const CategoryProducts = () => {
             initial="hidden"
             animate="visible"
           >
-            {slicesMockData &&
-              slicesMockData.length > 0 &&
-              slicesMockData.map((item: any, index: number) => (
-                <Grid
-                  key={index}
-                  size={{ xs: 12, md: 4, lg: 3 }}
-                  component={motion.div}
-                  variants={itemVariants}
-                >
-                  <ProductCard data={item} />
-                </Grid>
-              ))}
+            {loading
+              ? skeletonArray.map((_, index) => (
+                  <Grid
+                    key={index}
+                    size={{ xs: 12, md: 4, lg: 3 }}
+                    component={motion.div}
+                    variants={itemVariants}
+                    sx={{ mb: "120px" }}
+                  >
+                    {/* <ProductCard data={item} /> */}
+                    <div className="w-full h-full max-sm:w-[30%] mx-auto flex justify-center items-center">
+                      <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-300 object-contain" />
+                    </div>
+                    <div className="w-full max-sm:w-[80%] flex flex-col">
+                      <Skeleton className="w-full h-[20px] mt-4" />
+                      <Skeleton className="w-full h-[16px] mt-4" />
+                      <div className="flex justify-between items-center w-full mt-4">
+                        <Skeleton className="w-[80px] h-[20px]" />
+                        <Skeleton className="w-[50px] h-[20px]" />
+                      </div>
+                    </div>
+                  </Grid>
+                ))
+              : data.products.products &&
+                data.products.products.length > 0 &&
+                data.products.products.map(
+                  (item: ProductDataType, index: number) => (
+                    <Grid
+                      key={index}
+                      size={{ xs: 12, md: 4, lg: 3 }}
+                      component={motion.div}
+                      variants={itemVariants}
+                    >
+                      <ProductCard data={item} />
+                    </Grid>
+                  )
+                )}
           </Grid>
 
           <div className="p-6 flex justify-center">
             <Stack spacing={2}>
               <Pagination
                 count={page!}
-                page={currentPage / 12 + 1}
+                page={currentPage}
                 variant="outlined"
                 shape="rounded"
                 onChange={handlePageChange}
@@ -272,8 +368,10 @@ const CategoryProducts = () => {
           </div>
         </div>
       </div>
+
+      <Drawer open={open} setOpen={setOpen} />
     </section>
   );
 };
 
-export default CategoryProducts;
+export default SubCategoryProducts;

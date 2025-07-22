@@ -4,8 +4,9 @@ import { FaGithubSquare, FaInstagramSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { NEUTRAL_COLOR } from "../../constant/colors";
+import { InfoDataType } from "@/types/types";
 
-const WebFooter = ({ INFO_DATA }: { INFO_DATA: any }) => {
+const WebFooter = ({ INFO_DATA }: { INFO_DATA: InfoDataType[] }) => {
   return (
     <section className="flex justify-between max-md:hidden items-start flex-wrap max-w-[1680px] md:px-[61px] px-5 py-[55px] mx-auto transition-all duration-300">
       {/* E-commerce support */}
@@ -21,7 +22,7 @@ const WebFooter = ({ INFO_DATA }: { INFO_DATA: any }) => {
 
         {INFO_DATA &&
           INFO_DATA.length > 0 &&
-          INFO_DATA.map((info: any, index: number) => (
+          INFO_DATA.map((info: InfoDataType, index: number) => (
             <ul key={index}>
               <li>
                 <Typography

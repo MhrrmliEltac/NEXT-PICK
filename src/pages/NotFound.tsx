@@ -6,24 +6,15 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center bg-gray-50">
+    <div className="flex flex-col items-center justify-center h-screen text-center bg-gray-50 ">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Typography
-          variant="h1"
-          className="text-[80px] font-bold text-[#4A73EA]"
-        >
-          404
-        </Typography>
-        <Typography variant="h5" className="mt-2 text-gray-700 font-semibold">
-          Oops! Səhifə tapılmadı
-        </Typography>
-        <Typography variant="body1" className="mt-1 text-gray-500">
-          Axtardığınız səhifə mövcud deyil və ya silinib.
-        </Typography>
+        <div>
+          <img src="/error404.png" alt="" />
+        </div>
 
         <Button
           variant="contained"

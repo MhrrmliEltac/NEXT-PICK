@@ -5,9 +5,10 @@ import { NEUTRAL_COLOR } from "../constant/colors";
 import MobileFooter from "../components/footer/MobileFooter";
 import WebFooter from "../components/footer/WebFooter";
 import { Link } from "react-router-dom";
+import { path } from "@/utils/paths";
 
 const Footer = () => {
-  const { data: INFO_DATA } = useFetch<any>("/info/list");
+  const { data: INFO_DATA } = useFetch<any>(path.endpoints.info.list);
 
   return (
     <footer style={{ background: NEUTRAL_COLOR.neutral130 }} className={``}>

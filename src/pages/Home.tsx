@@ -6,10 +6,11 @@ import Hero from "../components/home/Hero";
 import Info from "../components/home/Info";
 import type { CategoryType } from "../types/types";
 import Offer from "@/components/general/Offer";
+import { path } from "@/utils/paths";
 
 const Home = () => {
   const { data: CATEGORY_DATA } = useFetch<CategoryType[] | null>(
-    "/category/list"
+    path.endpoints.categories.list
   );
 
   return (

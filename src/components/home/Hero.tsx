@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { getCategoryIcon } from "@/helpers/getCategoryIcon";
 import { Link } from "react-router-dom";
+import { path } from "@/utils/paths";
 
 const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
   return (
@@ -64,7 +65,11 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
                 key={index}
               >
                 <Link
-                  to={`/categories?category=${item.title}`}
+                  to={
+                    typeof path.urlPaths.category.list === "function"
+                      ? path.urlPaths.category.list(item.title)
+                      : path.urlPaths.category.list
+                  }
                   className="flex flex-col items-center cursor-pointer gap-2"
                 >
                   {getCategoryIcon(item.title, 25)}

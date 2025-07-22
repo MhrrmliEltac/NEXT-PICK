@@ -9,9 +9,12 @@ import { useFetch } from "../../api/useFetch";
 
 import "swiper/css";
 import "swiper/css/autoplay";
+import { path } from "@/utils/paths";
 
 const Brands = ({ title }: { title: string }) => {
-  const { data: BRANDS_DATA, loading } = useFetch<BrandsType[]>("/brands/list");
+  const { data: BRANDS_DATA, loading } = useFetch<BrandsType[]>(
+    path.endpoints.brands.list
+  );
 
   if (loading) {
     return <Loader />;

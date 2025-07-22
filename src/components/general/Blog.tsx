@@ -10,9 +10,12 @@ import "swiper/css/autoplay";
 import Loader from "../loader/Loader";
 import { NEUTRAL_COLOR } from "../../constant/colors";
 import type { BlogType } from "../../types/types";
+import { path } from "@/utils/paths";
 
 const Blog = () => {
-  const { data: BLOG_DATA, loading } = useFetch<BlogType[]>("/blog/list");
+  const { data: BLOG_DATA, loading } = useFetch<BlogType[]>(
+    path.endpoints.blog.list
+  );
 
   if (loading) {
     return <Loader />;

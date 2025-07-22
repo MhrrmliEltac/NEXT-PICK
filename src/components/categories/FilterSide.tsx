@@ -38,7 +38,7 @@ const SCREEN_SIZE_DATA = [
   "15 inch",
 ];
 
-const FilterSide = () => {
+const FilterSide = ({ show }: { show: boolean }) => {
   const [price, setPrice] = useState<{ min: string; max: string }>({
     min: "0",
     max: "5000",
@@ -76,7 +76,7 @@ const FilterSide = () => {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-[288px] max-md:hidden"
+      className={`${show ? "block" : "max-md:hidden"}`}
     >
       <form>
         <Card

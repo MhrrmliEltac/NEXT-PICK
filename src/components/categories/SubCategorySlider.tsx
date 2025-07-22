@@ -1,5 +1,6 @@
 import { NEUTRAL_COLOR } from "@/constant/colors";
 import { SubCategoryDataType } from "@/types/types";
+import { path } from "@/utils/paths";
 import { Card, CardContent, Typography, Skeleton } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { Autoplay } from "swiper/modules";
@@ -56,10 +57,17 @@ const SubCategorySlider = ({
             ))
           : SUB_CATEGORY_DATA &&
             SUB_CATEGORY_DATA.length > 0 &&
-            SUB_CATEGORY_DATA.map((item: any) => (
+            SUB_CATEGORY_DATA.map((item: SubCategoryDataType) => (
               <SwiperSlide key={item.id}>
                 <Link
-                  to={`/subcategories?categoryName=${categoryName}&subCategory=${item.subcategoryName}`}
+                  to={
+                    typeof path.urlPaths.subcategory.list === "function"
+                      ? path.urlPaths.subcategory.list(
+                          categoryName || "",
+                          item.subcategoryName
+                        )
+                      : path.urlPaths.subcategory.list
+                  }
                 >
                   <Card className="rounded-[8px]">
                     <CardContent className="flex flex-col items-center gap-5">
