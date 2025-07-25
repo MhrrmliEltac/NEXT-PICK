@@ -1,5 +1,5 @@
 import type { CategoryType } from "../../types/types";
-import { motion } from "framer-motion";
+import { motion, m } from "framer-motion";
 import { getCategoryIcon } from "@/helpers/getCategoryIcon";
 import { Link } from "react-router-dom";
 import { path } from "@/utils/paths";
@@ -7,13 +7,14 @@ import { path } from "@/utils/paths";
 const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
   return (
     <section className="z-0 absolute -top-24 aspect-square w-full h-[800px] overflow-hidden rounded-b-[12px]">
-      <motion.img
+      <m.img
         initial={{ opacity: 0, scale: 1.1, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1 }}
         src="/banner-image.png"
         alt="bg-image"
         className="w-full h-full object-cover"
+        loading="lazy"
       />
 
       {/* hero description */}
