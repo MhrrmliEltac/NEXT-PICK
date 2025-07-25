@@ -58,7 +58,7 @@ const SubCategorySlider = ({
           : SUB_CATEGORY_DATA &&
             SUB_CATEGORY_DATA.length > 0 &&
             SUB_CATEGORY_DATA.map((item: SubCategoryDataType) => (
-              <SwiperSlide key={item._idid}>
+              <SwiperSlide key={item._id}>
                 <Link
                   to={
                     typeof path.urlPaths.subcategory.list === "function"
