@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { NEUTRAL_COLOR } from "../../constant/colors";
+import { path } from "@/utils/paths";
 
 const Info = () => {
   return (
@@ -64,6 +65,8 @@ const Info = () => {
                 </Typography>
               </Box>
               <Button
+                LinkComponent="a"
+                href={path.urlPaths.auth.register}
                 variant="contained"
                 color="primary"
                 sx={{

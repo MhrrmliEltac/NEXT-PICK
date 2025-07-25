@@ -4,8 +4,11 @@ import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
 import { ProductDataType } from "@/types/types";
 import { FaStar } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ data }: { data: ProductDataType }) => {
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
@@ -21,6 +24,14 @@ const ProductCard = ({ data }: { data: ProductDataType }) => {
         },
       }}
       className="flex justify-center relative"
+      component="div"
+      onClick={() =>
+        navigate(
+          `/product/${data.productName.replace(/\s+/g, "-").toLowerCase()}?id=${
+            data._id
+          }`
+        )
+      }
     >
       {data.discount && (
         <Badge className="absolute top-5 left-1 bg-[#FB5F2F] hover:bg-red-500 w-[44px] h-[22px] rounded-tr-[8px] rounded-br-[8px] rounded-tl-none rounded-bl-none">

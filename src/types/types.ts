@@ -1,5 +1,5 @@
 export interface CategoryType {
-  id: string;
+  _id: string;
   title: string;
   icon: string;
 }
@@ -23,11 +23,11 @@ export interface OfferType {
 }
 
 export interface SubCategoryDataType {
-  id: string;
+  _id: string;
   subcategoryName: string;
   subCategoryImage: string;
   categoryId: {
-    id: string;
+    _id: string;
     title: string;
   };
 }
@@ -40,7 +40,7 @@ export interface ProductType {
 }
 
 export interface ProductDataType {
-  id: string;
+  _id: string;
   productName: string;
   productDescription: string;
   quantity: number;
@@ -66,17 +66,17 @@ export interface Comment {
 }
 
 export interface Category {
-  id: string;
+  _id: string;
   title: string;
 }
 
 export interface Brand {
-  id: string;
+  _id: string;
   brandName: string;
 }
 
 export interface Subcategory {
-  id: string;
+  _id: string;
   subcategoryName: string;
 }
 
@@ -91,6 +91,7 @@ export interface InfoDataType {
 export interface ProductsPaths {
   create: string;
   list: string;
+  productById: (id: string | null) => string;
   subcategoryProducts: (
     subcategoryName: string,
     page: number,
@@ -98,6 +99,7 @@ export interface ProductsPaths {
     sortBy?: string
   ) => string;
   categoryProducts: (categoryName: string) => string;
+  bestSeller: (sortBy: string) => string;
 }
 
 export interface CategoriesPaths {
@@ -123,4 +125,8 @@ export interface SubCategoryPaths {
 
 export interface InfoPaths {
   list: string;
+}
+
+export interface SearchPaths {
+  searchProducts: (query: string) => string;
 }

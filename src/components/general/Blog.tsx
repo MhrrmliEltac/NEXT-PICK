@@ -2,6 +2,7 @@ import { Divider, Typography } from "@mui/material";
 import Heading from "./Heading";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 
 import { useFetch } from "../../api/useFetch";
 
@@ -24,7 +25,11 @@ const Blog = () => {
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px]">
       {/* Header */}
-      <Heading title="Tech tips and guides blog" />
+      <Heading
+        title="Tech tips and guides blog"
+        btnTitle="View all"
+        Icon={TfiArrowCircleRight}
+      />
 
       {/* Divider */}
       <Divider

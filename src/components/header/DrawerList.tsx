@@ -16,6 +16,7 @@ import { MdOutlineCancel, MdOutlineExpandMore } from "react-icons/md";
 import Logo from "./Logo";
 import { getCategoryIcon } from "@/helpers/getCategoryIcon";
 import { NEUTRAL_COLOR } from "@/constant/colors";
+import { path } from "@/utils/paths";
 
 const DrawerList = ({
   CATEGORY_DATA,
@@ -70,10 +71,15 @@ const DrawerList = ({
         <AccordionDetails>
           {CATEGORY_DATA &&
             CATEGORY_DATA.length > 0 &&
-            CATEGORY_DATA.map((category: CategoryType, index) => (
-              <List sx={{ py: "0px" }}>
+            CATEGORY_DATA.map((category: CategoryType, index: number) => (
+              <List sx={{ py: "0px" }} key={category._id}>
                 <ListItem key={index} disablePadding>
                   <ListItemButton
+                    href={
+                      typeof path.urlPaths.category.list === "function"
+                        ? path.urlPaths.category.list(category.title)
+                        : path.urlPaths.category.list
+                    }
                     sx={{
                       "&:hover": {
                         background: NEUTRAL_COLOR.neutral150,

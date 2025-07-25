@@ -4,6 +4,10 @@ import Home from "../pages/Home";
 import NotFound from "@/pages/NotFound";
 import Categories from "@/pages/CategoriesPage";
 import SubCategoryProducts from "@/pages/SubCategoryProducts";
+import AuthLayout from "@/layout/AuthLayout";
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import ProductDetail from "@/pages/ProductDetail";
 
 const router = createBrowserRouter([
   {
@@ -23,12 +27,30 @@ const router = createBrowserRouter([
         element: <SubCategoryProducts />,
       },
       {
+        path: "/product/:productName",
+        element: <ProductDetail />,
+      },
+      {
         path: "/not-found",
         element: <NotFound />,
       },
       {
         path: "/*",
         element: <NotFound />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
     ],
   },

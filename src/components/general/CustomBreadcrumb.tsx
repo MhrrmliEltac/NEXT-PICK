@@ -20,7 +20,7 @@ const CustomBreadcrumb = ({
   subtitle,
   breadcrumbs,
 }: {
-  title: string;
+  title?: string;
   subtitle?: string;
   breadcrumbs: BreadcrumbItemType[];
 }) => {

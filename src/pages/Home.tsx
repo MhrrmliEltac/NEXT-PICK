@@ -7,6 +7,8 @@ import Info from "../components/home/Info";
 import type { CategoryType } from "../types/types";
 import Offer from "@/components/general/Offer";
 import { path } from "@/utils/paths";
+import BestSeller from "@/components/home/BestSeller";
+import ResetScroll from "@/components/general/ResetScroll";
 
 const Home = () => {
   const { data: CATEGORY_DATA } = useFetch<CategoryType[] | null>(
@@ -15,6 +17,7 @@ const Home = () => {
 
   return (
     <section>
+      <ResetScroll />
       <div className="relative min-h-[800px]">
         <Hero CATEGORY_DATA={CATEGORY_DATA} />
       </div>
@@ -22,6 +25,7 @@ const Home = () => {
       <Category CATEGORY_DATA={CATEGORY_DATA} />
       <Info />
       <Brands title="Top brands" />
+      <BestSeller />
       <Blog />
     </section>
   );

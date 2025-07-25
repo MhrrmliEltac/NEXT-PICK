@@ -16,13 +16,14 @@ import {
 } from "@mui/material";
 import { BsFilterLeft } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
-import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFetchStore } from "@/store/useFetcher";
 import { ProductDataType } from "@/types/types";
 import Drawer from "@/components/categories/Drawer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { path } from "@/utils/paths";
+import ResetScroll from "@/components/general/ResetScroll";
+import { useQueryParams } from "@/hook/useQueryParams";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -62,10 +63,10 @@ const SubCategoryProducts = () => {
   });
 
   //? Fetching subcategory name from URL
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const subCategoryName = queryParams.get("subCategory");
-  const categoryName = queryParams.get("categoryName");
+  const { getParam } = useQueryParams();
+
+  const subCategoryName = getParam("subCategory");
+  const categoryName = getParam("categoryName");
 
   const skeletonArray = Array.from({ length: 12 });
 
@@ -125,6 +126,7 @@ const SubCategoryProducts = () => {
 
   return (
     <section>
+      <ResetScroll />
       {/* Breadcrumb */}
       <div className="relative min-h-[220px]">
         <CustomBreadcrumb
@@ -327,7 +329,7 @@ const SubCategoryProducts = () => {
                   >
                     {/* <ProductCard data={item} /> */}
                     <div className="w-full h-full max-sm:w-[30%] mx-auto flex justify-center items-center">
-                      <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-300 object-contain" />
+                      <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-700 object-contain" />
                     </div>
                     <div className="w-full max-sm:w-[80%] flex flex-col">
                       <Skeleton className="w-full h-[20px] mt-4" />

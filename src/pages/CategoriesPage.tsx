@@ -12,12 +12,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useFetch } from "@/api/useFetch";
 import { SubCategoryDataType } from "@/types/types";
 import { path } from "@/utils/paths";
+import ResetScroll from "@/components/general/ResetScroll";
+import { useQueryParams } from "@/hook/useQueryParams";
 
 const Categories = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const queryParams = new URLSearchParams(location.search);
-  const categoryName = queryParams.get("category");
+  const { getParam } = useQueryParams();
+  const categoryName = getParam("category");
 
   const { data: SUB_CATEGORY_DATA, loading: SUB_CATEGORY_LOADING } = useFetch<
     SubCategoryDataType[]
@@ -29,10 +31,11 @@ const Categories = () => {
     } else if (location.pathname === "/categories") {
       navigate("/not-found");
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.search, navigate]);
 
   return (
     <section>
+      <ResetScroll />
       <div className="relative min-h-[220px]">
         <CustomBreadcrumb
           title={`Find Your ${categoryName}`}

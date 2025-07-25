@@ -1,7 +1,15 @@
 import { Button } from "@mui/material";
-import { TfiArrowCircleRight } from "react-icons/tfi";
+import { IconType } from "react-icons/lib";
 
-const Heading = ({ title }: { title: string }) => {
+const Heading = ({
+  title,
+  btnTitle,
+  Icon,
+}: {
+  title: string;
+  btnTitle: string;
+  Icon: IconType;
+}) => {
   return (
     <div className="flex justify-between items-center mb-4">
       <h4 className="md:text-[24px] max-sm:text-sm font-roboto font-medium transition-all duration-300">
@@ -9,7 +17,7 @@ const Heading = ({ title }: { title: string }) => {
       </h4>
       <Button
         variant="text"
-        endIcon={<TfiArrowCircleRight />}
+        endIcon={<Icon />}
         sx={{
           textTransform: "none",
           fontSize: {
@@ -23,7 +31,7 @@ const Heading = ({ title }: { title: string }) => {
         disableRipple
         disableTouchRipple
       >
-        View all
+        {btnTitle}
       </Button>
     </div>
   );

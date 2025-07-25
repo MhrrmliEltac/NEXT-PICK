@@ -5,6 +5,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { LuUserRound } from "react-icons/lu";
 import { SlBasket } from "react-icons/sl";
 import { Badge } from "../ui/badge";
+import { Link } from "react-router-dom";
+import { path } from "@/utils/paths";
 
 const Buttons = () => {
   const [count, _] = useState(0);
@@ -78,9 +80,11 @@ const Buttons = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="User" sx={{ color: "black" }}>
-            <IconButton disableTouchRipple>
-              <LuUserRound />
-            </IconButton>
+            <Link to={path.urlPaths.auth.login}>
+              <IconButton disableTouchRipple>
+                <LuUserRound />
+              </IconButton>
+            </Link>
           </Tooltip>
           <Tooltip title="Basket" sx={{ color: "black" }}>
             <IconButton disableTouchRipple sx={{ position: "relative" }}>

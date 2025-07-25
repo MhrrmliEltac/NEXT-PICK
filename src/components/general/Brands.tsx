@@ -10,6 +10,7 @@ import { useFetch } from "../../api/useFetch";
 import "swiper/css";
 import "swiper/css/autoplay";
 import { path } from "@/utils/paths";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 
 const Brands = ({ title }: { title: string }) => {
   const { data: BRANDS_DATA, loading } = useFetch<BrandsType[]>(
@@ -23,7 +24,7 @@ const Brands = ({ title }: { title: string }) => {
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px] transition-all duration-300">
       {/* Header */}
-      <Heading title={title} />
+      <Heading title={title} btnTitle="View all" Icon={TfiArrowCircleRight} />
 
       {/* Divider */}
       <Divider

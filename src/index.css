@@ -21,6 +21,14 @@
   accent-color: #1a4de1;
 }
 
+.custom-shadow-input:focus {
+  box-shadow: inset 0px 0px 8px 0px rgba(74, 115, 234, 0.6) !important;
+  /* transition: boxShadow 0.1s ease-in; */
+}
+.custom-shadow-input:focus-within {
+  box-shadow: inset 0px 0px 8px 0px rgba(74, 115, 234, 0.6) !important;
+}
+
 .custom-blur {
   backdrop-filter: blur(20px) !important;
 }

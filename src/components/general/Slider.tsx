@@ -10,6 +10,7 @@ import { useFetchStore } from "@/store/useFetcher";
 import { useEffect } from "react";
 import { path } from "@/utils/paths";
 import { Skeleton } from "../ui/skeleton";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 
 const Slider = ({
   title,
@@ -40,8 +41,8 @@ const Slider = ({
   }, []);
 
   return (
-    <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px]">
-      <Heading title={title} />
+    <section className="max-w-[1524px] w-[100%] mx-auto mb-[80px] mt-[80px]">
+      <Heading title={title} btnTitle="View all" Icon={TfiArrowCircleRight} />
 
       {/* Divider */}
       <Divider
@@ -74,7 +75,7 @@ const Slider = ({
           ? skeletonArray.map((_, index) => (
               <SwiperSlide key={index}>
                 <div className="w-full h-full max-sm:w-[30%] mx-auto flex justify-center items-center">
-                  <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-300 object-contain" />
+                  <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-700 object-contain" />
                 </div>
                 <div className="w-full max-sm:w-[80%] flex flex-col">
                   <Skeleton className="w-full h-[20px] mt-4" />
@@ -89,7 +90,7 @@ const Slider = ({
           : PRODUCT_DATA.products.products &&
             PRODUCT_DATA.products.products &&
             PRODUCT_DATA.products.products.map((product: ProductDataType) => (
-              <SwiperSlide key={product.id}>
+              <SwiperSlide key={product._id}>
                 <ProductCard data={product} />
               </SwiperSlide>
             ))}

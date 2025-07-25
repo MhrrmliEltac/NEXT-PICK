@@ -1,8 +1,9 @@
 import { NEUTRAL_COLOR } from "@/constant/colors";
+import { useQueryParams } from "@/hook/useQueryParams";
 import { SubCategoryDataType } from "@/types/types";
 import { path } from "@/utils/paths";
 import { Card, CardContent, Typography, Skeleton } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -15,10 +16,9 @@ const SubCategorySlider = ({
 }) => {
   const skeletonArray = Array.from({ length: 6 });
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  const { getParam } = useQueryParams();
 
-  const categoryName = queryParams.get("category");
+  const categoryName = getParam("category");
 
   return (
     <div style={{ background: NEUTRAL_COLOR.neutral180 }} className="py-[27px]">
@@ -58,7 +58,7 @@ const SubCategorySlider = ({
           : SUB_CATEGORY_DATA &&
             SUB_CATEGORY_DATA.length > 0 &&
             SUB_CATEGORY_DATA.map((item: SubCategoryDataType) => (
-              <SwiperSlide key={item.id}>
+              <SwiperSlide key={item._idid}>
                 <Link
                   to={
                     typeof path.urlPaths.subcategory.list === "function"

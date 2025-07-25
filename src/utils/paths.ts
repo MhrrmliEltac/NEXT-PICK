@@ -4,6 +4,7 @@ import {
   CategoriesPaths,
   InfoPaths,
   ProductsPaths,
+  SearchPaths,
   SubCategoryPaths,
 } from "@/types/types";
 
@@ -14,6 +15,7 @@ interface EndpointType {
   brands: BrandsPaths;
   subCategory: SubCategoryPaths;
   info: InfoPaths;
+  search: SearchPaths;
 }
 
 interface UrlPaths {
@@ -25,6 +27,11 @@ interface UrlPaths {
       | ((categoryName: string, subcategoryName: string) => string)
       | string;
   };
+  auth: {
+    login: string;
+    register: string;
+  };
+  productDetail: (productName: string) => string;
 }
 
 interface Paths {
@@ -39,10 +46,12 @@ export const path: Paths = {
     products: {
       create: "/products/create",
       list: "/products/list",
+      productById: (id) => `/products/${id}`,
       subcategoryProducts: (subcategoryName, page, limit, sortBy) =>
         `/products/productBySubCategory?subCategoryName=${subcategoryName}&page=${page}&limit=${limit}&sortBy=${sortBy}`,
       categoryProducts: (categoryName) =>
         `/products/productByCategory?title=${categoryName}`,
+      bestSeller: (sortBy) => `/products/best-seller?sortBy=${sortBy}`,
     },
 
     //? categories
@@ -75,16 +84,35 @@ export const path: Paths = {
     info: {
       list: "/info/list",
     },
+
+    //? search
+    search: {
+      searchProducts: (query) => `/products/search?search=${query}`,
+    },
   },
 
   //? URL paths
   urlPaths: {
+    //? category page url
     category: {
       list: (query: string) => `/categories?category=${query}`,
     },
+
+    //? subcategory page url
     subcategory: {
       list: (categoryName, subcategoryName) =>
         `/subcategories?categoryName=${categoryName}&subCategory=${subcategoryName}`,
+    },
+
+    //? auth url
+    auth: {
+      login: "/auth/login",
+      register: "/auth/register",
+    },
+
+    //? product detail url
+    productDetail(productName) {
+      return `/product?/productName=${productName}`;
     },
   },
 };

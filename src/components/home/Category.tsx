@@ -3,6 +3,7 @@ import type { CategoryType } from "../../types/types";
 import Heading from "../general/Heading";
 import { Link } from "react-router-dom";
 import { path } from "@/utils/paths";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 
 const Category = ({
   CATEGORY_DATA,
@@ -75,7 +76,11 @@ const Category = ({
   return (
     <section className="max-w-[1524px] w-[90%] mx-auto mb-[40px]">
       {/* Header */}
-      <Heading title="Shop by category" />
+      <Heading
+        title="Shop by category"
+        btnTitle="View all"
+        Icon={TfiArrowCircleRight}
+      />
 
       {/* Divider */}
       <Divider

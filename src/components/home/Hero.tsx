@@ -1,5 +1,4 @@
 import type { CategoryType } from "../../types/types";
-import { Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { getCategoryIcon } from "@/helpers/getCategoryIcon";
 import { Link } from "react-router-dom";
@@ -12,18 +11,18 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
         initial={{ opacity: 0, scale: 1.1, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1 }}
-        src="https://english.cdn.zeenews.com/sites/default/files/2025/01/10/1630763-untitled-design-16.png"
+        src="/banner-image.png"
         alt="bg-image"
         className="w-full h-full object-cover"
       />
 
       {/* hero description */}
-      <motion.div className="absolute top-1/2 md:left-0 z-10 2xl:translate-x-3/4  translate-x-1/4 -translate-y-1/2 max-md:translate-x-0 max-md:right-0 text-white text-left">
+      {/* <motion.div className="absolute top-1/2 md:left-0 z-10 2xl:translate-x-3/4  translate-x-1/4 -translate-y-1/2 max-md:translate-x-0 max-md:right-0 text-white text-left">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-          className="font-bold w-max duration-300 transition-all md:text-[#424242] text-[44px] max-md:text-[24px] mb-4 text-[#CBCBCB]"
+          className="font-bold w-max duration-300 transition-all text-white text-[44px] max-md:text-[24px] mb-4 text-[#CBCBCB]"
         >
           Introducing the <br /> Next Generation of <br /> Sound
         </motion.h1>
@@ -48,7 +47,7 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
             Discover more
           </Button>
         </motion.div>
-      </motion.div>
+      </motion.div> */}
 
       {/* category */}
       <section className="max-w-[1224px] w-[90%] mx-auto relative">
