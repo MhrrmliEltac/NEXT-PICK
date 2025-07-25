@@ -11,7 +11,7 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
         initial={{ opacity: 0, scale: 1.1, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1 }}
-        src="/banner-image.svg"
+        src="/banner-image.png"
         alt="bg-image"
         className="w-full h-full object-cover"
         loading="lazy"
