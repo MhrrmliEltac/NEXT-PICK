@@ -130,3 +130,13 @@ export interface InfoPaths {
 export interface SearchPaths {
   searchProducts: (query: string) => string;
 }
+
+export interface FormData {
+  firstName: string;
+  surname: string;
+  birthDate: Date;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}

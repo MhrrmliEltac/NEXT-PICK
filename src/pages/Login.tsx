@@ -7,7 +7,7 @@ import PasswordInput from "@/components/general/PasswordInput";
 import { motion } from "framer-motion";
 import { NEUTRAL_COLOR } from "@/constant/colors";
 
-interface IFormInput {
+export interface IFormInput {
   email: string;
   password: string;
 }

@@ -2,6 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+.ant-steps-item-icon {
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 50% !important;
+  background-color: #1a4de1 !important;
+  padding: 7px 6px !important;
+  margin-inline-end: 0px !important;
+  margin-inline-start: 10px !important;
+}
+
+.step-disabled .ant-steps-icon,
+.step-disabled .ant-steps-item-title {
+  color: #c0c0c0 !important;
+}
+
+.step-disabled .ant-steps-item-icon {
+  background-color: #e0e0e0 !important;
+  border-color: #e0e0e0 !important;
+}
+
+.step-active .ant-steps-item-icon {
+  background-color: #b2c3f6 !important;
+  border-color: #b2c3f6 !important;
+}
+
+.ant-steps-item-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-steps-item-title::after {
+  top: -15px !important;
+  height: 2px !important;
+  background-color: #aeaeae !important;
+}
+
+.ant-steps-icon {
+  color: white !important;
+  width: auto !important;
+  height: auto !important;
+  line-height: auto !important;
+}
+
 .custom-shadow {
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.03) !important;
 }
