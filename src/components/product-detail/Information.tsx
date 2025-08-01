@@ -226,11 +226,16 @@ const Information = ({
                   </span>
                 </div>
                 <div className="rounded-tr-[8px] rounded-br-[8px] bg-[#FDFDFD] px-3 py-4 w-full">
-                  {laptopMockData.recommendedUsage.map((recom: string) => (
-                    <span className=" max-md:text-[10px] transition-all duration-300 text-wrap">
-                      {recom},
-                    </span>
-                  ))}
+                  {laptopMockData.recommendedUsage.map(
+                    (recom: string, index: number) => (
+                      <span
+                        key={index}
+                        className=" max-md:text-[10px] transition-all duration-300 text-wrap"
+                      >
+                        {recom},
+                      </span>
+                    )
+                  )}
                 </div>
               </motion.div>
               <motion.div
@@ -246,11 +251,16 @@ const Information = ({
                   </span>
                 </div>
                 <div className="rounded-tr-[8px] rounded-br-[8px] bg-[#F3F3F3] px-3 py-4 w-full">
-                  {laptopMockData.connectivity.map((connect: string) => (
-                    <span className=" max-md:text-[10px] transition-all duration-300">
-                      {connect},{" "}
-                    </span>
-                  ))}
+                  {laptopMockData.connectivity.map(
+                    (connect: string, index: number) => (
+                      <span
+                        key={index}
+                        className=" max-md:text-[10px] transition-all duration-300"
+                      >
+                        {connect},{" "}
+                      </span>
+                    )
+                  )}
                 </div>
               </motion.div>
             </Grid>

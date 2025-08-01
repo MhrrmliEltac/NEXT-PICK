@@ -170,7 +170,7 @@ const SubCategoryProducts = () => {
                 color={NEUTRAL_COLOR.neutral400}
                 sx={{ ml: "8px" }}
               >
-                2,000+ products
+                {data.products.products.length} products
               </Typography>
             </div>
 
@@ -302,7 +302,7 @@ const SubCategoryProducts = () => {
                 color={NEUTRAL_COLOR.neutral400}
                 sx={{ ml: "8px" }}
               >
-                2,000+ products
+                {data.products.products.length} products
               </Typography>
             </div>
           </motion.div>

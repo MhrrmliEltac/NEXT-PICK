@@ -15,6 +15,7 @@ const Category = ({
   const getCategoryImage = (title: string) => {
     switch (title.toLowerCase()) {
       case "computer":
+      case "laptop":
         return (
           <img
             src="/Computer.svg"

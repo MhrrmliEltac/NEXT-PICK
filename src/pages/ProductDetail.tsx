@@ -12,6 +12,7 @@ import BannerDetail from "@/components/product-detail/BannerDetail";
 import Description from "@/components/product-detail/Description";
 import Information from "@/components/product-detail/Information";
 import Hero from "@/components/product-detail/ProductDetailHero";
+import Comments from "@/components/product-detail/Comments";
 
 const ProductDetail = () => {
   const [expanded, setExpanded] = useState(true);
@@ -48,6 +49,7 @@ const ProductDetail = () => {
     .join(" ")
     .toCapitalize();
 
+  //? Custom Api Hook
   const { data: PRODUCT_DATA, loading: PRODUCT_LOADING } =
     useFetch<ProductDataType>(path.endpoints.products.productById(id || ""));
 
@@ -111,6 +113,9 @@ const ProductDetail = () => {
 
             {/* Product Description */}
             <Description expanded1={expanded1} handleChange={handleChange} />
+
+            {/* User comments */}
+            <Comments PRODUCT_DATA={PRODUCT_DATA} />
 
             {/* Similar product */}
             <Slider title="Similar picks for you" categoryName="Computer" />

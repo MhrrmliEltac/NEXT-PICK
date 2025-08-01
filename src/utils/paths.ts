@@ -32,6 +32,7 @@ interface UrlPaths {
     register: string;
   };
   productDetail: (productName: string) => string;
+  wishlist: string;
 }
 
 interface Paths {
@@ -114,5 +115,8 @@ export const path: Paths = {
     productDetail(productName) {
       return `/product?/productName=${productName}`;
     },
+
+    //? wishlist url
+    wishlist: "/wishlist",
   },
 };

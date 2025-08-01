@@ -5,10 +5,12 @@ const Heading = ({
   title,
   btnTitle,
   Icon,
+  onClick,
 }: {
   title: string;
   btnTitle: string;
   Icon: IconType;
+  onClick?: () => void;
 }) => {
   return (
     <div className="flex justify-between items-center mb-4">
@@ -30,6 +32,7 @@ const Heading = ({
         disableFocusRipple
         disableRipple
         disableTouchRipple
+        onClick={onClick}
       >
         {btnTitle}
       </Button>

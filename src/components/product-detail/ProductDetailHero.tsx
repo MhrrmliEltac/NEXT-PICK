@@ -11,6 +11,8 @@ import { BsHeartFill } from "react-icons/bs";
 import { CiCircleCheck } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { ShadButton } from "../ui/button";
+import { useAppDispatch, useAppSelector } from "@/hook/hooks";
+import { addFavorite } from "@/redux-toolkit/slice/favoriteSlice";
 
 const MotionShadButton = motion.create(ShadButton);
 
@@ -21,6 +23,12 @@ const showBenefits: string[] = [
 ];
 
 const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
+  const dispatch = useAppDispatch();
+
+  const handleFavoriteData = (product: ProductDataType) => {
+    dispatch(addFavorite(product));
+  };
+
   return (
     <motion.div
       variants={containerVariants}
@@ -116,6 +124,9 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
               whileTap={{ scale: 0.9 }}
               variant="outline"
               className="border border-[#1A4DE1] h-12"
+              onClick={() => {
+                if (PRODUCT_DATA) handleFavoriteData(PRODUCT_DATA);
+              }}
             >
               <BsHeartFill color="#FB3748" />
             </MotionShadButton>

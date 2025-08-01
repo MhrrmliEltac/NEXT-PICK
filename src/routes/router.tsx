@@ -8,6 +8,7 @@ import AuthLayout from "@/layout/AuthLayout";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import ProductDetail from "@/pages/ProductDetail";
+import Favorite from "@/pages/Favorite";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/product/:productName",
         element: <ProductDetail />,
+      },
+      {
+        path: "/wishlist",
+        element: <Favorite />,
       },
       {
         path: "/not-found",

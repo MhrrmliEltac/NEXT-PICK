@@ -5,13 +5,18 @@ import { IoIosArrowDown } from "react-icons/io";
 import { LuUserRound } from "react-icons/lu";
 import { SlBasket } from "react-icons/sl";
 import { Badge } from "../ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { path } from "@/utils/paths";
+import { useAppSelector } from "@/hook/hooks";
+import { RootState } from "@/redux-toolkit/store";
 
 const Buttons = () => {
+  const navigate = useNavigate();
   const [count, _] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [language, setLanguage] = useState<string>("AZ");
+
+  const productData = useAppSelector((state: RootState) => state.favorite);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -69,12 +74,16 @@ const Buttons = () => {
         </div>
         <div className="flex items-center gap-1">
           <Tooltip title="Favori" sx={{ color: "black" }}>
-            <IconButton disableTouchRipple sx={{ position: "relative" }}>
+            <IconButton
+              disableTouchRipple
+              sx={{ position: "relative" }}
+              onClick={() => navigate("/wishlist")}
+            >
               <Badge
                 className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center"
                 variant="destructive"
               >
-                {count}
+                {productData.favoriteProduct.length ?? 0}
               </Badge>
               <AiOutlineHeart />
             </IconButton>
