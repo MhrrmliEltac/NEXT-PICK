@@ -11,7 +11,7 @@ import { BsHeartFill } from "react-icons/bs";
 import { CiCircleCheck } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { ShadButton } from "../ui/button";
-import { useAppDispatch, useAppSelector } from "@/hook/hooks";
+import { useAppDispatch } from "@/hook/hooks";
 import { addFavorite } from "@/redux-toolkit/slice/favoriteSlice";
 
 const MotionShadButton = motion.create(ShadButton);
