@@ -53,6 +53,8 @@ const ProductDetail = () => {
   const { data: PRODUCT_DATA, loading: PRODUCT_LOADING } =
     useFetch<ProductDataType>(path.endpoints.products.productById(id || ""));
 
+  console.log(PRODUCT_DATA);
+
   useEffect(() => {
     if (PRODUCT_DATA?.category) {
       setBreadcrumbUrl((prev) => ({
