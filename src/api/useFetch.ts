@@ -1,3 +1,4 @@
+import { config } from "@/config/config";
 import { AxiosError } from "axios";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -14,11 +15,7 @@ export const useFetch = <T>(
       setloading(true);
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}${endpoint}`,
-        {
-          headers: {
-            "x-api-key": import.meta.env.VITE_API_KEY,
-          },
-        }
+        config
       );
 
       if (response.status === 200) {

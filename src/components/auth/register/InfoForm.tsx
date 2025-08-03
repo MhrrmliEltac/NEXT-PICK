@@ -7,8 +7,17 @@ import { animateVariant } from "@/utils/animateVariants";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { ShadButton } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useSignUp } from "@/auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const InfoForm = () => {
+  const navigate = useNavigate();
+
+  // sign up hook
+  const { loading, error, sendFormDataByRegister } =
+    useSignUp<FormData>("/auth/register");
+
+  // react hook form context
   const {
     register,
     formState: { errors },
@@ -21,10 +30,16 @@ const InfoForm = () => {
   const isValidPasswordMatch =
     password && confirmPassword && password === confirmPassword;
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (formData) => {
+    if (typeof error === "string") {
+      toast.error(error);
+      return;
+    }
+
     if (password === confirmPassword) {
+      sendFormDataByRegister(formData);
       toast.success("Registration completed successfully.");
-      console.log(data);
+      navigate("/auth/login");
       return;
     }
 
@@ -53,7 +68,7 @@ const InfoForm = () => {
           border-[#939393] shadow-md w-full custom-shadow-input focus:text-[#4A73EA] focus:placeholder:text-[#4A73EA]`}
           placeholder="First name"
           type="text"
-          {...register("firstName")}
+          {...register("name")}
         />
       </motion.div>
       <motion.div
@@ -226,7 +241,9 @@ const InfoForm = () => {
         <ShadButton
           disabled={!isValidPasswordMatch}
           onClick={handleSubmit(onSubmit)}
-          className="bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]"
+          className={`${
+            loading && "animate-pulse"
+          } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
         >
           Continue
         </ShadButton>

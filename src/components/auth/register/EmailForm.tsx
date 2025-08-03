@@ -8,22 +8,40 @@ import { path } from "@/utils/paths";
 import { animateVariant } from "@/utils/animateVariants";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { FormData } from "@/types/types";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { sendOtp } from "@/auth/otpCode";
 
 const EmailForm = ({
   setActiveStep,
 }: {
   setActiveStep: Dispatch<SetStateAction<number>>;
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
   } = useFormContext<FormData>();
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setLoading(true);
     if (isValid) {
-      setActiveStep((prev) => prev + 1);
-      console.log(data);
+      const { proceedToSignUp, success } = await sendOtp(
+        "/auth/send-otp",
+        data.email
+      );
+
+      if (proceedToSignUp) {
+        setActiveStep((prev) => prev + 2);
+        setLoading(false);
+        return;
+      }
+
+      if (success) {
+        setActiveStep((prev) => prev + 1);
+        setLoading(false);
+        return;
+      }
     }
   };
 
@@ -72,7 +90,9 @@ const EmailForm = ({
         <ShadButton
           disabled={!isValid}
           onClick={handleSubmit(onSubmit)}
-          className="bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]"
+          className={`${
+            loading && "animate-pulse"
+          } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
         >
           Continue
         </ShadButton>

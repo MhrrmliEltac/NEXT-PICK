@@ -1,3 +1,4 @@
+import { config } from "@/config/config";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 
@@ -11,7 +12,8 @@ export const usePost = <T>(endpoint: string) => {
       setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}${endpoint}`,
-        data
+        data,
+        config
       );
       if (response.status === 200) {
         setData(response.data);

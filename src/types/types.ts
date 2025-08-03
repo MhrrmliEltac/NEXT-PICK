@@ -132,11 +132,11 @@ export interface SearchPaths {
 }
 
 export interface FormData {
-  firstName: string;
+  name: string;
   surname: string;
   birthDate: Date;
   phoneNumber: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 }

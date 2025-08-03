@@ -9,6 +9,7 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import ProductDetail from "@/pages/ProductDetail";
 import Favorite from "@/pages/Favorite";
+import Profile from "@/pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
+      {
+        path: "profile",
+        element: <Profile />,
+      }
     ],
   },
 ]);

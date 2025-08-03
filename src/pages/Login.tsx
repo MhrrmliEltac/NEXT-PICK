@@ -1,11 +1,13 @@
 import { ShadButton } from "@/components/ui/button";
 import { Card, Typography } from "@mui/material";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import EmailInput from "@/components/general/EmailInput";
 import PasswordInput from "@/components/general/PasswordInput";
 import { motion } from "framer-motion";
 import { NEUTRAL_COLOR } from "@/constant/colors";
+import { useSignIn } from "@/auth/useAuth";
+import { toast } from "sonner";
 
 export interface IFormInput {
   email: string;
@@ -18,6 +20,11 @@ const animateVariant = {
 };
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  // use sign in hook
+  const { loading, sendFormData, error } = useSignIn<IFormInput>("/auth/login");
+
   const {
     register,
     formState: { errors },
@@ -25,7 +32,14 @@ const Login = () => {
   } = useForm<IFormInput>({
     mode: "onChange",
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (formData: IFormInput) => {
+    if (typeof error === "string") {
+      toast.error(error);
+    }
+
+    sendFormData(formData);
+    navigate("/");
+  };
 
   return (
     <section className="flex items-center justify-center h-screen max-sm:px-5">
@@ -71,11 +85,15 @@ const Login = () => {
           {/* PASSWORD */}
           <PasswordInput errors={errors} register={register} />
 
-          {/* Forogt Password */}
+          {/* Forgot Password */}
           <Link to="/" className="font-roboto text-[12px] text-[#4A73EA]">
             Forgot Password?
           </Link>
-          <ShadButton className="bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]">
+          <ShadButton
+            className={`${
+              loading && "animate-pulse"
+            } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+          >
             Login
           </ShadButton>
         </motion.form>
@@ -86,7 +104,7 @@ const Login = () => {
           </span>
         </div>
 
-        {/* Login with Google account */}
+        {/* Login with Google accounts */}
         <motion.div
           variants={animateVariant}
           initial="initial"
@@ -95,7 +113,7 @@ const Login = () => {
           className="w-full"
         >
           <ShadButton className="w-full h-full flex items-center max-md:text-xs bg-white hover:bg-white border border-[#1744C8] justify-center rounded-[8px] text-[#1744C8] font-roboto !py-[15px] gap-2">
-            <img src="/googleicon.svg" />
+            <img src="/googleicon.svg" alt="google_logo" />
             Login with Google Account
           </ShadButton>
         </motion.div>

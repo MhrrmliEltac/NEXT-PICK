@@ -230,7 +230,6 @@ const WebFooter = ({ INFO_DATA }: { INFO_DATA: InfoDataType[] }) => {
             }}
           />
           <TextField
-            id="email"
             type="email"
             name="email"
             placeholder="Your email..."

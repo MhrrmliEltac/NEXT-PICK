@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { ShadButton } from "@/components/ui/button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { FormData } from "@/types/types";
+import { verifyOtp } from "@/auth/otpCode";
 
 const OTPForm = ({
   setActiveStep,
@@ -22,8 +23,10 @@ const OTPForm = ({
   const email = getValues("email");
   const [otpCode, setOtpCode] = useState<string | undefined>("");
 
-  const next = () => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     if (otpCode) {
+      await verifyOtp("/auth/verify-otp", email, otpCode);
       setActiveStep((prev) => prev + 1);
     }
   };
@@ -31,7 +34,7 @@ const OTPForm = ({
   const isValid = (otpCode?.length ?? 0) > 5;
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Box
         component={motion.div}
         variants={animateVariant}
@@ -133,7 +136,6 @@ const OTPForm = ({
       >
         <ShadButton
           disabled={!isValid}
-          onClick={next}
           className="w-full bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]"
         >
           Continue
