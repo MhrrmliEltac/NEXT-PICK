@@ -7,10 +7,12 @@ import { MdOutlineEmail } from "react-icons/md";
 import { BsInfoSquare } from "react-icons/bs";
 import EmailForm from "@/components/auth/register/EmailForm";
 import { animateVariant } from "@/utils/animateVariants";
-import OTPForm from "@/components/auth/register/OTPForm";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormData } from "@/types/types";
 import InfoForm from "@/components/auth/register/InfoForm";
+import { verifyOtp } from "@/auth/otpCode";
+import OTPVerification from "@/components/general/OTPVerification";
+import { path } from "@/utils/paths";
 
 const getSteps = (activeStep: number): StepProps[] => [
   {
@@ -40,6 +42,15 @@ const Register = () => {
 
   const [activeStep, setActiveStep] = useState<number>(0);
 
+  const email = methods.getValues("email")
+
+  const onVerify = async (otpCode: string) => {
+    if (otpCode) {
+      await verifyOtp("/auth/verify-otp", email, otpCode);
+      setActiveStep((prev) => prev + 1);
+    }
+  }
+
   return (
     <FormProvider {...methods}>
       <section className="h-[calc(100vh-185px)]">
@@ -59,9 +70,9 @@ const Register = () => {
             </motion.div>
 
             {activeStep === 0 ? (
-              <EmailForm setActiveStep={setActiveStep} />
+              <EmailForm setActiveStep={setActiveStep} endpoint={path.endpoints.auth.sendOtp} />
             ) : activeStep === 1 ? (
-              <OTPForm setActiveStep={setActiveStep} />
+              <OTPVerification email={email} onVerify={onVerify} onEmailChange={() => { }} onResendCode={() => { }} maxLength={6} expiryMinutes={1} />
             ) : (
               <InfoForm />
             )}

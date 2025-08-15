@@ -7,6 +7,12 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
+import { path } from "@/utils/paths";
+
+interface ActionType {
+  success: boolean;
+  user: FormData;
+}
 
 interface UserState {
   user: FormData | null;
@@ -23,13 +29,13 @@ const initialState: UserState = {
 };
 
 export const getProfileData = createAsyncThunk<
-  FormData,
+  ActionType,
   void,
   { rejectValue: string }
 >("user/profile", async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/auth/profile`,
+      `${import.meta.env.VITE_API_URL}${path.endpoints.auth.profile}`,
       {
         headers: {
           "x-api-key": import.meta.env.VITE_API_KEY,
@@ -57,10 +63,10 @@ export const userSlice: Slice = createSlice({
     });
     builder.addCase(
       getProfileData.fulfilled,
-      (state: UserState, action: PayloadAction<FormData>) => {
+      (state: UserState, action: PayloadAction<ActionType>) => {
         state.isLoading = false;
-        state.user = action.payload;
-        state.isAuth = true;
+        state.isAuth = action.payload.success;
+        state.user = action.payload.user;
       }
     );
     builder.addCase(

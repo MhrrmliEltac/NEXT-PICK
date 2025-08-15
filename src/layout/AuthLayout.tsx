@@ -1,50 +1,35 @@
 import { LoadingScreen } from "@/components/ui/loading";
-import { useAppDispatch, useAppSelector } from "@/hook/hooks";
+import { useAuthContext } from "@/auth/useAuthContext";
 import Footer from "@/pages/Footer";
 import Header from "@/pages/Header";
-import { getProfileData } from "@/redux-toolkit/slice/userSlice";
-import { RootState } from "@/redux-toolkit/store";
+import { path } from "@/utils/paths";
 import { AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
 const AuthLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const profile = useAppSelector((state: RootState) => state.user);
-
-  const [checkedAuth, setCheckedAuth] = useState(false);
+  const { isAuthenticated, isLoading } = useAuthContext();
 
   useEffect(() => {
-    dispatch(getProfileData()).finally(() => setCheckedAuth(true));
-  }, [dispatch]);
+    const isAuthRoute = location.pathname.startsWith('/auth');
+    const isLoginRoute = location.pathname === "/auth/login" || location.pathname === "/auth/register";
+    const isProfileRoute = location.pathname === "/auth/profile";
 
-  useEffect(() => {
-    if (!checkedAuth) return;
-
-    if (profile.isAuth) {
-      if (
-        location.pathname === "/auth" ||
-        location.pathname === "/auth/" ||
-        location.pathname === "/auth/login" ||
-        location.pathname === "/auth/register"
-      ) {
-        navigate("/auth/profile");
+    if (isAuthenticated) {
+      if (isAuthRoute && (isLoginRoute || location.pathname === "/auth" || location.pathname === "/auth/")) {
+        navigate(path.urlPaths.auth.profile);
       }
     } else {
-      if (
-        location.pathname === "/auth" ||
-        location.pathname === "/auth/" ||
-        location.pathname === "/auth/profile"
-      ) {
-        navigate("/auth/login");
+      if (isProfileRoute || (isAuthRoute && location.pathname === "/auth" || location.pathname === "/auth/")) {
+        navigate(path.urlPaths.auth.login);
       }
     }
-  }, [checkedAuth, profile.isAuth, location.pathname, navigate]);
+  }, [isAuthenticated, location.pathname, navigate]);
 
-  if (!checkedAuth || profile.isLoading) {
+  if (isLoading) {
     return (
       <section className="min-h-screen flex mx-auto">
         <LoadingScreen />
@@ -55,10 +40,10 @@ const AuthLayout = () => {
   return (
     <AnimatePresence mode="wait">
       <main>
-        {profile.isAuth && <Header />}
+        {isAuthenticated && <Header />}
         <Outlet />
         <Toaster />
-        {profile.isAuth && <Footer />}
+        {isAuthenticated && <Footer />}
       </main>
     </AnimatePresence>
   );

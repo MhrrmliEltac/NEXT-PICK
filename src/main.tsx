@@ -7,9 +7,12 @@ import { Provider } from "react-redux";
 // toCapitalize Prototype
 import "./utils/toCapitalize.ts";
 import { store } from "./redux-toolkit/store.ts";
+import { AuthProvider } from "./auth/context/AuthContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </Provider>
 );

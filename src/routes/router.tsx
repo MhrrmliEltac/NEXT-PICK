@@ -10,6 +10,7 @@ import Register from "@/pages/Register";
 import ProductDetail from "@/pages/ProductDetail";
 import Favorite from "@/pages/Favorite";
 import Profile from "@/pages/Profile";
+import ForgotPassLayout from "@/layout/ForgotPassLayout";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassLayout />
       }
     ],
   },

@@ -102,6 +102,16 @@ export interface ProductsPaths {
   bestSeller: (sortBy: string) => string;
 }
 
+export interface AuthType {
+  login: string;
+  register: string;
+  profile: string;
+  sendOtp: string;
+  forgotPassword: string;
+  resetPassword: string;
+  verifyOtpByForgotPassword: string;
+}
+
 export interface CategoriesPaths {
   list: string;
   create: string;
@@ -140,3 +150,14 @@ export interface FormData {
   password: string;
   confirmPassword?: string;
 }
+
+export interface IFormInput {
+  email: string;
+  password: string;
+}
+
+export interface IForgotPasswordInput {
+  email: string;
+}
+
+export type FormType = IFormInput | IForgotPasswordInput | FormData;

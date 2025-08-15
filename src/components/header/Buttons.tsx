@@ -12,11 +12,12 @@ import { RootState } from "@/redux-toolkit/store";
 
 const Buttons = () => {
   const navigate = useNavigate();
-  const [count, _] = useState(0);
+  const [count] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [language, setLanguage] = useState<string>("AZ");
 
   const productData = useAppSelector((state: RootState) => state.favorite);
+  const profile = useAppSelector((state: RootState) => state.user);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -91,6 +92,10 @@ const Buttons = () => {
           <Tooltip title="User" sx={{ color: "black" }}>
             <Link to={path.urlPaths.auth.login}>
               <IconButton disableTouchRipple>
+                <Badge
+                  className="h-[10px] min-w-[10px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-2 flex items-center justify-center"
+                  variant={profile.isAuth ? "success" : "destructive"}
+                />
                 <LuUserRound />
               </IconButton>
             </Link>

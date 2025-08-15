@@ -8,11 +8,10 @@ import { motion } from "framer-motion";
 import { NEUTRAL_COLOR } from "@/constant/colors";
 import { useSignIn } from "@/auth/useAuth";
 import { toast } from "sonner";
-
-export interface IFormInput {
-  email: string;
-  password: string;
-}
+import { IFormInput, IForgotPasswordInput } from "@/types/types";
+import { path } from "@/utils/paths";
+import { useAppDispatch } from "@/hook/hooks";
+import { getProfileData } from "@/redux-toolkit/slice/userSlice";
 
 const animateVariant = {
   initial: { opacity: 0, x: -20 },
@@ -21,24 +20,34 @@ const animateVariant = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // use sign in hook
-  const { loading, sendFormData, error } = useSignIn<IFormInput>("/auth/login");
+  const { loading, sendFormData, error } = useSignIn<IFormInput>(
+    path.endpoints.auth.login
+  );
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormInput>({
+  } = useForm<IFormInput | IForgotPasswordInput>({
     mode: "onChange",
   });
-  const onSubmit: SubmitHandler<IFormInput> = (formData: IFormInput) => {
+  const onSubmit: SubmitHandler<IFormInput | IForgotPasswordInput> = async (formData: IFormInput | IForgotPasswordInput) => {
     if (typeof error === "string") {
       toast.error(error);
+      return;
     }
 
-    sendFormData(formData);
-    navigate("/");
+    try {
+      await sendFormData(formData as IFormInput);
+      // After successful login, fetch profile data to update auth state
+      await dispatch(getProfileData());
+      navigate(path.urlPaths.auth.profile);
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
@@ -86,13 +95,13 @@ const Login = () => {
           <PasswordInput errors={errors} register={register} />
 
           {/* Forgot Password */}
-          <Link to="/" className="font-roboto text-[12px] text-[#4A73EA]">
+          <Link to={path.urlPaths.auth.forgotPassword} className="font-roboto text-[12px] text-[#4A73EA]">
             Forgot Password?
           </Link>
           <ShadButton
-            className={`${
-              loading && "animate-pulse"
-            } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+            className={`${loading && "animate-pulse"
+              } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+            disabled={loading}
           >
             Login
           </ShadButton>
@@ -126,7 +135,7 @@ const Login = () => {
           transition={{ delay: 0.4 }}
         >
           <Link
-            to="/auth/register"
+            to={path.urlPaths.auth.register}
             className="text-[#4A73EA] flex items-center justify-center mt-4"
           >
             <Typography variant="h6" fontWeight={600} fontSize={16}>

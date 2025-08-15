@@ -1,4 +1,5 @@
 import {
+  AuthType,
   BlogPaths,
   BrandsPaths,
   CategoriesPaths,
@@ -9,6 +10,7 @@ import {
 } from "@/types/types";
 
 interface EndpointType {
+  auth: AuthType;
   products: ProductsPaths;
   categories: CategoriesPaths;
   blog: BlogPaths;
@@ -30,6 +32,9 @@ interface UrlPaths {
   auth: {
     login: string;
     register: string;
+    profile: string;
+    forgotPassword: string;
+    resetPassword: string;
   };
   productDetail: (productName: string) => string;
   wishlist: string;
@@ -43,6 +48,17 @@ interface Paths {
 export const path: Paths = {
   //? API paths
   endpoints: {
+    //? auth
+    auth: {
+      login: "/auth/login",
+      register: "/auth/register",
+      profile: "/auth/profile",
+      sendOtp: "/auth/send-otp",
+      forgotPassword: "/auth/forgot-password",
+      resetPassword: "/auth/reset-password",
+      verifyOtpByForgotPassword: "/auth/verify-otp-by-forgot-password",
+    },
+
     //? products
     products: {
       create: "/products/create",
@@ -109,6 +125,9 @@ export const path: Paths = {
     auth: {
       login: "/auth/login",
       register: "/auth/register",
+      profile: "/auth/profile",
+      forgotPassword: "/auth/forgot-password",
+      resetPassword: "/auth/reset-password",
     },
 
     //? product detail url
