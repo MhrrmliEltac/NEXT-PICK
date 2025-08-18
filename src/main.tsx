@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/router.tsx";
 import "./index.css";
+import "./App.css";
 import { Provider } from "react-redux";
 
 // toCapitalize Prototype

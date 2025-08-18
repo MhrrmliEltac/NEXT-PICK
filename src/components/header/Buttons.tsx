@@ -81,7 +81,7 @@ const Buttons = () => {
               onClick={() => navigate("/wishlist")}
             >
               <Badge
-                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center"
+                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center text-white"
                 variant="destructive"
               >
                 {productData.favoriteProduct.length ?? 0}
@@ -103,7 +103,7 @@ const Buttons = () => {
           <Tooltip title="Basket" sx={{ color: "black" }}>
             <IconButton disableTouchRipple sx={{ position: "relative" }}>
               <Badge
-                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center"
+                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center text-white"
                 variant="destructive"
               >
                 {count}

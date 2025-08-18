@@ -52,14 +52,14 @@ const SearchInput = () => {
   }, [location.pathname, location.search]);
 
   return (
-    <div className="w-[40%] relative">
+    <div className="w-[40%] relative bg-[#F3F3F3] rounded-[8px]">
       <input
         id="search"
         type="text"
         name="search"
         value={searchQuery}
         placeholder="I'm searching for..."
-        className="rounded flex px-[16px] py-[6px] w-full outline-none"
+        className="flex px-[16px] py-[6px] w-full outline-none"
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearch(e)}
       />
 
