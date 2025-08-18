@@ -8,6 +8,7 @@ export const signOut = async (
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_API_URL}${endpoint}`,
+      {},
       config
     );
 
