@@ -18,8 +18,10 @@ const ProfileDialog: React.FC<DialogType> = ({ open, onClose }) => {
         const response = await signOut("/auth/sign-out")
         setLoading(false)
         if (response.success) {
-            navigate("/")
+            navigate("/", { replace: true });
+            window.location.reload(); 
         }
+
     }
 
     return (
