@@ -2,7 +2,6 @@ import { signOut } from "@/auth/signOut"
 import { Button, CircularProgress, Dialog, DialogActions, DialogTitle } from "@mui/material"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { toast } from "sonner"
 
 type DialogType = {
     open: boolean
