@@ -100,7 +100,7 @@ const Login = () => {
           </Link>
           <ShadButton
             className={`${loading && "animate-pulse"
-              } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+              } bg-[#1A4DE1] cursor-pointer hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
             disabled={loading}
           >
             Login
