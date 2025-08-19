@@ -56,9 +56,9 @@ export interface ProductDataType {
   subcategory: Subcategory;
   createdAt: string;
   updatedAt: string;
+  specifications: Record<string, string>;
   __v: number;
 }
-
 export interface Comment {
   user: string;
   message: string;

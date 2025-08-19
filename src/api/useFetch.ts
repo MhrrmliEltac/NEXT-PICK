@@ -19,6 +19,7 @@ export const useFetch = <T>(
       );
 
       if (response.status === 200) {
+        console.log(response.data);
         setData(response.data);
       }
     } catch (error: unknown) {
