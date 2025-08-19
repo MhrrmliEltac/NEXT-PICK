@@ -39,8 +39,6 @@ const Information = ({
     return [];
   }, [PRODUCT_DATA]);
 
-  console.log(specisificationData);
-
   return (
     <section className="mb-[65px]">
       <Accordion
