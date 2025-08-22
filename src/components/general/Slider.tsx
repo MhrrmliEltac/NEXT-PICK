@@ -41,7 +41,7 @@ const Slider = ({
   }, []);
 
   return (
-    <section className="max-w-[1524px] w-[100%] mx-auto mb-[80px] mt-[80px]">
+    <section className="max-w-[1524px] w-[90%] mx-auto mb-[80px] mt-[80px]">
       <Heading title={title} btnTitle="View all" Icon={TfiArrowCircleRight} />
 
       {/* Divider */}
