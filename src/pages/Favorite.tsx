@@ -1,33 +1,61 @@
 import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
-import { Badge } from "@/components/ui/badge";
 import { NEUTRAL_COLOR } from "@/constant/colors";
-import { useAppSelector } from "@/hook/hooks";
+import { useAppDispatch, useAppSelector } from "@/hook/hooks";
 import { RootState } from "@/redux-toolkit/store";
-import { ProductDataType } from "@/types/types";
+import { FavoriteItem } from "@/types/types";
 import { path } from "@/utils/paths";
-import { Card, CardContent, Grid, Tooltip, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaStar } from "react-icons/fa";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { getFavoriteProducts } from "@/redux-toolkit/slice/favoriteSlice";
+import { LoadingScreen } from "@/components/ui/loading";
+import { listContainer } from "@/utils/animateVariants";
+import FavoriteProduct from "@/components/favorite/FavoriteProduct";
+import { useAuthContext } from "@/auth/useAuthContext";
+import FavoriteSummary from "@/components/favorite/FavoriteSummary";
 
 const Favorite = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAuthContext();
   const favoriteState = useAppSelector((state: RootState) => state.favorite);
 
+  const favorites = useMemo(() => {
+    return favoriteState.favoriteProduct.favorites || [];
+  }, [favoriteState.favoriteProduct]);
+
+  //? --> Calculate total and discountTotal using useMemo for optimization
+
   const total = useMemo(() => {
-    return favoriteState.favoriteProduct.reduce(
-      (acc: number, product: ProductDataType) => acc + product.price,
+    return favorites.reduce(
+      (acc: number, favorite: FavoriteItem) => acc + favorite.product.price,
       0
     );
-  }, [favoriteState]);
+  }, [favorites]);
 
   const discountTotal = useMemo(() => {
-    return favoriteState.favoriteProduct.reduce(
-      (acc: number, product: ProductDataType) => acc + product.discountPrice,
+    return favorites.reduce(
+      (acc: number, favorite: FavoriteItem) =>
+        acc +
+        (favorite.product.discount
+          ? favorite.product.discountPrice
+          : favorite.product.price),
       0
     );
-  }, [favoriteState]);
+  }, [favorites]);
+
+  useEffect(() => {
+    dispatch(getFavoriteProducts());
+  }, [dispatch]);
+
+  if (favoriteState.loading) {
+    return (
+      <section className="min-h-screen flex mx-auto">
+        <LoadingScreen />
+      </section>
+    );
+  }
 
   return (
     <section className="w-full mx-auto">
@@ -55,218 +83,77 @@ const Favorite = () => {
           Favourite product
         </Typography>
 
-        {favoriteState.favoriteProduct.length > 0 ? (
-          <Grid container spacing={2} sx={{ mb: "80px" }}>
+        {favorites.length > 0 ? (
+          <Grid
+            container
+            spacing={2}
+            sx={{ mb: "80px" }}
+            component={motion.div}
+            variants={listContainer}
+            initial="hidden"
+            animate="visible"
+          >
             <Grid size={{ xs: 12, md: 6 }}>
-              {favoriteState.favoriteProduct &&
-                favoriteState.favoriteProduct.length > 0 &&
-                favoriteState.favoriteProduct.map(
-                  (product: ProductDataType) => (
-                    <Card
-                      key={product._id}
-                      sx={{
-                        border: "1px solid",
-                        borderColor: "#CBCBCB",
-                        borderRadius: "8px",
-                        boxShadow: "none",
-                        transition: "all 0.3s ease-in-out",
-                        cursor: "pointer",
-                        mb: "15px",
-                        "&:hover": {
-                          transition: "all 0.3s ease-in-out",
-                          borderColor: "#1A4DE1",
-                        },
-                      }}
-                      className="flex justify-center relative"
-                      component="div"
-                      onClick={() =>
-                        navigate(
-                          `/product/${product.productName
-                            .replace(/\s+/g, "-")
-                            .toLowerCase()}?id=${product._id}`
-                        )
-                      }
-                    >
-                      {product.discount && (
-                        <Badge className="absolute top-5 left-1 bg-[#FB5F2F] hover:bg-red-500 w-[44px] h-[22px] rounded-tr-[8px] rounded-br-[8px] rounded-tl-none rounded-bl-none">
-                          {product.discountPercent}%
-                        </Badge>
-                      )}
-
-                      <CardContent
-                        sx={{
-                          width: "100%",
-                          display: "flex",
-                          gap: "20px",
-                        }}
-                      >
-                        <div className="w-[30%] mx-auto flex justify-center items-center">
-                          <motion.img
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                            src={product.image}
-                            alt="product_image"
-                            className="h-[80px] max-sm:w-full transition-all duration-300 object-contain"
-                          />
-                        </div>
-                        <div className="max-md:w-[250px] w-[60%] flex flex-col justify-between max-h-[120px]">
-                          <div className="flex justify-between items-center">
-                            <Tooltip title={product.productName}>
-                              <Typography
-                                sx={{
-                                  whiteSpace: "nowrap",
-                                  overflow: "hidden",
-                                  textOverflow: "ellipsis",
-                                  maxWidth: {
-                                    lg: '"200px"',
-                                  },
-                                  display: "inline-block",
-                                }}
-                              >
-                                {product.productName}
-                              </Typography>
-                            </Tooltip>
-                            <div className="flex gap-1">
-                              <Typography
-                                component="span"
-                                variant="caption"
-                                fontSize={14}
-                                fontWeight={600}
-                                color={
-                                  product.discount
-                                    ? NEUTRAL_COLOR.neutral400
-                                    : NEUTRAL_COLOR.neutral650
-                                }
-                                sx={{
-                                  textDecoration: product.discount
-                                    ? "line-through"
-                                    : "none",
-                                }}
-                              >
-                                €{product.price}
-                              </Typography>
-                              {product.discount && (
-                                <Typography
-                                  component="span"
-                                  variant="caption"
-                                  fontSize={14}
-                                  color="#C33104"
-                                  fontWeight={600}
-                                >
-                                  €{product.discountPrice}
-                                </Typography>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="flex justify-between items-center w-full">
-                            <div className="flex items-center gap-1">
-                              <FaStar size={12} />
-                              <Typography
-                                variant="body2"
-                                color={NEUTRAL_COLOR.neutral800}
-                                fontSize={12}
-                                lineHeight={0}
-                                sx={{ m: 0, p: 0 }}
-                              >
-                                {product.rating}
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color={NEUTRAL_COLOR.neutral800}
-                                fontSize={12}
-                                lineHeight={0}
-                                sx={{ m: 0, p: 0 }}
-                              >
-                                ({product.comment && product.comment.length})
-                              </Typography>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )
-                )}
+              {favorites &&
+                favorites.length > 0 &&
+                favorites.map((favorite: FavoriteItem) => (
+                  <FavoriteProduct favorite={favorite} key={favorite._id} />
+                ))}
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Card
-                sx={{
-                  border: "1px solid",
-                  borderColor: "#CBCBCB",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-                  transition: "all 0.3s ease-in-out",
-                  "&:hover": {
-                    borderColor: "#1A4DE1",
-                  },
-                }}
-                component="div"
-              >
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    sx={{ mb: 2, color: "#1A1A1A" }}
-                  >
-                    🛒 Wishlist Summary
-                  </Typography>
-
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-600 text-sm">
-                      Total Products:
-                    </span>
-                    <span className="font-semibold text-sm">
-                      {favoriteState.favoriteProduct.length}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-600 text-sm">
-                      Original Price:
-                    </span>
-                    <span className="font-semibold text-sm text-gray-500 line-through">
-                      €{total}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-600 text-sm">
-                      Discounted Price:
-                    </span>
-                    <span className="font-semibold text-sm text-red-500">
-                      €{discountTotal}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-gray-600 text-sm">You Save:</span>
-                    <span className="font-semibold text-sm text-green-600">
-                      €{(total - discountTotal).toFixed(2)}
-                    </span>
-                  </div>
-
-                  <div className="w-full flex justify-end">
-                    <button
-                      onClick={() => navigate("/shop")}
-                      className="bg-[#1A4DE1] hover:bg-[#163dc2] text-white py-2 px-4 rounded-md text-sm transition duration-300"
-                    >
-                      Continue Shopping
-                    </button>
-                  </div>
-                </CardContent>
-              </Card>
+              <FavoriteSummary
+                key={favorites._id}
+                discountTotal={discountTotal}
+                length={favorites.length}
+                total={total}
+              />
             </Grid>
           </Grid>
         ) : (
           <div className="mb-[20px]">
-            <Typography
-              component="span"
-              fontSize={24}
-              color={NEUTRAL_COLOR.neutral650}
-            >
-              Don't have favourite product
-            </Typography>
+            {isAuthenticated ? (
+              <div className="flex flex-col items-center justify-center min-h-[50vh]">
+                <img
+                  src="/empty-wishlist.png"
+                  alt="Empty Wishlist"
+                  className="w-48 h-48 mb-4"
+                />
+                <Typography
+                  variant="h6"
+                  color={NEUTRAL_COLOR.neutral800}
+                  sx={{ mb: 2 }}
+                >
+                  Your wishlist is empty!
+                </Typography>
+                <button
+                  onClick={() => navigate("/shop")}
+                  className="bg-[#1A4DE1] hover:bg-[#163dc2] text-white py-2 px-4 rounded-md text-sm transition duration-300"
+                >
+                  Start Shopping
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center min-h-[50vh]">
+                <img
+                  src="/error404.png"
+                  alt="Login to Wishlist"
+                  className="w-48 h-48 mb-4"
+                />
+                <Typography
+                  variant="h6"
+                  color={NEUTRAL_COLOR.neutral800}
+                  sx={{ mb: 2 }}
+                >
+                  Please log in to view your wishlist.
+                </Typography>
+                <button
+                  onClick={() => navigate("/auth/login")}
+                  className="bg-[#1A4DE1] hover:bg-[#163dc2] text-white py-2 px-4 rounded-md text-sm transition duration-300"
+                >
+                  Go to Login
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

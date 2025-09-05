@@ -12,8 +12,7 @@ import { CiCircleCheck } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { ShadButton } from "../ui/button";
 import { useAppDispatch } from "@/hook/hooks";
-import { addFavorite } from "@/redux-toolkit/slice/favoriteSlice";
-
+import { addFavoriteProduct } from "@/redux-toolkit/slice/favoriteSlice";
 const MotionShadButton = motion.create(ShadButton);
 
 const showBenefits: string[] = [
@@ -25,8 +24,8 @@ const showBenefits: string[] = [
 const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
   const dispatch = useAppDispatch();
 
-  const handleFavoriteData = (product: ProductDataType) => {
-    dispatch(addFavorite(product));
+  const handleFavoriteData = async (productId: string) => {
+    dispatch(addFavoriteProduct(productId));
   };
 
   return (
@@ -108,14 +107,14 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
             <MotionShadButton
               whileHover={{ scale: 1.03 }}
               variant="default"
-              className="bg-[#1A4DE1] hover:bg-[#1A4DE1] h-12 w-full flex items-center justify-center text-white text-base"
+              className="bg-[#1A4DE1] hover:bg-[#1A4DE1] cursor-pointer h-12 w-full flex items-center justify-center text-white text-base"
             >
               Buy now
             </MotionShadButton>
             <MotionShadButton
               whileHover={{ scale: 1.03 }}
               variant="outline"
-              className="h-12 w-full flex justify-center items-center border border-[#1A4DE1] font-roboto text-[#1A4DE1] hover:text-[#1A4DE1]"
+              className="h-12 w-full cursor-pointer flex justify-center items-center border border-[#1A4DE1] font-roboto text-[#1A4DE1] hover:text-[#1A4DE1]"
             >
               Add to Cart
             </MotionShadButton>
@@ -123,9 +122,9 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.9 }}
               variant="outline"
-              className="border border-[#1A4DE1] h-12"
+              className="border border-[#1A4DE1] cursor-pointer  h-12"
               onClick={() => {
-                if (PRODUCT_DATA) handleFavoriteData(PRODUCT_DATA);
+                if (PRODUCT_DATA) handleFavoriteData(PRODUCT_DATA._id);
               }}
             >
               <BsHeartFill color="#FB3748" />

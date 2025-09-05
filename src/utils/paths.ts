@@ -3,6 +3,7 @@ import {
   BlogPaths,
   BrandsPaths,
   CategoriesPaths,
+  FavoritePaths,
   InfoPaths,
   ProductsPaths,
   SearchPaths,
@@ -18,6 +19,7 @@ interface EndpointType {
   subCategory: SubCategoryPaths;
   info: InfoPaths;
   search: SearchPaths;
+  favorite: FavoritePaths;
 }
 
 interface UrlPaths {
@@ -57,6 +59,7 @@ export const path: Paths = {
       forgotPassword: "/auth/forgot-password",
       resetPassword: "/auth/reset-password",
       verifyOtpByForgotPassword: "/auth/verify-otp-by-forgot-password",
+      refreshToken: "/auth/refresh-token",
     },
 
     //? products
@@ -105,6 +108,13 @@ export const path: Paths = {
     //? search
     search: {
       searchProducts: (query) => `/products/search?search=${query}`,
+    },
+
+    //? favorite
+    favorite: {
+      getFavorites: "/favorites/my-favorites",
+      addFavorite: "/favorites/add",
+      removeFavorite: (productId) => `/favorites/remove/${productId}`,
     },
   },
 

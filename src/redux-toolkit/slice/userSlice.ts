@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import { RootState } from "../store";
 import { path } from "@/utils/paths";
+import api from "@/api/api";
 
 interface ActionType {
   success: boolean;
@@ -34,15 +35,12 @@ export const getProfileData = createAsyncThunk<
   { rejectValue: string }
 >("user/profile", async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}${path.endpoints.auth.profile}`,
-      {
-        headers: {
-          "x-api-key": import.meta.env.VITE_API_KEY,
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await api.get(path.endpoints.auth.profile, {
+      headers: {
+        "x-api-key": import.meta.env.VITE_API_KEY,
+      },
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -80,5 +78,5 @@ export const userSlice: Slice = createSlice({
   },
 });
 
-export const selectUser = (state: RootState) => state.user.value;
+export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

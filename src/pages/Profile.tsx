@@ -4,11 +4,23 @@ import { NEUTRAL_COLOR } from "@/constant/colors";
 import { useAppSelector } from "@/hook/hooks";
 import { RootState } from "@/redux-toolkit/store";
 import { Typography } from "@mui/material";
-import { LogOut, ShoppingCart, User2 } from "lucide-react";
+import {
+  User2,
+  ShoppingCart,
+  Heart,
+  MessageSquare,
+  RefreshCcw,
+  MapPin,
+  Tag,
+  Bell,
+  Settings,
+  LogOut,
+} from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { IconType } from "react-icons/lib";
 import MyProfile from "@/components/profile/MyProfile";
 import ProfileDialog from "@/components/profile/ProfileDialog";
+import Orders from "@/components/profile/Orders";
 
 type TabType = {
   icon: IconType;
@@ -21,10 +33,11 @@ const renderProfileTabs = (
   handleClose: () => void,
   open: boolean
 ) => {
-
   switch (tabName) {
     case "My profile":
       return <MyProfile />;
+    case "Orders":
+      return <Orders />;
     case "Log out":
       return <ProfileDialog onClose={handleClose} open={open} />;
     default:
@@ -44,6 +57,41 @@ const Profile = () => {
     {
       icon: ShoppingCart,
       tabName: "Orders",
+      active: false,
+    },
+    {
+      icon: Heart,
+      tabName: "My favorite",
+      active: false,
+    },
+    {
+      icon: MessageSquare,
+      tabName: "Chat history",
+      active: false,
+    },
+    {
+      icon: RefreshCcw,
+      tabName: "Returns & warranty",
+      active: false,
+    },
+    {
+      icon: MapPin,
+      tabName: "Addresses",
+      active: false,
+    },
+    {
+      icon: Tag,
+      tabName: "Discounts",
+      active: false,
+    },
+    {
+      icon: Bell,
+      tabName: "Notifications",
+      active: false,
+    },
+    {
+      icon: Settings,
+      tabName: "Data & preferences",
       active: false,
     },
     {
@@ -67,9 +115,9 @@ const Profile = () => {
       setTabs(tab);
 
       if (tabname === "Log out") {
-        setOpen((prev) => !prev)
+        setOpen((prev) => !prev);
+        return;
       }
-
     },
     [tabs, setTabs]
   );
@@ -80,6 +128,13 @@ const Profile = () => {
 
   const handleClose = useCallback(() => {
     setOpen(false);
+    setTabs((prev) =>
+      prev.map((item) =>
+        item.tabName === "My profile"
+          ? { ...item, active: true }
+          : { ...item, active: false }
+      )
+    );
   }, []);
 
   return (
@@ -111,9 +166,7 @@ const Profile = () => {
                 return (
                   <li
                     key={index}
-                    onClick={() =>
-                      tab.tabName === "Log out" && handleClick(tab.tabName)
-                    }
+                    onClick={() => handleClick(tab.tabName)}
                     className="flex gap-2 items-center m-0 p-0 cursor-pointer"
                   >
                     <Icon

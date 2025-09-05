@@ -31,9 +31,6 @@ const Information = ({
 
   const specisificationData = useMemo(() => {
     if (PRODUCT_DATA?.specifications) {
-      console.log(Object.entries(PRODUCT_DATA.specifications).map(
-        ([key, value]) => ({ key, value })
-      ))
       return Object.entries(PRODUCT_DATA.specifications).map(
         ([key, value]) => ({ key, value })
       );

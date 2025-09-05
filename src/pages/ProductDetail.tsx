@@ -53,8 +53,6 @@ const ProductDetail = () => {
   const { data: PRODUCT_DATA, loading: PRODUCT_LOADING } =
     useFetch<ProductDataType>(path.endpoints.products.productById(id || ""));
 
-  console.log(PRODUCT_DATA);
-
   useEffect(() => {
     if (PRODUCT_DATA?.category) {
       setBreadcrumbUrl((prev) => ({
@@ -97,9 +95,9 @@ const ProductDetail = () => {
                   href:
                     typeof path.urlPaths.subcategory.list === "function"
                       ? path.urlPaths.subcategory.list(
-                        breadcrumbUrl.category,
-                        breadcrumbUrl.subcategory
-                      )
+                          breadcrumbUrl.category,
+                          breadcrumbUrl.subcategory
+                        )
                       : path.urlPaths.subcategory.list,
                 },
                 { label: productName },
@@ -111,7 +109,11 @@ const ProductDetail = () => {
             <Hero PRODUCT_DATA={PRODUCT_DATA} />
 
             {/* Product information & specification */}
-            <Information expanded={expanded} handleChange={handleChange} PRODUCT_DATA={PRODUCT_DATA} />
+            <Information
+              expanded={expanded}
+              handleChange={handleChange}
+              PRODUCT_DATA={PRODUCT_DATA}
+            />
 
             {/* Product Description */}
             <Description expanded1={expanded1} handleChange={handleChange} />

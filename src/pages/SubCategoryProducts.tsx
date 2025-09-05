@@ -93,8 +93,6 @@ const SubCategoryProducts = () => {
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     const { value } = e.target;
 
-    console.log("Selected sort value:", value);
-
     switch (value) {
       case "Ən yeni":
         setSortValue({ key: "newest", value });

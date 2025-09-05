@@ -14,16 +14,27 @@ const AuthLayout = () => {
   const { isAuthenticated, isLoading } = useAuthContext();
 
   useEffect(() => {
-    const isAuthRoute = location.pathname.startsWith('/auth');
-    const isLoginRoute = location.pathname === "/auth/login" || location.pathname === "/auth/register";
+    const isAuthRoute = location.pathname.startsWith("/auth");
+    const isLoginRoute =
+      location.pathname === "/auth/login" ||
+      location.pathname === "/auth/register";
     const isProfileRoute = location.pathname === "/auth/profile";
 
     if (isAuthenticated) {
-      if (isAuthRoute && (isLoginRoute || location.pathname === "/auth" || location.pathname === "/auth/")) {
+      if (
+        isAuthRoute &&
+        (isLoginRoute ||
+          location.pathname === "/auth" ||
+          location.pathname === "/auth/")
+      ) {
         navigate(path.urlPaths.auth.profile);
       }
     } else {
-      if (isProfileRoute || (isAuthRoute && location.pathname === "/auth" || location.pathname === "/auth/")) {
+      if (
+        isProfileRoute ||
+        (isAuthRoute && location.pathname === "/auth") ||
+        location.pathname === "/auth/"
+      ) {
         navigate(path.urlPaths.auth.login);
       }
     }

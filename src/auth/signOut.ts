@@ -14,11 +14,13 @@ export const signOut = async (
 
     if (response.status === 200) {
       toast.success(response.data.message);
+      // Redirect to home after successful sign out
+      window.location.href = "/";
     }
     return { success: true };
   } catch (error) {
     if (error instanceof AxiosError) {
-      toast.error(error.response?.data.message);
+      console.error(error.response?.data.message);
     }
     return { success: false };
   }

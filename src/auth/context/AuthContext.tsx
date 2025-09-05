@@ -5,16 +5,18 @@ import { useEffect } from "react";
 import { AuthContext } from "./authContext";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const dispatch = useAppDispatch()
-    const { isAuth, isLoading } = useAppSelector((state: RootState) => state.user)
+  const dispatch = useAppDispatch();
+  const { isAuth, isLoading } = useAppSelector(
+    (state: RootState) => state.user
+  );
 
-    useEffect(() => {
-        dispatch(getProfileData())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(getProfileData());
+  }, [dispatch]);
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated: isAuth, isLoading }}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={{ isAuthenticated: isAuth, isLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

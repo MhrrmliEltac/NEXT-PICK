@@ -21,6 +21,7 @@ export const usePost = <T>(endpoint: string) => {
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.log(error);
+        setError(error);
       } else if (error instanceof AxiosError) {
         setError(error);
       }

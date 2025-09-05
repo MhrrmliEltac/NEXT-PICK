@@ -110,6 +110,7 @@ export interface AuthType {
   forgotPassword: string;
   resetPassword: string;
   verifyOtpByForgotPassword: string;
+  refreshToken: string;
 }
 
 export interface CategoriesPaths {
@@ -141,6 +142,12 @@ export interface SearchPaths {
   searchProducts: (query: string) => string;
 }
 
+export interface FavoritePaths {
+  getFavorites: string;
+  addFavorite: string;
+  removeFavorite: (productId: string) => string;
+}
+
 export interface FormData {
   name: string;
   surname: string;
@@ -161,3 +168,48 @@ export interface IForgotPasswordInput {
 }
 
 export type FormType = IFormInput | IForgotPasswordInput | FormData;
+
+export interface FavoriteItem {
+  createdAt: string;
+  product: ProductDataType;
+  updatedAt: string;
+  _id: string;
+  user: string;
+}
+
+export type FormElementProps = {
+  id?: string | number;
+  Icon: React.ElementType;
+  htmlFor: string;
+  placeholder: string;
+  value: string;
+  name: string;
+  identification: string;
+  label: string;
+  type?: string;
+  readonly?: boolean;
+};
+
+export enum OrderStatus {
+  PENDING = "PENDING",
+  PROCESSING = "PROCESSING",
+  COMPLETED = "COMPLETED",
+  CANCELLED = "CANCELLED",
+}
+
+export interface OrderProductType {
+  id: number;
+  name: string;
+  image: string;
+  quantity: number;
+  color: string;
+}
+
+export interface OrderHistoryType {
+  id: number | string;
+  orderNumber: string;
+  product: OrderProductType;
+  totalPayment: number;
+  orderDate: string;
+  status: string;
+}
