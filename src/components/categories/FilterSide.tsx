@@ -14,6 +14,14 @@ import { useState, type ChangeEvent } from "react";
 import FilterAccordion from "../general/FilterAccordion";
 import { motion } from "framer-motion";
 
+const accordionStyle = {
+  backgroundColor: "transparent",
+  boxShadow: "none",
+  border: "none",
+  width: "100%",
+  "&:before": { display: "none" },
+};
+
 const COLOR_DATA = [
   { color: "#000000" },
   { color: "#757575" },
@@ -84,15 +92,7 @@ const FilterSide = ({ show }: { show: boolean }) => {
           className="border-[#E5E5E5] border rounded-[8px] px-5"
         >
           {/* Color Filter */}
-          <Accordion
-            sx={{
-              backgroundColor: "transparent",
-              boxShadow: "none",
-              border: "none",
-              width: "100%",
-              "&:before": { display: "none" },
-            }}
-          >
+          <Accordion sx={accordionStyle}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               sx={{ backgroundColor: "transparent", padding: 0 }}
@@ -126,15 +126,7 @@ const FilterSide = ({ show }: { show: boolean }) => {
           />
 
           {/* Price Filter */}
-          <Accordion
-            sx={{
-              backgroundColor: "transparent",
-              boxShadow: "none",
-              border: "none",
-              width: "100%",
-              "&:before": { display: "none" },
-            }}
-          >
+          <Accordion sx={accordionStyle}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               sx={{ backgroundColor: "transparent", padding: 0 }}

@@ -9,7 +9,7 @@ const Wrapper = ({
   title: string;
 }) => {
   return (
-    <div className="w-full max-w-[808px] mx-auto">
+    <div className="w-full max-w-[808px] mx-auto mb-20">
       <ProfileHeading title={title} />
 
       {children}
