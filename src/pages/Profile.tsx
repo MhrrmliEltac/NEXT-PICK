@@ -21,6 +21,7 @@ import { IconType } from "react-icons/lib";
 import MyProfile from "@/components/profile/MyProfile";
 import ProfileDialog from "@/components/profile/ProfileDialog";
 import Orders from "@/components/profile/Orders";
+import Discount from "@/components/profile/Discount";
 
 type TabType = {
   icon: IconType;
@@ -38,6 +39,8 @@ const renderProfileTabs = (
       return <MyProfile />;
     case "Orders":
       return <Orders />;
+    case "Discounts":
+      return <Discount />;
     case "Log out":
       return <ProfileDialog onClose={handleClose} open={open} />;
     default:
