@@ -35,6 +35,7 @@ const FormElement: React.FC<FormElementProps> = ({
             placeholder={placeholder}
             id={identification}
             name={name}
+            onChange={() => {}}
             className="w-full h-[48px] border-neutral-400 border-2 pl-10"
           />
         </FormGroup>

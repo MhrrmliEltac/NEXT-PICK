@@ -54,7 +54,7 @@ const SearchInput = () => {
   return (
     <div className="w-[40%] relative bg-[#F3F3F3] rounded-[8px]">
       <input
-        id="search"
+        id="search-input"
         type="text"
         name="search"
         value={searchQuery}
