@@ -1,6 +1,8 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import type { OfferType } from "../../types/types";
+import { path } from "@/utils/paths";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const OFFER_DATA: OfferType[] = [
   {
@@ -26,6 +28,7 @@ const OFFER_DATA: OfferType[] = [
     title: "Support 24/7",
     subtitle: "Help when you need it.",
     icon: "/support.svg",
+    link: path.urlPaths.contact,
   },
   {
     id: 5,
@@ -36,6 +39,15 @@ const OFFER_DATA: OfferType[] = [
 ];
 
 const Offer = () => {
+  const navigate: NavigateFunction = useNavigate();
+
+  const handleNavigate = (link: string | undefined) => {
+    if (link) {
+      navigate(link);
+      return;
+    }
+  };
+
   return (
     <Card className="max-w-[1524px] w-[90%] max-lg:hidden mx-auto flex justify-between items-center mt-[80px] mb-[80px] transition-all duration-300">
       {OFFER_DATA.map((offer, index) => (
@@ -44,6 +56,8 @@ const Offer = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: index * 0.1 }}
+          onClick={() => handleNavigate(offer.link)}
+          className="cursor-pointer"
         >
           <CardContent>
             <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>

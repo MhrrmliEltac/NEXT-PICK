@@ -5,7 +5,7 @@ import { RootState } from "@/redux-toolkit/store";
 import { FavoriteItem } from "@/types/types";
 import { path } from "@/utils/paths";
 import { Grid, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { type NavigateFunction, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect, useMemo } from "react";
 import { getFavoriteProducts } from "@/redux-toolkit/slice/favoriteSlice";
@@ -16,7 +16,7 @@ import { useAuthContext } from "@/auth/useAuthContext";
 import FavoriteSummary from "@/components/favorite/FavoriteSummary";
 
 const Favorite = () => {
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAuthContext();
   const favoriteState = useAppSelector((state: RootState) => state.favorite);

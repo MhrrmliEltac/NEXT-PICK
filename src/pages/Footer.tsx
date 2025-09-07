@@ -6,15 +6,18 @@ import MobileFooter from "../components/footer/MobileFooter";
 import WebFooter from "../components/footer/WebFooter";
 import { Link } from "react-router-dom";
 import { path } from "@/utils/paths";
+import { InfoDataType } from "@/types/types";
 
 const Footer = () => {
-  const { data: INFO_DATA } = useFetch<any>(path.endpoints.info.list);
+  const { data: INFO_DATA } = useFetch<InfoDataType[]>(
+    path.endpoints.info.list
+  );
 
   return (
     <footer style={{ background: NEUTRAL_COLOR.neutral130 }} className={``}>
-      <WebFooter INFO_DATA={INFO_DATA} />
+      <WebFooter INFO_DATA={INFO_DATA ?? []} />
 
-      <MobileFooter INFO_DATA={INFO_DATA} />
+      <MobileFooter INFO_DATA={INFO_DATA ?? []} />
 
       <Divider
         sx={{

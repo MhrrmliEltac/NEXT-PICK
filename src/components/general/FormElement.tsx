@@ -13,6 +13,7 @@ const FormElement: React.FC<FormElementProps> = ({
   value,
   type = "text",
   readonly = true,
+  onChange,
 }) => {
   return (
     <FormGroup>
@@ -24,10 +25,12 @@ const FormElement: React.FC<FormElementProps> = ({
           {label}
         </FormLabel>
         <FormGroup className="relative flex ">
-          <Icon
-            className="absolute top-2.5 left-2 text-neutral-400"
-            size={25}
-          />
+          {Icon && (
+            <Icon
+              className="absolute top-2.5 left-2 text-neutral-400"
+              size={25}
+            />
+          )}
           <Input
             readOnly={readonly}
             type={type}
@@ -35,7 +38,7 @@ const FormElement: React.FC<FormElementProps> = ({
             placeholder={placeholder}
             id={identification}
             name={name}
-            onChange={() => {}}
+            onChange={onChange}
             className="w-full h-[48px] border-neutral-400 border-2 pl-10"
           />
         </FormGroup>

@@ -33,8 +33,6 @@ const InfoForm = () => {
     password && confirmPassword && password === confirmPassword;
 
   const onSubmit: SubmitHandler<FormData> = (formData) => {
-
-
     if (password === confirmPassword) {
       sendFormDataByRegister(formData);
       toast.success("Registration completed successfully.");
@@ -154,20 +152,22 @@ const InfoForm = () => {
         <IoEyeOffOutline
           className={`absolute left-3 top-1/2 -translate-y-1/2 
                   w-5 h-5 text-[#4B4B4B] 
-                  group-focus-within:text-[#4A73EA]  ${errors.password
-              ? "text-[#D00416] group-focus-within:text-[#D00416]"
-              : ""
-            }`}
+                  group-focus-within:text-[#4A73EA]  ${
+                    errors.password
+                      ? "text-[#D00416] group-focus-within:text-[#D00416]"
+                      : ""
+                  }`}
         />
         <Input
           className={`h-12 pl-10 pr-[13px] 
           focus:border-[#4A73EA] 
           font-medium 
           placeholder:text-[#4B4B4B] !font-roboto text-[16px] 
-          border-[#939393] shadow-md w-full ${errors.password
+          border-[#939393] shadow-md w-full ${
+            errors.password
               ? "border-[#D00416] text-[#D00416] focus:border-[#D00416] placeholder:text-[#D00416] focus:placeholder:text-[#D00416]"
               : "custom-shadow-input focus:text-[#4A73EA] focus:placeholder:text-[#4A73EA]"
-            }`}
+          }`}
           placeholder="Password"
           type="password"
           {...register("password", {
@@ -200,20 +200,22 @@ const InfoForm = () => {
         <IoEyeOffOutline
           className={`absolute left-3 top-1/2 -translate-y-1/2 
                   w-5 h-5 text-[#4B4B4B] 
-                  group-focus-within:text-[#4A73EA]  ${errors.password
-              ? "text-[#D00416] group-focus-within:text-[#D00416]"
-              : ""
-            }`}
+                  group-focus-within:text-[#4A73EA]  ${
+                    errors.password
+                      ? "text-[#D00416] group-focus-within:text-[#D00416]"
+                      : ""
+                  }`}
         />
         <Input
           className={`h-12 pl-10 pr-[13px] 
           focus:border-[#4A73EA] 
           font-medium 
           placeholder:text-[#4B4B4B] !font-roboto text-[16px] 
-          border-[#939393] shadow-md w-full ${errors.password
+          border-[#939393] shadow-md w-full ${
+            errors.password
               ? "border-[#D00416] text-[#D00416] focus:border-[#D00416] placeholder:text-[#D00416] focus:placeholder:text-[#D00416]"
               : "custom-shadow-input focus:text-[#4A73EA] focus:placeholder:text-[#4A73EA]"
-            }`}
+          }`}
           placeholder="Confirm password"
           type="password"
           {...register("confirmPassword", {
@@ -241,8 +243,9 @@ const InfoForm = () => {
         <ShadButton
           disabled={!isValidPasswordMatch}
           onClick={handleSubmit(onSubmit)}
-          className={`${loading && "animate-pulse"
-            } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+          className={`${
+            loading && "animate-pulse"
+          } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
         >
           Continue
         </ShadButton>

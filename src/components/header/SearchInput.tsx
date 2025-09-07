@@ -4,10 +4,10 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { type Location, useLocation } from "react-router-dom";
 
 const SearchInput = () => {
-  const location = useLocation();
+  const location: Location = useLocation();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<ProductDataType[]>([]);
 

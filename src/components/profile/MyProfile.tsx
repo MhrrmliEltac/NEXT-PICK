@@ -6,7 +6,7 @@ import { RootState } from "@/redux-toolkit/store";
 import { Calendar, House, Mail, PhoneCall, Signpost, User } from "lucide-react";
 import Wrapper from "./Wrapper";
 import { FormElementProps } from "@/types/types";
-import FormElement from "./FormElement";
+import FormElement from "../general/FormElement";
 
 const MyProfile = () => {
   const { user } = useAppSelector((state: RootState) => state.user);

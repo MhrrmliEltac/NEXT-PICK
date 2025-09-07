@@ -6,11 +6,11 @@ const Wrapper = ({
   title,
 }: {
   children: ReactNode;
-  title: string;
+  title?: string;
 }) => {
   return (
     <div className="w-full max-w-[808px] mx-auto mb-20">
-      <ProfileHeading title={title} />
+      <ProfileHeading title={title ?? ""} />
 
       {children}
     </div>

@@ -11,6 +11,7 @@ import ProductDetail from "@/pages/ProductDetail";
 import Favorite from "@/pages/Favorite";
 import Profile from "@/pages/Profile";
 import ForgotPassLayout from "@/layout/ForgotPassLayout";
+import ContactUs from "@/pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/wishlist",
         element: <Favorite />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
       },
       {
         path: "/not-found",
@@ -65,8 +70,8 @@ const router = createBrowserRouter([
       },
       {
         path: "forgot-password",
-        element: <ForgotPassLayout />
-      }
+        element: <ForgotPassLayout />,
+      },
     ],
   },
 ]);

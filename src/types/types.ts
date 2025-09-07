@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export interface CategoryType {
   _id: string;
   title: string;
@@ -20,6 +22,7 @@ export interface OfferType {
   title: string;
   subtitle: string;
   icon: string;
+  link?: string;
 }
 
 export interface SubCategoryDataType {
@@ -179,15 +182,18 @@ export interface FavoriteItem {
 
 export type FormElementProps = {
   id?: string | number;
-  Icon: React.ElementType;
-  htmlFor: string;
-  placeholder: string;
-  value: string;
-  name: string;
-  identification: string;
-  label: string;
+  Icon?: React.ElementType;
+  htmlFor?: string;
+  placeholder?: string;
+  value?: string;
+  name?: string;
+  identification?: string;
+  label?: string;
   type?: string;
   readonly?: boolean;
+  onChange?: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 };
 
 export enum OrderStatus {
