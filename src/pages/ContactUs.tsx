@@ -15,6 +15,7 @@ export interface InitialState {
   success: boolean;
   message: string;
 }
+
 const ContactUs = () => {
   const { data: INFO_DATA } = useFetch<InfoDataType[]>(
     path.endpoints.info.list
