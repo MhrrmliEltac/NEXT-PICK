@@ -21,7 +21,7 @@ api.interceptors.response.use(
     ) {
       if (!isRedirectingToLogin && window.location.pathname !== "/") {
         isRedirectingToLogin = true;
-        window.location.href = "/";
+        return Promise.reject(error);
       }
       return Promise.reject(error);
     }
@@ -49,7 +49,7 @@ api.interceptors.response.use(
 
       if (!isRedirectingToLogin && window.location.pathname !== "/") {
         isRedirectingToLogin = true;
-        window.location.href = "/";
+        return Promise.reject(error);
       }
       return Promise.reject(error);
     }

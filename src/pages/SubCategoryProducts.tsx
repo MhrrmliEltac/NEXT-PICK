@@ -159,7 +159,7 @@ const SubCategoryProducts = () => {
                 fontSize={20}
                 component="span"
               >
-                Laptops
+                {categoryName}
               </Typography>
               <Typography
                 variant="body2"

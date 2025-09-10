@@ -1,12 +1,10 @@
 import { Divider, Typography } from "@mui/material";
 import { useFetch } from "../api/useFetch";
 import { NEUTRAL_COLOR } from "../constant/colors";
-
-import MobileFooter from "../components/footer/MobileFooter";
-import WebFooter from "../components/footer/WebFooter";
 import { Link } from "react-router-dom";
 import { path } from "@/utils/paths";
 import { InfoDataType } from "@/types/types";
+import { MobileFooter, WebFooter } from "@/components/footer";
 
 const Footer = () => {
   const { data: INFO_DATA } = useFetch<InfoDataType[]>(

@@ -219,3 +219,15 @@ export interface OrderHistoryType {
   orderDate: string;
   status: string;
 }
+
+export type FooterListType = {
+  id: number;
+  heading: string;
+  list: string[];
+};
+
+export interface AboutType {
+  id: number;
+  heading?: string;
+  description: string;
+}
