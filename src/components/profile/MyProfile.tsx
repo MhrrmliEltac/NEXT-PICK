@@ -95,6 +95,7 @@ const MyProfile = () => {
             value={form.value || ""}
             type={form.type}
             readonly={form.readonly}
+            onChange={() => {}}
           />
         ))}
       </div>

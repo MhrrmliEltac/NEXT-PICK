@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { Value } from "react-phone-number-input";
 
 export interface CategoryType {
   _id: string;
@@ -192,7 +193,9 @@ export type FormElementProps = {
   type?: string;
   readonly?: boolean;
   onChange?: (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | Value | undefined
+    >
   ) => void;
 };
 
