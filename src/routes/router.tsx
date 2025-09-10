@@ -1,21 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Home from "../pages/Home";
 import NotFound from "@/pages/NotFound";
 import AuthLayout from "@/layout/AuthLayout";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Favorite from "@/pages/Favorite";
-import Profile from "@/pages/Profile";
 import ForgotPassLayout from "@/layout/ForgotPassLayout";
 import ContactUs from "@/pages/ContactUs";
 import About from "@/pages/About";
 import { lazy, Suspense } from "react";
 import { LoadingScreen } from "@/components/ui/loading";
 
+const Home = lazy(() => import("../pages/Home"));
 const Categories = lazy(() => import("@/pages/CategoriesPage"));
 const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
 const SubCategoryProducts = lazy(() => import("@/pages/SubCategoryProducts"));
+const Profile = lazy(() => import("@/pages/Profile"));
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <Suspense
+            fallback={
+              <section className="min-h-screen flex mx-auto">
+                <LoadingScreen />
+              </section>
+            }
+          >
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/categories",
@@ -42,7 +52,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/subcategories",
-        element: <SubCategoryProducts />,
+        element: (
+          <Suspense
+            fallback={
+              <section className="min-h-screen flex mx-auto">
+                <LoadingScreen />
+              </section>
+            }
+          >
+            <SubCategoryProducts />
+          </Suspense>
+        ),
       },
       {
         path: "/product/:productName",
