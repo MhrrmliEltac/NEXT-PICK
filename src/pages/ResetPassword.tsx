@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { NEUTRAL_COLOR } from "@/constant/colors";
 import { animateVariant } from "@/utils/animateVariants";
 import { ShadButton } from "@/components/ui/button";

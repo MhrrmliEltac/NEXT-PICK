@@ -1,6 +1,5 @@
 import { formatPrice } from "@/helpers/formatPrice";
 import {
-  Box,
   Button,
   Card,
   CardContent,
