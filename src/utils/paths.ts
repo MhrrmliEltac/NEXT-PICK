@@ -41,6 +41,7 @@ interface UrlPaths {
   productDetail: (productName: string) => string;
   wishlist: string;
   contact: string;
+  about: string;
 }
 
 interface Paths {
@@ -151,5 +152,8 @@ export const path: Paths = {
 
     //? contact us
     contact: "/contact-us",
+
+    //? about us
+    about:"/about"
   },
 };

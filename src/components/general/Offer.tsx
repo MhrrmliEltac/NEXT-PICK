@@ -10,18 +10,21 @@ const OFFER_DATA: OfferType[] = [
     title: "Free shipping",
     subtitle: "On orders over $50",
     icon: "/truck-fast-icon.svg",
+    link: path.urlPaths.about,
   },
   {
     id: 2,
     title: "Easy returns",
     subtitle: "Free within 30 days",
     icon: "/rotate-left.svg",
+    link: path.urlPaths.about,
   },
   {
     id: 3,
     title: "Special gifts",
     subtitle: "Free with select orders.",
     icon: "/gift.svg",
+    link: path.urlPaths.about,
   },
   {
     id: 4,
@@ -35,6 +38,7 @@ const OFFER_DATA: OfferType[] = [
     title: "Secured payment",
     subtitle: "100% safe.",
     icon: "/wallet-check.svg",
+    link: path.urlPaths.about,
   },
 ];
 
