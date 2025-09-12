@@ -119,7 +119,7 @@ const MyProfile = () => {
           color={NEUTRAL_COLOR.neutral800}
           className="text-center"
         >
-          NEXTPICK Costumer Club
+          NEXTPICK Customer Club
         </Typography>
         <Typography
           variant="button"

@@ -234,3 +234,27 @@ export interface AboutType {
   heading?: string;
   description: string;
 }
+
+export type Operation = "increment" | "decrement";
+
+export interface Services {
+  id: number;
+  Icon: React.ComponentType<{ size: number; color: string }>;
+  description: string;
+}
+
+// Subcategory Types
+
+export type SelectValue =
+  | "Ən yeni"
+  | "Ən baha"
+  | "Ən ucuz"
+  | "A-dan Z-yə"
+  | "Z-dan A-yə";
+
+export interface SortValue {
+  key: string;
+  value: string;
+}
+
+export type SubCategoryProductType = Pick<ProductType, "products">;

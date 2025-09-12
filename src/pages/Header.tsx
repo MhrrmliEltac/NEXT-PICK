@@ -14,21 +14,19 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleDrawer = (newToggle: boolean) => {
-    setOpen(newToggle);
-  };
+  const toggleDrawer = (newToggle: boolean) => setOpen(newToggle);
 
-  const { data: CATEGORY_DATA } = useFetch<CategoryType[] | null>(
-    path.endpoints.categories.list
-  );
+  const {
+    data: CATEGORY_DATA,
+    loading,
+    error,
+  } = useFetch<CategoryType[] | null>(path.endpoints.categories.list);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,60 +36,81 @@ const Header = () => {
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
-      animate={{
-        y: isScrolled ? 0 : 0, // hər zaman görünür, amma scroll effekti ilə translate dəyişir
-        opacity: 1,
-      }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className={`mt-[12px] header h-[82px] rounded-[8px] custom-shadow custom-blur flex justify-between items-center max-w-[1524px] w-[90%] mx-auto z-50 ${
+      className={`mt-[12px] header h-20 rounded-lg custom-shadow custom-blur flex justify-between items-center max-w-[1524px] w-[90%] mx-auto z-[100] ${
         isScrolled
           ? "fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md shadow-md"
           : "relative bg-transparent"
       }`}
       style={{
-        transform: isScrolled
-          ? "translateY(0)" // scroll ediləndə yuxarı qalxır
-          : "translateY(10px)", // yuxarı-aşağı hərəkət effekti
-        transition: "transform 0.5s ease-in-out", // smooth keçid
+        transform: isScrolled ? "translateY(0)" : "translateY(10px)",
+        transition: "transform 0.5s ease-in-out",
       }}
+      role="banner"
+      aria-label="Main site header"
     >
-      {/* Web nav */}
-      <nav className="fixed max-md:hidden flex justify-between items-center mx-auto z-10 py-[22px] w-full">
+      {/* Desktop Navigation */}
+      <nav
+        className="hidden md:flex justify-between items-center w-full py-5"
+        role="navigation"
+        aria-label="Desktop navigation"
+      >
         <Logo />
         <SearchInput />
         <Buttons />
       </nav>
 
-      {/* Mobile nav */}
-      <nav className="fixed md:hidden flex flex-col gap-2 justify-between items-center mx-auto z-10 w-full">
-        <div className="flex justify-between items-center w-full">
+      {/* Mobile Navigation */}
+      <nav
+        className="md:hidden flex flex-col gap-2 justify-between items-center w-full"
+        role="navigation"
+        aria-label="Mobile navigation"
+      >
+        <div className="flex justify-between items-center w-full px-2">
           <Logo />
           <Buttons />
         </div>
-        <div className="w-full flex items-center">
-          <div className="h-[36px] w-[49px] flex items-center justify-center">
-            <RxHamburgerMenu
-              className="cursor-pointer"
-              onClick={() => toggleDrawer(true)}
-            />
-          </div>
+        <div className="w-full flex items-center px-2">
+          <button
+            aria-label="Open menu"
+            className="h-9 w-12 flex items-center justify-center"
+            onClick={() => toggleDrawer(true)}
+          >
+            <RxHamburgerMenu className="text-xl" />
+          </button>
           <input
             id="search"
-            type="text"
             name="search"
+            type="text"
             placeholder="I'm searching for..."
-            className=" flex px-[16px] py-[6px] w-full outline-none h-full rounded-br-[8px]"
+            className="flex px-4 py-2 w-full outline-none rounded-md border border-gray-300"
+            aria-label="Search products"
+            autoComplete="off"
           />
         </div>
       </nav>
 
-      {/* Drawer */}
+      {/* Drawer for Mobile Menu */}
       <Drawer
         open={open}
         onClose={() => toggleDrawer(false)}
         sx={{ display: { md: "none" } }}
+        aria-label="Mobile category drawer"
       >
-        <DrawerList CATEGORY_DATA={CATEGORY_DATA} onClose={toggleDrawer} />
+        {loading ? (
+          <div className="p-4 text-center text-gray-500">
+            Loading categories...
+          </div>
+        ) : error ? (
+          <div className="p-4 text-center text-red-500">
+            Failed to load categories
+          </div>
+        ) : (
+          CATEGORY_DATA && (
+            <DrawerList CATEGORY_DATA={CATEGORY_DATA} onClose={toggleDrawer} />
+          )
+        )}
       </Drawer>
     </motion.header>
   );

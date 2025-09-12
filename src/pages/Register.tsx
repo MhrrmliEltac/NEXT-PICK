@@ -14,26 +14,32 @@ import { verifyOtp } from "@/auth/otpCode";
 import OTPVerification from "@/components/general/OTPVerification";
 import { path } from "@/utils/paths";
 
-const getSteps = (activeStep: number): StepProps[] => [
-  {
-    title: "Sign up",
-    icon: <LuUserPen size={18} />,
-    className:
-      activeStep < 0 ? "step-disabled" : activeStep > 0 ? "step-active" : "",
-  },
-  {
-    title: "Verify email",
-    icon: <MdOutlineEmail size={18} />,
-    className:
-      activeStep < 1 ? "step-disabled" : activeStep > 1 ? "step-active" : "",
-  },
-  {
-    title: "Add info",
-    icon: <BsInfoSquare size={18} />,
-    className:
-      activeStep < 2 ? "step-disabled" : activeStep > 2 ? "step-active" : "",
-  },
-];
+const getSteps = (activeStep: number): StepProps[] => {
+  const stepStatus = (index: number) =>
+    activeStep === index
+      ? "step-current"
+      : activeStep > index
+      ? "step-completed"
+      : "step-disabled";
+
+  return [
+    {
+      title: "Sign up",
+      icon: <LuUserPen size={18} />,
+      className: stepStatus(0),
+    },
+    {
+      title: "Verify email",
+      icon: <MdOutlineEmail size={18} />,
+      className: stepStatus(1),
+    },
+    {
+      title: "Add info",
+      icon: <BsInfoSquare size={18} />,
+      className: stepStatus(2),
+    },
+  ];
+};
 
 const Register = () => {
   const methods = useForm<FormData>({
@@ -42,14 +48,14 @@ const Register = () => {
 
   const [activeStep, setActiveStep] = useState<number>(0);
 
-  const email = methods.getValues("email")
+  const email = methods.getValues("email");
 
   const onVerify = async (otpCode: string) => {
     if (otpCode) {
       await verifyOtp("/auth/verify-otp", email, otpCode);
       setActiveStep((prev) => prev + 1);
     }
-  }
+  };
 
   return (
     <FormProvider {...methods}>
@@ -70,9 +76,23 @@ const Register = () => {
             </motion.div>
 
             {activeStep === 0 ? (
-              <EmailForm setActiveStep={setActiveStep} endpoint={path.endpoints.auth.sendOtp} />
+              <EmailForm
+                setActiveStep={setActiveStep}
+                endpoint={path.endpoints.auth.sendOtp}
+              />
             ) : activeStep === 1 ? (
-              <OTPVerification email={email} onVerify={onVerify} onEmailChange={() => { }} onResendCode={() => { }} maxLength={6} expiryMinutes={1} />
+              <OTPVerification
+                email={email}
+                onVerify={onVerify}
+                onEmailChange={() => {
+                  // TODO: implement email change logic
+                }}
+                onResendCode={() => {
+                  // TODO: implement email change logic
+                }}
+                maxLength={6}
+                expiryMinutes={1}
+              />
             ) : (
               <InfoForm />
             )}

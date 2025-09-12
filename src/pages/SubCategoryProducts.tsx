@@ -1,46 +1,27 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import FilterSide from "@/components/categories/FilterSide";
 import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
 import ProductCard from "@/components/general/ProductCard";
-import { NEUTRAL_COLOR } from "@/constant/colors";
 import {
-  Button,
-  Divider,
   Grid,
-  MenuItem,
   Pagination,
-  Select,
   SelectChangeEvent,
   Stack,
   Typography,
 } from "@mui/material";
-import { BsFilterLeft } from "react-icons/bs";
-import { IoIosArrowDown } from "react-icons/io";
 import { motion } from "framer-motion";
 import { useFetchStore } from "@/store/useFetcher";
-import { ProductDataType } from "@/types/types";
+import { ProductDataType, SelectValue, SortValue } from "@/types/types";
 import Drawer from "@/components/categories/Drawer";
-import { Skeleton } from "@/components/ui/skeleton";
 import { path } from "@/utils/paths";
 import ResetScroll from "@/components/general/ResetScroll";
 import { useQueryParams } from "@/hook/useQueryParams";
+import RightSideHeader from "@/components/subcategory-products/RightSideHeader";
+import RightSideMobileHeader from "@/components/subcategory-products/RightSideMobileHeader";
+import { containerVariants2, itemVariants } from "@/utils/animateVariants";
+import CustomSkeleton from "@/components/subcategory-products/CustomSkeleton";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const sortValuesArray = [
+const sortValuesArray: SelectValue[] = [
   "Ən yeni",
   "Ən baha",
   "Ən ucuz",
@@ -50,14 +31,14 @@ const sortValuesArray = [
 
 const SubCategoryProducts = () => {
   //? Drawer state
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   //? Pagination states
-  const [page, setPage] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   //? Sort state
-  const [sortValue, setSortValue] = useState<{ key: string; value: string }>({
+  const [sortValue, setSortValue] = useState<SortValue>({
     key: "newest",
     value: "Ən yeni",
   });
@@ -68,27 +49,23 @@ const SubCategoryProducts = () => {
   const subCategoryName = getParam("subCategory");
   const categoryName = getParam("categoryName");
 
-  const skeletonArray = Array.from({ length: 12 });
-
   const { data: data, fetchData, loading } = useFetchStore();
+  const skeletonArray = useMemo(() => Array.from({ length: 12 }), [loading]);
 
   useEffect(() => {
-    const fetchAll = async () => {
-      if (!subCategoryName) return;
+    if (!subCategoryName) return;
 
-      fetchData(
-        "products",
-        path.endpoints.products.subcategoryProducts(
-          subCategoryName,
-          currentPage,
-          12,
-          sortValue.key.toLowerCase()
-        )
-      );
-    };
-
-    fetchAll();
+    fetchData(
+      "products",
+      path.endpoints.products.subcategoryProducts(
+        subCategoryName,
+        currentPage,
+        12,
+        sortValue.key.toLowerCase()
+      )
+    );
   }, [subCategoryName, currentPage, fetchData, sortValue.key]);
+  const { products } = data.products;
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     const { value } = e.target;
@@ -114,13 +91,16 @@ const SubCategoryProducts = () => {
     }
   };
 
-  const handlePageChange = (_: any, value: number) => {
-    setCurrentPage(value);
-  };
+  const handlePageChange = useCallback(
+    (_: any, value: number) => {
+      setCurrentPage(value);
+    },
+    [page, setCurrentPage]
+  );
 
   useEffect(() => {
     setPage(data.products.totalPages);
-  }, [data.products.products]);
+  }, [data.products.totalPages]);
 
   return (
     <section>
@@ -145,164 +125,16 @@ const SubCategoryProducts = () => {
         <FilterSide show={false} />
         <div className="w-[100%]">
           {/* Right Side header */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full flex items-center justify-between max-md:hidden"
-          >
-            <div>
-              <Typography
-                variant="h5"
-                color={NEUTRAL_COLOR.neutral800}
-                fontSize={20}
-                component="span"
-              >
-                {categoryName}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="span"
-                fontSize={14}
-                color={NEUTRAL_COLOR.neutral400}
-                sx={{ ml: "8px" }}
-              >
-                {data.products.products.length} products
-              </Typography>
-            </div>
-
-            <div className="flex items-center gap-1 ">
-              <Typography
-                variant="body2"
-                component="span"
-                fontSize={14}
-                color={NEUTRAL_COLOR.neutral800}
-              >
-                Sort by:
-              </Typography>
-              <Select
-                value={sortValue.value}
-                IconComponent={IoIosArrowDown}
-                onChange={(e: SelectChangeEvent<string>) => handleSortChange(e)}
-                sx={{
-                  width: "108px",
-                  height: "32px",
-                  borderRadius: "8px",
-                  backgroundColor: "#fff",
-                  boxShadow: "0px 0px 4px rgba(0,0,0,0.1)",
-                  fontSize: "12px",
-                  "& .MuiSelect-select": {
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    paddingRight: "32px",
-                  },
-                  "& fieldset": {
-                    border: "1px solid #939393",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#4A73EA",
-                  },
-                  "& .MuiSelect-icon": {
-                    color: "#4B4B4B",
-                    fontSize: "20px",
-                  },
-                }}
-              >
-                {sortValuesArray.map((value) => (
-                  <MenuItem
-                    sx={{
-                      mt: "10px",
-                      color: NEUTRAL_COLOR.neutral600,
-                      fontSize: "14px",
-                      lineHeight: "20px",
-                      "&.Mui-selected": {
-                        backgroundColor: "#E6EEFF",
-                        color: "#1A4DE1",
-                      },
-                      "&.Mui-selected:hover": {
-                        backgroundColor: "#D0E2FF",
-                      },
-                      "&.MuiMenuItem-root:hover": {
-                        backgroundColor: NEUTRAL_COLOR.neutral150,
-                      },
-                    }}
-                    value={value}
-                    key={value}
-                  >
-                    {value}
-                  </MenuItem>
-                ))}
-              </Select>
-            </div>
-          </motion.div>
+          <RightSideHeader
+            categoryName={categoryName}
+            handleSortChange={handleSortChange}
+            products={products}
+            sortValue={sortValue}
+            sortValuesArray={sortValuesArray}
+          />
 
           {/* Right side mobile header */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="md:hidden transition-all duration-300"
-          >
-            <div className="flex items-center gap-3 transition-all duration-300">
-              <Button
-                variant="outlined"
-                sx={{
-                  border: "0.5px solid #757575",
-                  borderRadius: "8px",
-                  color: NEUTRAL_COLOR.neutral650,
-                }}
-                startIcon={<BsFilterLeft />}
-                onClick={() => setOpen(true)}
-              >
-                Filter
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  border: "0.5px solid #757575",
-                  borderRadius: "8px",
-                  color: NEUTRAL_COLOR.neutral650,
-                }}
-                startIcon={<BsFilterLeft />}
-              >
-                Sort By
-              </Button>
-            </div>
-            {/* Divider */}
-            <Divider
-              sx={{
-                mt: 2,
-                "&:after": {
-                  content: '""',
-                  display: "block",
-                  height: "2px",
-                  width: "100%",
-                  background:
-                    "linear-gradient(90deg, #939393 0%, rgba(147,147,147,0.2) 20%, rgba(147,147,147,0.2) 50%, #939393 100%)",
-                },
-              }}
-            />
-            <div className="flex items-center justify-between mt-4">
-              <Typography
-                variant="h5"
-                color={NEUTRAL_COLOR.neutral800}
-                fontSize={20}
-                component="span"
-              >
-                Laptops
-              </Typography>
-              <Typography
-                variant="body2"
-                component="span"
-                fontSize={14}
-                color={NEUTRAL_COLOR.neutral400}
-                sx={{ ml: "8px" }}
-              >
-                {data.products.products.length} products
-              </Typography>
-            </div>
-          </motion.div>
+          <RightSideMobileHeader products={products} setOpen={setOpen} />
 
           {/* Right side body */}
 
@@ -311,53 +143,33 @@ const SubCategoryProducts = () => {
             spacing={3}
             mt="35px"
             component={motion.div}
-            variants={containerVariants}
+            variants={containerVariants2}
             initial="hidden"
             animate="visible"
           >
             {loading
-              ? skeletonArray.map((_, index) => (
+              ? skeletonArray.map((_, index) => <CustomSkeleton key={index} />)
+              : products && products.length > 0
+              ? products.map((item: ProductDataType, index: number) => (
                   <Grid
                     key={index}
                     size={{ xs: 12, md: 4, lg: 3 }}
                     component={motion.div}
                     variants={itemVariants}
-                    sx={{ mb: "120px" }}
                   >
-                    {/* <ProductCard data={item} /> */}
-                    <div className="w-full h-full max-sm:w-[30%] mx-auto flex justify-center items-center">
-                      <Skeleton className="w-[288px] h-[170px] max-md:h-[250px] max-sm:h-[150px] max-xs:h-[80px] max-sm:w-full transition-all duration-700 object-contain" />
-                    </div>
-                    <div className="w-full max-sm:w-[80%] flex flex-col">
-                      <Skeleton className="w-full h-[20px] mt-4" />
-                      <Skeleton className="w-full h-[16px] mt-4" />
-                      <div className="flex justify-between items-center w-full mt-4">
-                        <Skeleton className="w-[80px] h-[20px]" />
-                        <Skeleton className="w-[50px] h-[20px]" />
-                      </div>
-                    </div>
+                    <ProductCard data={item} />
                   </Grid>
                 ))
-              : data.products.products &&
-                data.products.products.length > 0 &&
-                data.products.products.map(
-                  (item: ProductDataType, index: number) => (
-                    <Grid
-                      key={index}
-                      size={{ xs: 12, md: 4, lg: 3 }}
-                      component={motion.div}
-                      variants={itemVariants}
-                    >
-                      <ProductCard data={item} />
-                    </Grid>
-                  )
+              : !loading &&
+                products.length === 0 && (
+                  <Typography>No products found in this category.</Typography>
                 )}
           </Grid>
 
           <div className="p-6 flex justify-center">
             <Stack spacing={2}>
               <Pagination
-                count={page!}
+                count={page ?? 0}
                 page={currentPage}
                 variant="outlined"
                 shape="rounded"

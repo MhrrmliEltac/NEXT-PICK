@@ -24,13 +24,12 @@ export const useSignIn = <T>(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
         setData(response.data);
       }
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         setError(error.response?.data.message);
-        throw error; // Re-throw to handle in component
+        throw error;
       }
     } finally {
       setLoading(false);

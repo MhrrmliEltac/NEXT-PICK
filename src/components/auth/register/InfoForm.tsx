@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { useSignUp } from "@/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 import { path } from "@/utils/paths";
+import { useValidatePasswordMatch } from "@/hook/useValiedatePasswordMatch";
 
 const InfoForm = () => {
   const navigate = useNavigate();
@@ -27,10 +28,8 @@ const InfoForm = () => {
     watch,
   } = useFormContext<FormData>();
 
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
-  const isValidPasswordMatch =
-    password && confirmPassword && password === confirmPassword;
+  const { password, confirmPassword, isValidPasswordMatch } =
+    useValidatePasswordMatch<FormData>(watch);
 
   const onSubmit: SubmitHandler<FormData> = (formData) => {
     if (password === confirmPassword) {

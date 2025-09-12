@@ -34,7 +34,9 @@ const Login = () => {
   } = useForm<IFormInput | IForgotPasswordInput>({
     mode: "onChange",
   });
-  const onSubmit: SubmitHandler<IFormInput | IForgotPasswordInput> = async (formData: IFormInput | IForgotPasswordInput) => {
+  const onSubmit: SubmitHandler<IFormInput | IForgotPasswordInput> = async (
+    formData: IFormInput | IForgotPasswordInput
+  ) => {
     if (typeof error === "string") {
       toast.error(error);
       return;
@@ -95,12 +97,16 @@ const Login = () => {
           <PasswordInput errors={errors} register={register} />
 
           {/* Forgot Password */}
-          <Link to={path.urlPaths.auth.forgotPassword} className="font-roboto text-[12px] text-[#4A73EA]">
+          <Link
+            to={path.urlPaths.auth.forgotPassword}
+            className="font-roboto text-[12px] text-[#4A73EA]"
+          >
             Forgot Password?
           </Link>
           <ShadButton
-            className={`${loading && "animate-pulse"
-              } bg-[#1A4DE1] cursor-pointer hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+            className={`${
+              loading && "animate-pulse"
+            } bg-[#1A4DE1] cursor-pointer hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
             disabled={loading}
           >
             Login

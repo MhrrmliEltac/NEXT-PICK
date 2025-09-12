@@ -168,6 +168,8 @@ const Profile = () => {
                 return (
                   <li
                     key={index}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => handleClick(tab.tabName)}
                     className="flex gap-2 items-center m-0 p-0 cursor-pointer"
                   >

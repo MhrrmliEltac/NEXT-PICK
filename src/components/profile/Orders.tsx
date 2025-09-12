@@ -55,7 +55,12 @@ const Orders = () => {
   return (
     <Wrapper title="Order History">
       <TableContainer component={Paper}>
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          scrollButtons="auto"
+          variant="scrollable"
+        >
           {["All", "Pending", "Processing", "Completed", "Cancelled"].map(
             (label, index) => (
               <Tab key={index} label={label} />

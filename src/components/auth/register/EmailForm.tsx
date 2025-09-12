@@ -10,13 +10,14 @@ import { SubmitHandler, useFormContext } from "react-hook-form";
 import { FormType } from "@/types/types";
 import { Dispatch, SetStateAction, useState } from "react";
 import { sendOtp } from "@/auth/otpCode";
+import { toast } from "sonner";
 
 const EmailForm = ({
   setActiveStep,
-  endpoint
+  endpoint,
 }: {
   setActiveStep: Dispatch<SetStateAction<number>>;
-  endpoint: string
+  endpoint: string;
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -28,10 +29,7 @@ const EmailForm = ({
   const onSubmit: SubmitHandler<FormType> = async (data) => {
     setLoading(true);
     if (isValid) {
-      const { proceedToSignUp, success } = await sendOtp(
-        endpoint,
-        data.email
-      );
+      const { proceedToSignUp, success } = await sendOtp(endpoint, data.email);
 
       if (proceedToSignUp) {
         setActiveStep((prev) => prev + 2);
@@ -45,7 +43,11 @@ const EmailForm = ({
         return;
       }
 
-      setLoading(false)
+      if (!success && !proceedToSignUp) {
+        toast.error("Failed to send OTP. Please try again.");
+      }
+
+      setLoading(false);
     }
   };
 
@@ -94,8 +96,9 @@ const EmailForm = ({
         <ShadButton
           disabled={!isValid}
           onClick={handleSubmit(onSubmit)}
-          className={`${loading && "animate-pulse"
-            } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
+          className={`${
+            loading && "animate-pulse"
+          } bg-[#1A4DE1] hover:bg-[#1A4DE1] flex items-center justify-center rounded-[8px] text-base font-roboto !py-[15px]`}
         >
           Continue
         </ShadButton>
