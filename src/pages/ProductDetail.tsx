@@ -79,31 +79,29 @@ const ProductDetail = () => {
         </div>
       ) : (
         <>
-          <div className="relative min-h-[100px]">
-            <CustomBreadcrumb
-              breadcrumbs={[
-                { label: "Home", href: "/" },
-                {
-                  label: breadcrumbUrl.category || "",
-                  href:
-                    typeof path.urlPaths.category.list === "function"
-                      ? path.urlPaths.category.list(breadcrumbUrl.category)
-                      : path.urlPaths.category.list,
-                },
-                {
-                  label: breadcrumbUrl.subcategory || "",
-                  href:
-                    typeof path.urlPaths.subcategory.list === "function"
-                      ? path.urlPaths.subcategory.list(
-                          breadcrumbUrl.category,
-                          breadcrumbUrl.subcategory
-                        )
-                      : path.urlPaths.subcategory.list,
-                },
-                { label: productName },
-              ]}
-            />
-          </div>
+          <CustomBreadcrumb
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              {
+                label: breadcrumbUrl.category || "",
+                href:
+                  typeof path.urlPaths.category.list === "function"
+                    ? path.urlPaths.category.list(breadcrumbUrl.category)
+                    : path.urlPaths.category.list,
+              },
+              {
+                label: breadcrumbUrl.subcategory || "",
+                href:
+                  typeof path.urlPaths.subcategory.list === "function"
+                    ? path.urlPaths.subcategory.list(
+                        breadcrumbUrl.category,
+                        breadcrumbUrl.subcategory
+                      )
+                    : path.urlPaths.subcategory.list,
+              },
+              { label: productName },
+            ]}
+          />
           <div className="w-[80%] mx-auto">
             {/* Hero section */}
             <Hero PRODUCT_DATA={PRODUCT_DATA} />

@@ -30,16 +30,14 @@ const ContactUs = () => {
 
   return (
     <section>
-      <div className="relative min-h-[100px]">
-        <CustomBreadcrumb
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            {
-              label: "Contact Us",
-            },
-          ]}
-        />
-      </div>
+      <CustomBreadcrumb
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          {
+            label: "Contact Us",
+          },
+        ]}
+      />
 
       <div className="max-w-[1524px] w-[90%] mx-auto mb-[80px]">
         <Typography

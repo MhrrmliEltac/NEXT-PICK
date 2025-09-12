@@ -38,6 +38,7 @@ const FormElement: React.FC<FormElementProps> = ({
               defaultCountry="AZ"
               value={value}
               readOnly={readonly}
+              placeholder={placeholder}
               onChange={(phone) => {
                 const normalizedValue = phone ?? "";
                 if (onChange) {

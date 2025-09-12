@@ -126,22 +126,21 @@ const SubCategoryProducts = () => {
     <section>
       <ResetScroll />
       {/* Breadcrumb */}
-      <div className="relative min-h-[220px]">
-        <CustomBreadcrumb
-          title="Explore All Windows laptops"
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            {
-              label: categoryName,
-              href:
-                typeof path.urlPaths.category.list === "function"
-                  ? path.urlPaths.category.list(categoryName || "")
-                  : path.urlPaths.category.list,
-            },
-            { label: subCategoryName?.toCapitalize() },
-          ]}
-        />
-      </div>
+      <CustomBreadcrumb
+        minHeight="min-h-[220px]"
+        title="Explore All Windows laptops"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          {
+            label: categoryName,
+            href:
+              typeof path.urlPaths.category.list === "function"
+                ? path.urlPaths.category.list(categoryName || "")
+                : path.urlPaths.category.list,
+          },
+          { label: subCategoryName?.toCapitalize() },
+        ]}
+      />
       <div className="max-w-[1524px] w-[90%] mx-auto mb-[80px] flex gap-[24px] justify-between">
         <FilterSide show={false} />
         <div className="w-[100%]">

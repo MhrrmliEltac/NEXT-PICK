@@ -7,16 +7,14 @@ import { Typography } from "@mui/material";
 const About = () => {
   return (
     <section>
-      <div className="relative min-h-[100px]">
-        <CustomBreadcrumb
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            {
-              label: "About",
-            },
-          ]}
-        />
-      </div>
+      <CustomBreadcrumb
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          {
+            label: "About",
+          },
+        ]}
+      />
 
       <div className="max-w-[1016px] w-[90%] mx-auto mb-[80px]">
         <img

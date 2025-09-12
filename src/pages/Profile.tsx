@@ -143,11 +143,10 @@ const Profile = () => {
   return (
     <section>
       <ResetScroll />
-      <div className="relative min-h-[220px]">
-        <CustomBreadcrumb
-          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Profile" }]}
-        />
-      </div>
+      <CustomBreadcrumb
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Profile" }]}
+        minHeight="min-h-[220px]"
+      />
 
       <div className="flex items-start mx-auto max-w-[1540px] w-[90%]">
         <aside className="w-[100%] max-w-[200px] mb-[72px] md:block hidden">

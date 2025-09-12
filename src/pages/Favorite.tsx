@@ -58,17 +58,15 @@ const Favorite = () => {
 
   return (
     <section className="w-full mx-auto">
-      <div className="relative min-h-[100px]">
-        <CustomBreadcrumb
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            {
-              label: "Wishlist",
-              href: path.urlPaths.wishlist,
-            },
-          ]}
-        />
-      </div>
+      <CustomBreadcrumb
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          {
+            label: "Wishlist",
+            href: path.urlPaths.wishlist,
+          },
+        ]}
+      />
 
       {/* Favorite products */}
       <div className="max-lg:w-[90%] w-[80%] mx-auto">

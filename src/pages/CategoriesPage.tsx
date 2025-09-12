@@ -36,16 +36,15 @@ const Categories = () => {
   return (
     <section>
       <ResetScroll />
-      <div className="relative min-h-[220px]">
-        <CustomBreadcrumb
-          title={`Find Your ${categoryName}`}
-          subtitle="Find the perfect laptop for work, play and everything in between."
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: categoryName, href: "/categories" },
-          ]}
-        />
-      </div>
+      <CustomBreadcrumb
+        minHeight="min-h-[220px]"
+        title={`Find Your ${categoryName}`}
+        subtitle="Find the perfect laptop for work, play and everything in between."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: categoryName, href: "/categories" },
+        ]}
+      />
       <SubCategorySlider
         SUB_CATEGORY_DATA={SUB_CATEGORY_DATA}
         loading={SUB_CATEGORY_LOADING}

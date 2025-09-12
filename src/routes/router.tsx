@@ -10,17 +10,20 @@ import ContactUs from "@/pages/ContactUs";
 import About from "@/pages/About";
 import { lazy, Suspense } from "react";
 import { LoadingScreen } from "@/components/ui/loading";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const Home = lazy(() => import("../pages/Home"));
 const Categories = lazy(() => import("@/pages/CategoriesPage"));
 const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
 const SubCategoryProducts = lazy(() => import("@/pages/SubCategoryProducts"));
 const Profile = lazy(() => import("@/pages/Profile"));
+const ShoppingCard = lazy(() => import("@/pages/ShoppingCard"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -75,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "/contact-us",
         element: <ContactUs />,
+      },
+      {
+        path: "/shopping-cart",
+        element: <ShoppingCard />,
       },
       {
         path: "/about",
