@@ -26,12 +26,11 @@ const Categories = () => {
   >(path.endpoints.subCategory.subcategoryProducts(categoryName || ""));
 
   useEffect(() => {
-    if (location.search.startsWith("?category")) {
-      return;
-    } else if (location.pathname === "/categories") {
+    const category = getParam("category");
+    if (!category && location.pathname === "/categories") {
       navigate("/not-found");
     }
-  }, [location.pathname, location.search, navigate]);
+  }, [location, navigate]);
 
   return (
     <section>
@@ -51,8 +50,12 @@ const Categories = () => {
       />
       <Brands title={`${categoryName} brands`} />
       <Offer />
-      <Slider title="Our best laptop deals" categoryName={categoryName!} />
-      <Slider title="Trending Now" categoryName={categoryName!} />
+      {categoryName ? (
+        <>
+          <Slider title="Our best laptop deals" categoryName={categoryName} />
+          <Slider title="Trending Now" categoryName={categoryName} />
+        </>
+      ) : null}
       <QuestionAnswer />
       <Blog />
     </section>

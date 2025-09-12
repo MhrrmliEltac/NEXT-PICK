@@ -91,14 +91,12 @@ const Favorite = () => {
             animate="visible"
           >
             <Grid size={{ xs: 12, md: 6 }}>
-              {favorites &&
-                favorites.map((favorite: FavoriteItem) => (
-                  <FavoriteProduct favorite={favorite} key={favorite._id} />
-                ))}
+              {favorites.map((favorite: FavoriteItem) => (
+                <FavoriteProduct favorite={favorite} key={favorite._id} />
+              ))}
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <FavoriteSummary
-                key="summary"
                 discountTotal={discountTotal}
                 length={favorites.length}
                 total={total}
