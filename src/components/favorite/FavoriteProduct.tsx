@@ -40,12 +40,14 @@ const FavoriteProduct = ({ favorite }: { favorite: FavoriteItem }) => {
           boxShadow: "none",
           transition: "all 0.3s ease-in-out",
           mb: "15px",
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
           "&:hover": {
             transition: "all 0.3s ease-in-out",
             borderColor: "#1A4DE1",
           },
         }}
-        className="flex justify-center relative"
         component="div"
       >
         {favorite.product.discount && (

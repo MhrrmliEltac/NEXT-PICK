@@ -107,15 +107,17 @@ const Buttons = () => {
             </Link>
           </Tooltip>
           <Tooltip title="Basket" sx={{ color: "black" }}>
-            <IconButton disableTouchRipple sx={{ position: "relative" }}>
-              <Badge
-                className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center text-white"
-                variant="destructive"
-              >
-                {count}
-              </Badge>
-              <SlBasket />
-            </IconButton>
+            <Link to={path.urlPaths.basket}>
+              <IconButton disableTouchRipple sx={{ position: "relative" }}>
+                <Badge
+                  className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center text-white"
+                  variant="destructive"
+                >
+                  {count}
+                </Badge>
+                <SlBasket />
+              </IconButton>
+            </Link>
           </Tooltip>
         </div>
       </div>

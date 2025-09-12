@@ -18,6 +18,7 @@ const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
 const SubCategoryProducts = lazy(() => import("@/pages/SubCategoryProducts"));
 const Profile = lazy(() => import("@/pages/Profile"));
 const ShoppingPage = lazy(() => import("@/pages/ShoppingPage"));
+const ShoppingProcess = lazy(() => import("@/pages/ShoppingProcess"));
 
 const router = createBrowserRouter([
   {
@@ -81,7 +82,31 @@ const router = createBrowserRouter([
       },
       {
         path: "/shopping-cart",
-        element: <ShoppingPage />,
+        element: (
+          <Suspense
+            fallback={
+              <section className="min-h-screen flex mx-auto">
+                <LoadingScreen />
+              </section>
+            }
+          >
+            <ShoppingPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/shopping-process",
+        element: (
+          <Suspense
+            fallback={
+              <section className="min-h-screen flex mx-auto">
+                <LoadingScreen />
+              </section>
+            }
+          >
+            <ShoppingProcess />
+          </Suspense>
+        ),
       },
       {
         path: "/about",

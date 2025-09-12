@@ -4,8 +4,10 @@ import CheckoutCard from "@/components/shopping-page/CheckoutCard";
 import { useCallback, useState } from "react";
 import { Grid } from "@mui/material";
 import { Operation } from "@/types/types";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingPage = () => {
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = useCallback(
@@ -21,6 +23,10 @@ const ShoppingPage = () => {
     },
     [quantity]
   );
+
+  const handleContinueOrder = () => {
+    navigate("/shopping-process");
+  };
 
   return (
     <section>
@@ -60,7 +66,7 @@ const ShoppingPage = () => {
             justifyItems="flex-end"
             position="relative"
           >
-            <CheckoutCard />
+            <CheckoutCard onContinueOrder={handleContinueOrder} />
           </Grid>
         </Grid>
       </div>

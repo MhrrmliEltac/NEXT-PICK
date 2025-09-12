@@ -42,6 +42,7 @@ interface UrlPaths {
   wishlist: string;
   contact: string;
   about: string;
+  basket: string;
 }
 
 interface Paths {
@@ -154,6 +155,9 @@ export const path: Paths = {
     contact: "/contact-us",
 
     //? about us
-    about:"/about"
+    about: "/about",
+
+    //? basket
+    basket: "/shopping-cart",
   },
 };

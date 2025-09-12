@@ -38,7 +38,7 @@ const services: Services[] = [
   },
 ];
 
-const CheckoutCard = () => {
+const CheckoutCard = ({ onContinueOrder }: { onContinueOrder: () => void }) => {
   return (
     <Card className=" gap-4 xl:sticky static top-[120px] !border border-[#E5E5E5] !shadow-sm transition-all duration-300 lg:max-w-[392px] w-full">
       <CardContent>
@@ -84,6 +84,7 @@ const CheckoutCard = () => {
             maxHeight: "48px",
             mb: "32px",
           }}
+          onClick={onContinueOrder}
         >
           <Typography
             variant="button"
