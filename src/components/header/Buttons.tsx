@@ -14,7 +14,6 @@ import { getFavoriteProducts } from "@/redux-toolkit/slice/favoriteSlice";
 const Buttons = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [count] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [language, setLanguage] = useState<string>("AZ");
 
