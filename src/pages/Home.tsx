@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <section>
       <ResetScroll />
-      <div className="relative min-h-[800px]">
+      <div className="relative lg:h-[800px] md:h-[750px] sm:h-[700px] h-[302px]">
         <Hero CATEGORY_DATA={CATEGORY_DATA} />
       </div>
       <Offer />

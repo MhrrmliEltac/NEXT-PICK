@@ -84,7 +84,7 @@ const Header = () => {
             name="search"
             type="text"
             placeholder="I'm searching for..."
-            className="flex px-4 py-2 w-full outline-none rounded-md border border-gray-300"
+            className="flex px-4 py-1 mb-2 w-full outline-none rounded-md border border-gray-300"
             aria-label="Search products"
             autoComplete="off"
           />

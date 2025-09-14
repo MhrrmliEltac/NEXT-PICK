@@ -6,13 +6,14 @@ import { path } from "@/utils/paths";
 
 const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
   return (
-    <section className="z-0 absolute -top-24 aspect-square w-full h-[800px] overflow-hidden rounded-b-[12px]">
-      <motion.div
+    <section className="z-0 absolute -top-24 aspect-square w-full max-h-[800px] overflow-hidden rounded-b-[12px]">
+      <motion.img
         initial={{ opacity: 0, scale: 1.1, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1 }}
-        className="w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: 'url("/banner-image.png")' }}
+        className="w-full h-full object-cover max-sm:h-[302px]"
+        src="/banner-image-mobile.jpg"
+        alt="banner-image"
       />
 
       {/* hero description */}
