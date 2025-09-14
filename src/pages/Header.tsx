@@ -33,6 +33,8 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}

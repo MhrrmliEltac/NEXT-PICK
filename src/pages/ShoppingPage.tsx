@@ -5,16 +5,19 @@ import { useCallback, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { Operation, ProductDataType } from "@/types/types";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/hook/hooks";
+import { useAppDispatch, useAppSelector } from "@/hook/hooks";
 import {
   deleteBasketProduct,
   getBasketProduct,
 } from "@/redux-toolkit/slice/basketSlice";
 import { toast } from "sonner";
+import { RootState } from "@/redux-toolkit/store";
+import { LoadingScreen } from "@/components/ui/loading";
 
 const ShoppingPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const loading = useAppSelector((state: RootState) => state.basket);
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = useCallback(
@@ -50,6 +53,12 @@ const ShoppingPage = () => {
   useEffect(() => {
     dispatch(getBasketProduct());
   }, [dispatch]);
+
+  if (loading) {
+    <section className="min-h-screen flex mx-auto">
+      <LoadingScreen />
+    </section>;
+  }
 
   return (
     <section>

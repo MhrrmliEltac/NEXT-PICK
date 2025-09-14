@@ -20,6 +20,7 @@ const Buttons = () => {
 
   const productData = useAppSelector((state: RootState) => state.favorite);
   const profile = useAppSelector((state: RootState) => state.user);
+  const basketData = useAppSelector((state: RootState) => state.basket);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -113,7 +114,9 @@ const Buttons = () => {
                   className="h-[18px] min-w-[18px] rounded-full px-1 text-[10px] font-mono tabular-nums absolute top-1 right-0 flex items-center justify-center text-white"
                   variant="destructive"
                 >
-                  {count}
+                  {(basketData.basketProduct.basket &&
+                    basketData.basketProduct.basket.items.length) ??
+                    0}
                 </Badge>
                 <SlBasket />
               </IconButton>
