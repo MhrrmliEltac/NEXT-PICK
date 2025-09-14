@@ -13,6 +13,7 @@ import { FaStar } from "react-icons/fa";
 import { ShadButton } from "../ui/button";
 import { useAppDispatch } from "@/hook/hooks";
 import { addFavoriteProduct } from "@/redux-toolkit/slice/favoriteSlice";
+import { addBasketProduct } from "@/redux-toolkit/slice/basketSlice";
 const MotionShadButton = motion.create(ShadButton);
 
 const showBenefits: string[] = [
@@ -24,8 +25,12 @@ const showBenefits: string[] = [
 const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
   const dispatch = useAppDispatch();
 
-  const handleFavoriteData = async (productId: string) => {
+  const handleAddFavorite = async (productId: string) => {
     dispatch(addFavoriteProduct(productId));
+  };
+
+  const handleAddBasket = async (productId: string, quantity: number) => {
+    dispatch(addBasketProduct({ productId, quantity }));
   };
 
   return (
@@ -112,6 +117,10 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
               Buy now
             </MotionShadButton>
             <MotionShadButton
+              onClick={() => {
+                if (PRODUCT_DATA?._id)
+                  handleAddBasket(PRODUCT_DATA._id, PRODUCT_DATA.quantity);
+              }}
               whileHover={{ scale: 1.03 }}
               variant="outline"
               className="h-12 w-full cursor-pointer flex justify-center items-center border border-[#1A4DE1] font-roboto text-[#1A4DE1] hover:text-[#1A4DE1]"
@@ -124,7 +133,7 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
               variant="outline"
               className="border border-[#1A4DE1] cursor-pointer  h-12"
               onClick={() => {
-                if (PRODUCT_DATA) handleFavoriteData(PRODUCT_DATA._id);
+                if (PRODUCT_DATA?._id) handleAddFavorite(PRODUCT_DATA._id);
               }}
             >
               <BsHeartFill color="#FB3748" />

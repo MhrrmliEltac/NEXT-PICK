@@ -1,5 +1,6 @@
 import {
   AuthType,
+  BasketPaths,
   BlogPaths,
   BrandsPaths,
   CategoriesPaths,
@@ -20,6 +21,7 @@ interface EndpointType {
   info: InfoPaths;
   search: SearchPaths;
   favorite: FavoritePaths;
+  basket: BasketPaths;
 }
 
 interface UrlPaths {
@@ -118,6 +120,15 @@ export const path: Paths = {
       getFavorites: "/favorites/my-favorites",
       addFavorite: "/favorites/add",
       removeFavorite: (productId) => `/favorites/remove/${productId}`,
+    },
+
+    //? basket
+    basket: {
+      getBasket: "/basket/my-basket",
+      addBasket: "/basket/add",
+      updateBasket: "/basket/update",
+      removeBasket: (productId: string) => `/basket/remove/${productId}`,
+      clearBasket: "/clear",
     },
   },
 

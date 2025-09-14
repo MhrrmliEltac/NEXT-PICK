@@ -1,8 +1,16 @@
 import { NEUTRAL_COLOR } from "@/constant";
 import { Box, Typography } from "@mui/material";
-import { MdDeleteOutline } from "react-icons/md";
+import React from "react";
 
-const ProductInfo = () => {
+interface ProductInfoProps {
+  productName: string;
+  productDescription: string;
+}
+
+const ProductInfo: React.FC<ProductInfoProps> = ({
+  productName,
+  productDescription,
+}) => {
   return (
     <Box
       sx={{
@@ -23,7 +31,7 @@ const ProductInfo = () => {
             md: 16,
           }}
         >
-          HP Laptop with Intel Core i7
+          {productName}
         </Typography>
         <Typography
           variant="overline"
@@ -34,10 +42,9 @@ const ProductInfo = () => {
             md: 14,
           }}
         >
-          Intel Core i7 | 16GB RAM | 1TB SSD | 14” WQXGA Display
+          {productDescription}
         </Typography>
       </Box>
-      <MdDeleteOutline size={25} color={NEUTRAL_COLOR.neutral800} />
     </Box>
   );
 };

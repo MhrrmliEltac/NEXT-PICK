@@ -69,70 +69,69 @@ const ProductDetail = () => {
     }
   }, [PRODUCT_DATA, PRODUCT_LOADING]);
 
+  if (PRODUCT_LOADING) {
+    return (
+      <div className="w-[80%] mx-auto min-h-screen flex items-center justify-center">
+        <LoadingScreen />
+      </div>
+    );
+  }
+
   return (
     <section>
       <ResetScroll />
+      <CustomBreadcrumb
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          {
+            label: breadcrumbUrl.category || "",
+            href:
+              typeof path.urlPaths.category.list === "function"
+                ? path.urlPaths.category.list(breadcrumbUrl.category)
+                : path.urlPaths.category.list,
+          },
+          {
+            label: breadcrumbUrl.subcategory || "",
+            href:
+              typeof path.urlPaths.subcategory.list === "function"
+                ? path.urlPaths.subcategory.list(
+                    breadcrumbUrl.category,
+                    breadcrumbUrl.subcategory
+                  )
+                : path.urlPaths.subcategory.list,
+          },
+          { label: productName },
+        ]}
+      />
+      <div className="w-[80%] mx-auto">
+        {/* Hero section */}
+        <Hero PRODUCT_DATA={PRODUCT_DATA} />
 
-      {PRODUCT_LOADING ? (
-        <div className="w-[80%] mx-auto min-h-screen flex items-center justify-center">
-          <LoadingScreen />
-        </div>
-      ) : (
-        <>
-          <CustomBreadcrumb
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              {
-                label: breadcrumbUrl.category || "",
-                href:
-                  typeof path.urlPaths.category.list === "function"
-                    ? path.urlPaths.category.list(breadcrumbUrl.category)
-                    : path.urlPaths.category.list,
-              },
-              {
-                label: breadcrumbUrl.subcategory || "",
-                href:
-                  typeof path.urlPaths.subcategory.list === "function"
-                    ? path.urlPaths.subcategory.list(
-                        breadcrumbUrl.category,
-                        breadcrumbUrl.subcategory
-                      )
-                    : path.urlPaths.subcategory.list,
-              },
-              { label: productName },
-            ]}
-          />
-          <div className="w-[80%] mx-auto">
-            {/* Hero section */}
-            <Hero PRODUCT_DATA={PRODUCT_DATA} />
+        {/* Product information & specification */}
+        <Information
+          expanded={expanded}
+          handleChange={handleChange}
+          PRODUCT_DATA={PRODUCT_DATA}
+        />
 
-            {/* Product information & specification */}
-            <Information
-              expanded={expanded}
-              handleChange={handleChange}
-              PRODUCT_DATA={PRODUCT_DATA}
-            />
+        {/* Product Description */}
+        <Description expanded1={expanded1} handleChange={handleChange} />
 
-            {/* Product Description */}
-            <Description expanded1={expanded1} handleChange={handleChange} />
+        {/* User comments */}
+        <Comments PRODUCT_DATA={PRODUCT_DATA} />
 
-            {/* User comments */}
-            <Comments PRODUCT_DATA={PRODUCT_DATA} />
+        {/* Similar product */}
+        <Slider title="Similar picks for you" categoryName="Computer" />
 
-            {/* Similar product */}
-            <Slider title="Similar picks for you" categoryName="Computer" />
+        {/* Banner  */}
+        <BannerDetail />
 
-            {/* Banner  */}
-            <BannerDetail />
-
-            {/* Add these accessories to your order  */}
-            <Slider
-              title="Add these accessories to your order"
-              categoryName="Computer"
-            />
-          </div>
-        </>
-      )}
+        {/* Add these accessories to your order  */}
+        <Slider
+          title="Add these accessories to your order"
+          categoryName="Computer"
+        />
+      </div>
     </section>
   );
 };

@@ -1,7 +1,19 @@
 import { NEUTRAL_COLOR } from "@/constant";
+import { formatPrice } from "@/helpers/formatPrice";
 import { Box, Typography } from "@mui/material";
+import React from "react";
 
-const PriceDisplay = () => {
+interface PriceDisplayProps {
+  price: number;
+  discountPrice: number;
+  discount: boolean;
+}
+
+const PriceDisplay: React.FC<PriceDisplayProps> = ({
+  discount,
+  discountPrice,
+  price,
+}) => {
   return (
     <Box
       sx={{
@@ -17,20 +29,25 @@ const PriceDisplay = () => {
           md: "20px",
         }}
         color={NEUTRAL_COLOR.neutral400}
-      >
-        €1,299
-      </Typography>
-      <Typography
-        variant="overline"
-        fontWeight={400}
-        fontSize={{
-          xs: "10px",
-          md: "20px",
+        sx={{
+          textDecoration: discount ? "line-through" : "none",
         }}
-        color="#C33104"
       >
-        €1,104
+        {formatPrice(price)}
       </Typography>
+      {discount && (
+        <Typography
+          variant="overline"
+          fontWeight={400}
+          fontSize={{
+            xs: "10px",
+            md: "20px",
+          }}
+          color="#C33104"
+        >
+          {formatPrice(discountPrice)}
+        </Typography>
+      )}
     </Box>
   );
 };

@@ -152,6 +152,14 @@ export interface FavoritePaths {
   removeFavorite: (productId: string) => string;
 }
 
+export interface BasketPaths {
+  getBasket: string;
+  addBasket: string;
+  updateBasket: string;
+  removeBasket: (productId: string) => string;
+  clearBasket: string;
+}
+
 export interface FormData {
   name: string;
   surname: string;

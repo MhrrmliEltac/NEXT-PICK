@@ -3,7 +3,8 @@ import NumberFlow from "@number-flow/react";
 import { ShoppingProductCardPropsType } from "./ShoppingProductCard";
 import React from "react";
 
-interface QualityControlPropsType extends ShoppingProductCardPropsType {}
+interface QualityControlPropsType
+  extends Omit<ShoppingProductCardPropsType, "onRemove"> {}
 
 const QualityControl: React.FC<QualityControlPropsType> = ({
   quantity,
@@ -16,15 +17,16 @@ const QualityControl: React.FC<QualityControlPropsType> = ({
         borderRadius: "8px",
         p: "8px",
         width: {
-          xs: "",
+          xs: "68px",
           md: "96px",
         },
         height: {
-          xs: "",
+          xs: "32px",
           md: "36px",
         },
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
       <Button

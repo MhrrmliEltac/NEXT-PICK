@@ -1,13 +1,20 @@
 import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
 import ShoppingProductCard from "@/components/shopping-page/ShoppingProductCard";
 import CheckoutCard from "@/components/shopping-page/CheckoutCard";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import { Operation } from "@/types/types";
+import { Operation, ProductDataType } from "@/types/types";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/hook/hooks";
+import {
+  deleteBasketProduct,
+  getBasketProduct,
+} from "@/redux-toolkit/slice/basketSlice";
+import { toast } from "sonner";
 
 const ShoppingPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = useCallback(
@@ -21,12 +28,28 @@ const ShoppingPage = () => {
           return;
       }
     },
-    [quantity]
+    [quantity, setQuantity]
   );
 
-  const handleContinueOrder = () => {
-    navigate("/shopping-process");
+  const handleRemoveProductFromBasket = (productId: ProductDataType["_id"]) => {
+    dispatch(deleteBasketProduct(productId))
+      .unwrap()
+      .then(() => {
+        toast.success("Məhsul uğurla silindi");
+        dispatch(getBasketProduct());
+      })
+      .catch((error) => {
+        console.error("Silinmə zamanı xəta baş verdi:", error);
+      });
   };
+
+  const handleContinueOrder = useCallback(() => {
+    navigate("/shopping-process");
+  }, [navigate]);
+
+  useEffect(() => {
+    dispatch(getBasketProduct());
+  }, [dispatch]);
 
   return (
     <section>
@@ -53,6 +76,7 @@ const ShoppingPage = () => {
             <ShoppingProductCard
               quantity={quantity}
               handleClick={handleClick}
+              onRemove={handleRemoveProductFromBasket}
             />
           </Grid>
 

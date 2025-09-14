@@ -14,6 +14,7 @@ const Hero = ({ CATEGORY_DATA }: { CATEGORY_DATA: CategoryType[] | null }) => {
         className="w-full h-full object-cover max-sm:h-[302px]"
         src="/banner-image-mobile.jpg"
         alt="banner-image"
+        loading="lazy"
       />
 
       {/* hero description */}

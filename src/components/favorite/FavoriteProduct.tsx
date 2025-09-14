@@ -20,14 +20,20 @@ import {
   getFavoriteProducts,
   removeFavoriteProduct,
 } from "@/redux-toolkit/slice/favoriteSlice";
+import { toast } from "sonner";
 
 const FavoriteProduct = ({ favorite }: { favorite: FavoriteItem }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleRemoveFavorite = (productId: string) => {
-    dispatch(removeFavoriteProduct(productId));
-    dispatch(getFavoriteProducts());
+    dispatch(removeFavoriteProduct(productId))
+      .unwrap()
+      .then(() => dispatch(getFavoriteProducts()))
+      .catch((error) => {
+        console.error(error);
+        toast.error("Silinmə zamanı xəta baş verdi");
+      });
   };
 
   return (

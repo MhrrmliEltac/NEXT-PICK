@@ -9,6 +9,7 @@ import { RootState } from "../store";
 import { toast } from "sonner";
 import axios, { AxiosError } from "axios";
 import { path } from "@/utils/paths";
+import { config } from "@/config";
 
 interface FavoriteState {
   favoriteProduct: ProductDataType[];
@@ -32,13 +33,11 @@ export const getFavoriteProducts = createAsyncThunk<ProductDataType[]>(
         `${import.meta.env.VITE_API_URL}${
           path.endpoints.favorite.getFavorites
         }`,
-        {
-          withCredentials: true,
-        }
+        config
       );
 
       if (response.status === 200) {
-        return response.data as ProductDataType[];
+        return response.data as FavoriteState["favoriteProduct"];
       }
       return [];
     } catch (error) {
@@ -60,9 +59,7 @@ export const addFavoriteProduct = createAsyncThunk<string, string>(
         {
           productId,
         },
-        {
-          withCredentials: true,
-        }
+        config
       );
 
       if (response.status === 201) {
@@ -88,9 +85,7 @@ export const removeFavoriteProduct = createAsyncThunk<string, string>(
         `${
           import.meta.env.VITE_API_URL
         }${path.endpoints.favorite.removeFavorite(productId)}`,
-        {
-          withCredentials: true,
-        }
+        config
       );
 
       if (response.status === 200) {
