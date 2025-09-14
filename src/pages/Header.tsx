@@ -33,16 +33,14 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  
-
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className={`mt-[12px] header h-20 rounded-lg custom-shadow custom-blur flex justify-between items-center max-w-[1524px] w-[90%] mx-auto z-[100] ${
+      className={`mt-[12px] header h-20 rounded-lg custom-shadow custom-blur flex justify-between items-center max-w-[1524px] w-[90%] mx-auto z-[100] transition-all duration-300 ${
         isScrolled
-          ? "fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md shadow-md"
+          ? "sticky top-1 left-0 right-0 bg-white/80 backdrop-blur-md shadow-md"
           : "relative bg-transparent"
       }`}
       style={{
