@@ -2,7 +2,7 @@ import CustomBreadcrumb from "@/components/general/CustomBreadcrumb";
 import ShoppingProductCard from "@/components/shopping-page/ShoppingProductCard";
 import CheckoutCard from "@/components/shopping-page/CheckoutCard";
 import { useCallback, useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Operation, ProductDataType } from "@/types/types";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hook/hooks";
@@ -13,11 +13,14 @@ import {
 import { toast } from "sonner";
 import { RootState } from "@/redux-toolkit/store";
 import { LoadingScreen } from "@/components/ui/loading";
+import { NEUTRAL_COLOR } from "@/constant";
 
 const ShoppingPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const loading = useAppSelector((state: RootState) => state.basket);
+  const { basketProduct, loading } = useAppSelector(
+    (state: RootState) => state.basket
+  );
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = useCallback(
@@ -55,9 +58,28 @@ const ShoppingPage = () => {
   }, [dispatch]);
 
   if (loading) {
-    <section className="min-h-screen flex mx-auto">
-      <LoadingScreen />
-    </section>;
+    return (
+      <section className="min-h-screen flex mx-auto">
+        <LoadingScreen />
+      </section>
+    );
+  }
+
+  if (basketProduct.basket && basketProduct.basket.items.length === 0) {
+    return (
+      <section className="min-h-screen flex mx-auto items-center justify-center">
+        <Typography
+          variant="h3"
+          color={NEUTRAL_COLOR.neutral650}
+          fontSize={{
+            xs: "15px",
+            md: "24px",
+          }}
+        >
+          Səbətiniz boşdur
+        </Typography>
+      </section>
+    );
   }
 
   return (

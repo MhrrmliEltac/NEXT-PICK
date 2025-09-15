@@ -12,8 +12,14 @@ import { CiCircleCheck } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { ShadButton } from "../ui/button";
 import { useAppDispatch } from "@/hook/hooks";
-import { addFavoriteProduct } from "@/redux-toolkit/slice/favoriteSlice";
-import { addBasketProduct } from "@/redux-toolkit/slice/basketSlice";
+import {
+  addFavoriteProduct,
+  getFavoriteProducts,
+} from "@/redux-toolkit/slice/favoriteSlice";
+import {
+  addBasketProduct,
+  getBasketProduct,
+} from "@/redux-toolkit/slice/basketSlice";
 const MotionShadButton = motion.create(ShadButton);
 
 const showBenefits: string[] = [
@@ -26,11 +32,17 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
   const dispatch = useAppDispatch();
 
   const handleAddFavorite = async (productId: string) => {
-    dispatch(addFavoriteProduct(productId));
+    dispatch(addFavoriteProduct(productId))
+      .unwrap()
+      .then(() => dispatch(getFavoriteProducts()))
+      .catch((error) => console.log(error));
   };
 
   const handleAddBasket = async (productId: string, quantity: number) => {
-    dispatch(addBasketProduct({ productId, quantity }));
+    dispatch(addBasketProduct({ productId, quantity }))
+      .unwrap()
+      .then(() => dispatch(getBasketProduct()))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -110,6 +122,7 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
           </div>
           <div className="w-full flex items-center justify-between gap-2">
             <MotionShadButton
+              whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.03 }}
               variant="default"
               className="bg-[#1A4DE1] hover:bg-[#1A4DE1] cursor-pointer h-12 w-full flex items-center justify-center text-white text-base"
@@ -121,6 +134,7 @@ const Hero = ({ PRODUCT_DATA }: { PRODUCT_DATA: ProductDataType | null }) => {
                 if (PRODUCT_DATA?._id)
                   handleAddBasket(PRODUCT_DATA._id, PRODUCT_DATA.quantity);
               }}
+              whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.03 }}
               variant="outline"
               className="h-12 w-full cursor-pointer flex justify-center items-center border border-[#1A4DE1] font-roboto text-[#1A4DE1] hover:text-[#1A4DE1]"

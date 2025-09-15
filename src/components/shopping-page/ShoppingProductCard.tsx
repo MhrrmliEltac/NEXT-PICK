@@ -9,6 +9,7 @@ import { useAppSelector } from "@/hook/hooks";
 import { RootState } from "@/redux-toolkit/store";
 import { MdDeleteOutline } from "react-icons/md";
 import { NEUTRAL_COLOR } from "@/constant";
+import { motion } from "framer-motion";
 
 export interface ShoppingProductCardPropsType {
   quantity: number;
@@ -89,7 +90,9 @@ const ShoppingProductCard: React.FC<ShoppingProductCardPropsType> = ({
                       />
 
                       {/* Delete button */}
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                         className="absolute top-0 right-0 cursor-pointer"
                         onClick={() => onRemove(product._id)}
                       >
@@ -97,7 +100,7 @@ const ShoppingProductCard: React.FC<ShoppingProductCardPropsType> = ({
                           size={25}
                           color={NEUTRAL_COLOR.neutral800}
                         />
-                      </button>
+                      </motion.button>
                     </Box>
                   </Box>
                 </CardContent>
